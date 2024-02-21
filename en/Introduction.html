@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Introduction - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../en/Development_environment.html">Development environment</a></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Introduction</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_About">About</a></p>
+</li>
+<li>
+<p><a href="#page_E-book">E-book</a></p>
+</li>
+<li>
+<p><a href="#page_Tutorial-structure">Tutorial structure</a></p>
+</li>
+<li>
+<p><a href="#page_License">License</a></p>
+</li>
+</ul>
+<h2 id="page_About">About</h2>
+<p>This tutorial will teach you the basics of using the <a href="https://www.khronos.org/vulkan/" class="Link--external">Vulkan</a>
+graphics and compute API. Vulkan is a new API by the <a href="https://www.khronos.org/" class="Link--external">Khronos group</a>
+(known for OpenGL) that provides a much better abstraction of modern graphics
+cards. This new interface allows you to better describe what your application
+intends to do, which can lead to better performance and less surprising driver
+behavior compared to existing APIs like <a href="https://en.wikipedia.org/wiki/OpenGL" class="Link--external">OpenGL</a>
+and <a href="https://en.wikipedia.org/wiki/Direct3D" class="Link--external">Direct3D</a>. The ideas behind Vulkan
+are similar to those of <a href="https://en.wikipedia.org/wiki/Direct3D#Direct3D_12" class="Link--external">Direct3D 12</a>
+and <a href="https://en.wikipedia.org/wiki/Metal_(API)" class="Link--external">Metal</a>, but Vulkan has the
+advantage of being fully cross-platform and allows you to develop for Windows,
+Linux and Android at the same time.</p>
+<p>However, the price you pay for these benefits is that you have to work with a
+significantly more verbose API. Every detail related to the graphics API needs
+to be set up from scratch by your application, including initial frame buffer
+creation and memory management for objects like buffers and texture images. The
+graphics driver will do a lot less hand holding, which means that you will have
+to do more work in your application to ensure correct behavior.</p>
+<p>The takeaway message here is that Vulkan is not for everyone. It is targeted at
+programmers who are enthusiastic about high performance computer graphics, and
+are willing to put some work in. If you are more interested in game development,
+rather than computer graphics, then you may wish to stick to OpenGL or Direct3D,
+which will not be deprecated in favor of Vulkan anytime soon. Another
+alternative is to use an engine like <a href="https://en.wikipedia.org/wiki/Unreal_Engine#Unreal_Engine_4" class="Link--external">Unreal Engine</a>
+or <a href="https://en.wikipedia.org/wiki/Unity_(game_engine)" class="Link--external">Unity</a>, which will be
+able to use Vulkan while exposing a much higher level API to you.</p>
+<p>With that out of the way, let's cover some prerequisites for following this
+tutorial:</p>
+<ul>
+<li>A graphics card and driver compatible with Vulkan (<a href="https://developer.nvidia.com/vulkan-driver" class="Link--external">NVIDIA</a>, <a href="http://www.amd.com/en-us/innovations/software-technologies/technologies-gaming/vulkan" class="Link--external">AMD</a>, <a href="https://software.intel.com/en-us/blogs/2016/03/14/new-intel-vulkan-beta-1540204404-graphics-driver-for-windows-78110-1540" class="Link--external">Intel</a>, <a href="https://www.phoronix.com/scan.php?page=news_item&amp;px=Apple-Silicon-Vulkan-MoltenVK" class="Link--external">Apple Silicon (Or the Apple M1)</a>)</li>
+<li>Experience with C++ (familiarity with RAII, initializer lists)</li>
+<li>A compiler with decent support of C++17 features (Visual Studio 2017+, GCC 7+, Or Clang 5+)</li>
+<li>Some existing experience with 3D computer graphics</li>
+</ul>
+<p>This tutorial will not assume knowledge of OpenGL or Direct3D concepts, but it
+does require you to know the basics of 3D computer graphics. It will not explain
+the math behind perspective projection, for example. See <a href="https://paroj.github.io/gltut/" class="Link--external">this online book</a>
+for a great introduction of computer graphics concepts. Some other great computer graphics resources are:</p>
+<ul>
+<li>
+<a href="https://github.com/RayTracing/raytracing.github.io" class="Link--external">Ray tracing in one weekend</a>
+</li>
+<li>
+<a href="http://www.pbr-book.org/" class="Link--external">Physically Based Rendering book</a>
+</li>
+<li>Vulkan being used in a real engine in the open-source <a href="https://github.com/Novum/vkQuake" class="Link--external">Quake</a> and <a href="https://github.com/DustinHLand/vkDOOM3" class="Link--external">DOOM 3</a>
+</li>
+</ul>
+<p>You can use C instead of C++ if you want, but you will have to use a different
+linear algebra library and you will be on your own in terms of code structuring.
+We will use C++ features like classes and RAII to organize logic and resource
+lifetimes. There are also two alternative versions of this tutorial available for Rust developers: <a href="https://github.com/bwasty/vulkan-tutorial-rs" class="Link--external">Vulkano based</a>, <a href="https://kylemayes.github.io/vulkanalia" class="Link--external">Vulkanalia based</a>.</p>
+<p>To make it easier to follow along for developers using other programming languages, and to get some experience with the base API we'll be using the original C API to work with Vulkan. If you are using C++, however, you may prefer using the newer <a href="https://github.com/KhronosGroup/Vulkan-Hpp" class="Link--external">Vulkan-Hpp</a> bindings that abstract some of the dirty work and help prevent certain classes of errors.</p>
+<h2 id="page_E-book">E-book</h2>
+<p>If you prefer to read this tutorial as an e-book, then you can download an EPUB
+or PDF version here:</p>
+<ul>
+<li>
+<a href="https://vulkan-tutorial.com/resources/vulkan_tutorial_en.epub" class="Link--external">EPUB</a>
+</li>
+<li>
+<a href="https://vulkan-tutorial.com/resources/vulkan_tutorial_en.pdf" class="Link--external">PDF</a>
+</li>
+</ul>
+<h2 id="page_Tutorial-structure">Tutorial structure</h2>
+<p>We'll start with an overview of how Vulkan works and the work we'll have to do
+to get the first triangle on the screen. The purpose of all the smaller steps
+will make more sense after you've understood their basic role in the whole
+picture. Next, we'll set up the development environment with the <a href="https://lunarg.com/vulkan-sdk/" class="Link--external">Vulkan SDK</a>,
+the <a href="http://glm.g-truc.net/" class="Link--external">GLM library</a> for linear algebra operations and
+<a href="http://www.glfw.org/" class="Link--external">GLFW</a> for window creation. The tutorial will cover how
+to set these up on Windows with Visual Studio, and on Ubuntu Linux with GCC.</p>
+<p>After that we'll implement all of the basic components of a Vulkan program that
+are necessary to render your first triangle. Each chapter will follow roughly
+the following structure:</p>
+<ul>
+<li>Introduce a new concept and its purpose</li>
+<li>Use all of the relevant API calls to integrate it into your program</li>
+<li>Abstract parts of it into helper functions</li>
+</ul>
+<p>Although each chapter is written as a follow-up on the previous one, it is also
+possible to read the chapters as standalone articles introducing a certain
+Vulkan feature. That means that the site is also useful as a reference. All of
+the Vulkan functions and types are linked to the specification, so you can click
+them to learn more. Vulkan is a very new API, so there may be some shortcomings
+in the specification itself. You are encouraged to submit feedback to
+<a href="https://github.com/KhronosGroup/Vulkan-Docs" class="Link--external">this Khronos repository</a>.</p>
+<p>As mentioned before, the Vulkan API has a rather verbose API with many
+parameters to give you maximum control over the graphics hardware. This causes
+basic operations like creating a texture to take a lot of steps that have to be
+repeated every time. Therefore we'll be creating our own collection of helper
+functions throughout the tutorial.</p>
+<p>Every chapter will also conclude with a link to the full code listing up to that
+point. You can refer to it if you have any doubts about the structure of the
+code, or if you're dealing with a bug and want to compare. All of the code files
+have been tested on graphics cards from multiple vendors to verify correctness.
+Each chapter also has a comment section at the end where you can ask any
+questions that are relevant to the specific subject matter. Please specify your
+platform, driver version, source code, expected behavior and actual behavior to
+help us help you.</p>
+<p>This tutorial is intended to be a community effort. Vulkan is still a very new
+API and best practices have not really been established yet. If you have any
+type of feedback on the tutorial and site itself, then please don't hesitate to
+submit an issue or pull request to the <a href="https://github.com/Overv/VulkanTutorial" class="Link--external">GitHub repository</a>.
+You can <em>watch</em> the repository to be notified of updates to the tutorial.</p>
+<p>After you've gone through the ritual of drawing your very first Vulkan powered
+triangle onscreen, we'll start expanding the program to include linear
+transformations, textures and 3D models.</p>
+<p>If you've played with graphics APIs before, then you'll know that there can be a
+lot of steps until the first geometry shows up on the screen. There are many of
+these initial steps in Vulkan, but you'll see that each of the individual steps
+is easy to understand and does not feel redundant. It's also important to keep
+in mind that once you have that boring looking triangle, drawing fully textured
+3D models does not take that much extra work, and each step beyond that point is
+much more rewarding.</p>
+<p>If you encounter any problems while following the tutorial, then first check the
+FAQ to see if your problem and its solution is already listed there. If you are
+still stuck after that, then feel free to ask for help in the comment section of
+the closest related chapter.</p>
+<p>Ready to dive into the future of high performance graphics APIs? <a href="Overview.html">Let's go!</a></p>
+<h2 id="page_License">License</h2>
+<p>Copyright (C) 2015-2023, Alexander Overvoorde</p>
+<p>The contents are licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="Link--external">CC BY-SA 4.0</a>,
+unless stated otherwise. By contributing, you agree to license
+your contributions to the public under that same license.</p>
+<p>The code listings in the <code>code</code> directory in the source repository are licensed
+under <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="Link--external">CC0 1.0 Universal</a>.
+By contributing to that directory, you agree to license your contributions to
+the public under that same public domain-like license.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.</p>
+
+        <nav>
+        <ul class="pager">
+                        <li><a href="../en/Overview.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

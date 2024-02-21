@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Framebuffers - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Framebuffers</h1>
+        </div>
+    
+    <p>We've talked a lot about framebuffers in the past few chapters and we've set up
+the render pass to expect a single framebuffer with the same format as the swap
+chain images, but we haven't actually created any yet.</p>
+<p>The attachments specified during render pass creation are bound by wrapping them
+into a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFramebuffer.html"><code>VkFramebuffer</code></a> object. A framebuffer object references all of the
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkImageView.html"><code>VkImageView</code></a> objects that represent the attachments. In our case that will be
+only a single one: the color attachment. However, the image that we have to use
+for the attachment depends on which image the swap chain returns when we retrieve one
+for presentation. That means that we have to create a framebuffer for all of the
+images in the swap chain and use the one that corresponds to the retrieved image
+at drawing time.</p>
+<p>To that end, create another <code>std::vector</code> class member to hold the framebuffers:</p>
+<pre><code class="language-c++">std::vector&lt;VkFramebuffer&gt; swapChainFramebuffers;
+</code></pre>
+<p>We'll create the objects for this array in a new function <code>createFramebuffers</code>
+that is called from <code>initVulkan</code> right after creating the graphics pipeline:</p>
+<pre><code class="language-c++">void initVulkan() {
+    createInstance();
+    setupDebugMessenger();
+    createSurface();
+    pickPhysicalDevice();
+    createLogicalDevice();
+    createSwapChain();
+    createImageViews();
+    createRenderPass();
+    createGraphicsPipeline();
+    createFramebuffers();
+}
+
+...
+
+void createFramebuffers() {
+
+}
+</code></pre>
+<p>Start by resizing the container to hold all of the framebuffers:</p>
+<pre><code class="language-c++">void createFramebuffers() {
+    swapChainFramebuffers.resize(swapChainImageViews.size());
+}
+</code></pre>
+<p>We'll then iterate through the image views and create framebuffers from them:</p>
+<pre><code class="language-c++">for (size_t i = 0; i &lt; swapChainImageViews.size(); i++) {
+    VkImageView attachments[] = {
+        swapChainImageViews[i]
+    };
+
+    VkFramebufferCreateInfo framebufferInfo{};
+    framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+    framebufferInfo.renderPass = renderPass;
+    framebufferInfo.attachmentCount = 1;
+    framebufferInfo.pAttachments = attachments;
+    framebufferInfo.width = swapChainExtent.width;
+    framebufferInfo.height = swapChainExtent.height;
+    framebufferInfo.layers = 1;
+
+    if (vkCreateFramebuffer(device, &amp;framebufferInfo, nullptr, &amp;swapChainFramebuffers[i]) != VK_SUCCESS) {
+        throw std::runtime_error(&quot;failed to create framebuffer!&quot;);
+    }
+}
+</code></pre>
+<p>As you can see, creation of framebuffers is quite straightforward. We first need
+to specify with which <code>renderPass</code> the framebuffer needs to be compatible. You
+can only use a framebuffer with the render passes that it is compatible with,
+which roughly means that they use the same number and type of attachments.</p>
+<p>The <code>attachmentCount</code> and <code>pAttachments</code> parameters specify the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkImageView.html"><code>VkImageView</code></a>
+objects that should be bound to the respective attachment descriptions in
+the render pass <code>pAttachment</code> array.</p>
+<p>The <code>width</code> and <code>height</code> parameters are self-explanatory and <code>layers</code> refers to
+the number of layers in image arrays. Our swap chain images are single images,
+so the number of layers is <code>1</code>.</p>
+<p>We should delete the framebuffers before the image views and render pass that
+they are based on, but only after we've finished rendering:</p>
+<pre><code class="language-c++">void cleanup() {
+    for (auto framebuffer : swapChainFramebuffers) {
+        vkDestroyFramebuffer(device, framebuffer, nullptr);
+    }
+
+    ...
+}
+</code></pre>
+<p>We've now reached the milestone where we have all of the objects that are
+required for rendering. In the next chapter we're going to write the first
+actual drawing commands.</p>
+<p><a href="../../../code/13_framebuffers.cpp">C++ code</a> /
+<a href="../../../code/09_shader_base.vert">Vertex shader</a> /
+<a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Staging buffer - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../en/Development_environment.html">Development environment</a></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item Nav__item--active'><a href="../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Staging buffer</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Introduction">Introduction</a></p>
+</li>
+<li>
+<p><a href="#page_Transfer-queue">Transfer queue</a></p>
+</li>
+<li>
+<p><a href="#page_Abstracting-buffer-creation">Abstracting buffer creation</a></p>
+</li>
+<li>
+<p><a href="#page_Using-a-staging-buffer">Using a staging buffer</a></p>
+</li>
+<li>
+<p><a href="#page_Conclusion">Conclusion</a></p>
+</li>
+</ul>
+<h2 id="page_Introduction">Introduction</h2>
+<p>The vertex buffer we have right now works correctly, but the memory type that
+allows us to access it from the CPU may not be the most optimal memory type for
+the graphics card itself to read from. The most optimal memory has the
+<code>VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT</code> flag and is usually not accessible by the
+CPU on dedicated graphics cards. In this chapter we're going to create two
+vertex buffers. One <em>staging buffer</em> in CPU accessible memory to upload the data
+from the vertex array to, and the final vertex buffer in device local memory.
+We'll then use a buffer copy command to move the data from the staging buffer to
+the actual vertex buffer.</p>
+<h2 id="page_Transfer-queue">Transfer queue</h2>
+<p>The buffer copy command requires a queue family that supports transfer
+operations, which is indicated using <code>VK_QUEUE_TRANSFER_BIT</code>. The good news is
+that any queue family with <code>VK_QUEUE_GRAPHICS_BIT</code> or <code>VK_QUEUE_COMPUTE_BIT</code>
+capabilities already implicitly support <code>VK_QUEUE_TRANSFER_BIT</code> operations. The
+implementation is not required to explicitly list it in <code>queueFlags</code> in those
+cases.</p>
+<p>If you like a challenge, then you can still try to use a different queue family
+specifically for transfer operations. It will require you to make the following
+modifications to your program:</p>
+<ul>
+<li>Modify <code>QueueFamilyIndices</code> and <code>findQueueFamilies</code> to explicitly look for a
+queue family with the <code>VK_QUEUE_TRANSFER_BIT</code> bit, but not the
+<code>VK_QUEUE_GRAPHICS_BIT</code>.</li>
+<li>Modify <code>createLogicalDevice</code> to request a handle to the transfer queue</li>
+<li>Create a second command pool for command buffers that are submitted on the
+transfer queue family</li>
+<li>Change the <code>sharingMode</code> of resources to be <code>VK_SHARING_MODE_CONCURRENT</code> and
+specify both the graphics and transfer queue families</li>
+<li>Submit any transfer commands like <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdCopyBuffer.html"><code>vkCmdCopyBuffer</code></a> (which we'll be using in
+this chapter) to the transfer queue instead of the graphics queue</li>
+</ul>
+<p>It's a bit of work, but it'll teach you a lot about how resources are shared
+between queue families.</p>
+<h2 id="page_Abstracting-buffer-creation">Abstracting buffer creation</h2>
+<p>Because we're going to create multiple buffers in this chapter, it's a good idea
+to move buffer creation to a helper function. Create a new function
+<code>createBuffer</code> and move the code in <code>createVertexBuffer</code> (except mapping) to it.</p>
+<pre><code class="language-c++">void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer&amp; buffer, VkDeviceMemory&amp; bufferMemory) {
+    VkBufferCreateInfo bufferInfo{};
+    bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+    bufferInfo.size = size;
+    bufferInfo.usage = usage;
+    bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+
+    if (vkCreateBuffer(device, &amp;bufferInfo, nullptr, &amp;buffer) != VK_SUCCESS) {
+        throw std::runtime_error(&quot;failed to create buffer!&quot;);
+    }
+
+    VkMemoryRequirements memRequirements;
+    vkGetBufferMemoryRequirements(device, buffer, &amp;memRequirements);
+
+    VkMemoryAllocateInfo allocInfo{};
+    allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+    allocInfo.allocationSize = memRequirements.size;
+    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
+
+    if (vkAllocateMemory(device, &amp;allocInfo, nullptr, &amp;bufferMemory) != VK_SUCCESS) {
+        throw std::runtime_error(&quot;failed to allocate buffer memory!&quot;);
+    }
+
+    vkBindBufferMemory(device, buffer, bufferMemory, 0);
+}
+</code></pre>
+<p>Make sure to add parameters for the buffer size, memory properties and usage so
+that we can use this function to create many different types of buffers. The
+last two parameters are output variables to write the handles to.</p>
+<p>You can now remove the buffer creation and memory allocation code from
+<code>createVertexBuffer</code> and just call <code>createBuffer</code> instead:</p>
+<pre><code class="language-c++">void createVertexBuffer() {
+    VkDeviceSize bufferSize = sizeof(vertices[0]) * vertices.size();
+    createBuffer(bufferSize, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, vertexBuffer, vertexBufferMemory);
+
+    void* data;
+    vkMapMemory(device, vertexBufferMemory, 0, bufferSize, 0, &amp;data);
+        memcpy(data, vertices.data(), (size_t) bufferSize);
+    vkUnmapMemory(device, vertexBufferMemory);
+}
+</code></pre>
+<p>Run your program to make sure that the vertex buffer still works properly.</p>
+<h2 id="page_Using-a-staging-buffer">Using a staging buffer</h2>
+<p>We're now going to change <code>createVertexBuffer</code> to only use a host visible buffer
+as temporary buffer and use a device local one as actual vertex buffer.</p>
+<pre><code class="language-c++">void createVertexBuffer() {
+    VkDeviceSize bufferSize = sizeof(vertices[0]) * vertices.size();
+
+    VkBuffer stagingBuffer;
+    VkDeviceMemory stagingBufferMemory;
+    createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer, stagingBufferMemory);
+
+    void* data;
+    vkMapMemory(device, stagingBufferMemory, 0, bufferSize, 0, &amp;data);
+        memcpy(data, vertices.data(), (size_t) bufferSize);
+    vkUnmapMemory(device, stagingBufferMemory);
+
+    createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, vertexBuffer, vertexBufferMemory);
+}
+</code></pre>
+<p>We're now using a new <code>stagingBuffer</code> with <code>stagingBufferMemory</code> for mapping and
+copying the vertex data. In this chapter we're going to use two new buffer usage
+flags:</p>
+<ul>
+<li>
+<code>VK_BUFFER_USAGE_TRANSFER_SRC_BIT</code>: Buffer can be used as source in a memory
+transfer operation.</li>
+<li>
+<code>VK_BUFFER_USAGE_TRANSFER_DST_BIT</code>: Buffer can be used as destination in a
+memory transfer operation.</li>
+</ul>
+<p>The <code>vertexBuffer</code> is now allocated from a memory type that is device local,
+which generally means that we're not able to use <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkMapMemory.html"><code>vkMapMemory</code></a>. However, we can
+copy data from the <code>stagingBuffer</code> to the <code>vertexBuffer</code>. We have to indicate
+that we intend to do that by specifying the transfer source flag for the
+<code>stagingBuffer</code> and the transfer destination flag for the <code>vertexBuffer</code>, along
+with the vertex buffer usage flag.</p>
+<p>We're now going to write a function to copy the contents from one buffer to
+another, called <code>copyBuffer</code>.</p>
+<pre><code class="language-c++">void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
+
+}
+</code></pre>
+<p>Memory transfer operations are executed using command buffers, just like drawing
+commands. Therefore we must first allocate a temporary command buffer. You may
+wish to create a separate command pool for these kinds of short-lived buffers,
+because the implementation may be able to apply memory allocation optimizations.
+You should use the <code>VK_COMMAND_POOL_CREATE_TRANSIENT_BIT</code> flag during command
+pool generation in that case.</p>
+<pre><code class="language-c++">void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
+    VkCommandBufferAllocateInfo allocInfo{};
+    allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocInfo.commandPool = commandPool;
+    allocInfo.commandBufferCount = 1;
+
+    VkCommandBuffer commandBuffer;
+    vkAllocateCommandBuffers(device, &amp;allocInfo, &amp;commandBuffer);
+}
+</code></pre>
+<p>And immediately start recording the command buffer:</p>
+<pre><code class="language-c++">VkCommandBufferBeginInfo beginInfo{};
+beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+
+vkBeginCommandBuffer(commandBuffer, &amp;beginInfo);
+</code></pre>
+<p>We're only going to use the command buffer once and wait with returning from the function until the copy
+operation has finished executing. It's good practice to tell the driver about
+our intent using <code>VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT</code>.</p>
+<pre><code class="language-c++">VkBufferCopy copyRegion{};
+copyRegion.srcOffset = 0; // Optional
+copyRegion.dstOffset = 0; // Optional
+copyRegion.size = size;
+vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, 1, &amp;copyRegion);
+</code></pre>
+<p>Contents of buffers are transferred using the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdCopyBuffer.html"><code>vkCmdCopyBuffer</code></a> command. It
+takes the source and destination buffers as arguments, and an array of regions
+to copy. The regions are defined in <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkBufferCopy.html"><code>VkBufferCopy</code></a> structs and consist of a
+source buffer offset, destination buffer offset and size. It is not possible to
+specify <code>VK_WHOLE_SIZE</code> here, unlike the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkMapMemory.html"><code>vkMapMemory</code></a> command.</p>
+<pre><code class="language-c++">vkEndCommandBuffer(commandBuffer);
+</code></pre>
+<p>This command buffer only contains the copy command, so we can stop recording
+right after that. Now execute the command buffer to complete the transfer:</p>
+<pre><code class="language-c++">VkSubmitInfo submitInfo{};
+submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+submitInfo.commandBufferCount = 1;
+submitInfo.pCommandBuffers = &amp;commandBuffer;
+
+vkQueueSubmit(graphicsQueue, 1, &amp;submitInfo, VK_NULL_HANDLE);
+vkQueueWaitIdle(graphicsQueue);
+</code></pre>
+<p>Unlike the draw commands, there are no events we need to wait on this time. We
+just want to execute the transfer on the buffers immediately. There are again
+two possible ways to wait on this transfer to complete. We could use a fence and
+wait with <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkWaitForFences.html"><code>vkWaitForFences</code></a>, or simply wait for the transfer queue to become
+idle with <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkQueueWaitIdle.html"><code>vkQueueWaitIdle</code></a>. A fence would allow you to schedule multiple
+transfers simultaneously and wait for all of them complete, instead of executing
+one at a time. That may give the driver more opportunities to optimize.</p>
+<pre><code class="language-c++">vkFreeCommandBuffers(device, commandPool, 1, &amp;commandBuffer);
+</code></pre>
+<p>Don't forget to clean up the command buffer used for the transfer operation.</p>
+<p>We can now call <code>copyBuffer</code> from the <code>createVertexBuffer</code> function to move the
+vertex data to the device local buffer:</p>
+<pre><code class="language-c++">createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, vertexBuffer, vertexBufferMemory);
+
+copyBuffer(stagingBuffer, vertexBuffer, bufferSize);
+</code></pre>
+<p>After copying the data from the staging buffer to the device buffer, we should
+clean it up:</p>
+<pre><code class="language-c++">    ...
+
+    copyBuffer(stagingBuffer, vertexBuffer, bufferSize);
+
+    vkDestroyBuffer(device, stagingBuffer, nullptr);
+    vkFreeMemory(device, stagingBufferMemory, nullptr);
+}
+</code></pre>
+<p>Run your program to verify that you're seeing the familiar triangle again. The
+improvement may not be visible right now, but its vertex data is now being
+loaded from high performance memory. This will matter when we're going to start
+rendering more complex geometry.</p>
+<h2 id="page_Conclusion">Conclusion</h2>
+<p>It should be noted that in a real world application, you're not supposed to
+actually call <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkAllocateMemory.html"><code>vkAllocateMemory</code></a> for every individual buffer. The maximum number
+of simultaneous memory allocations is limited by the <code>maxMemoryAllocationCount</code>
+physical device limit, which may be as low as <code>4096</code> even on high end hardware
+like an NVIDIA GTX 1080. The right way to allocate memory for a large number of
+objects at the same time is to create a custom allocator that splits up a single
+allocation among many different objects by using the <code>offset</code> parameters that
+we've seen in many functions.</p>
+<p>You can either implement such an allocator yourself, or use the
+<a href="https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator" class="Link--external">VulkanMemoryAllocator</a>
+library provided by the GPUOpen initiative. However, for this tutorial it's okay
+to use a separate allocation for every resource, because we won't come close to
+hitting any of these limits for now.</p>
+<p><a href="../../code/20_staging_buffer.cpp">C++ code</a> /
+<a href="../../code/18_shader_vertexbuffer.vert">Vertex shader</a> /
+<a href="../../code/18_shader_vertexbuffer.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../en/Vertex_buffers/Vertex_buffer_creation.html">Previous</a></li>            <li><a href="../../en/Vertex_buffers/Index_buffer.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

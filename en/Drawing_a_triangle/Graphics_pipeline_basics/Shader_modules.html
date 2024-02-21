@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Shader modules - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Shader modules</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Vertex-shader">Vertex shader</a></p>
+</li>
+<li>
+<p><a href="#page_Fragment-shader">Fragment shader</a></p>
+</li>
+<li>
+<p><a href="#page_Per-vertex-colors">Per-vertex colors</a></p>
+</li>
+<li>
+<p><a href="#page_Compiling-the-shaders">Compiling the shaders</a></p>
+</li>
+<li>
+<p><a href="#page_Loading-a-shader">Loading a shader</a></p>
+</li>
+<li>
+<p><a href="#page_Creating-shader-modules">Creating shader modules</a></p>
+</li>
+<li>
+<p><a href="#page_Shader-stage-creation">Shader stage creation</a></p>
+</li>
+</ul>
+<p>Unlike earlier APIs, shader code in Vulkan has to be specified in a bytecode
+format as opposed to human-readable syntax like <a href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language" class="Link--external">GLSL</a>
+and <a href="https://en.wikipedia.org/wiki/High-Level_Shading_Language" class="Link--external">HLSL</a>. This
+bytecode format is called <a href="https://www.khronos.org/spir" class="Link--external">SPIR-V</a> and is designed
+to be used with both Vulkan and OpenCL (both Khronos APIs). It is a format that
+can be used to write graphics and compute shaders, but we will focus on shaders
+used in Vulkan's graphics pipelines in this tutorial.</p>
+<p>The advantage of using a bytecode format is that the compilers written by GPU
+vendors to turn shader code into native code are significantly less complex. The
+past has shown that with human-readable syntax like GLSL, some GPU vendors were
+rather flexible with their interpretation of the standard. If you happen to
+write non-trivial shaders with a GPU from one of these vendors, then you'd risk
+other vendor's drivers rejecting your code due to syntax errors, or worse, your
+shader running differently because of compiler bugs. With a straightforward
+bytecode format like SPIR-V that will hopefully be avoided.</p>
+<p>However, that does not mean that we need to write this bytecode by hand. Khronos
+has released their own vendor-independent compiler that compiles GLSL to SPIR-V.
+This compiler is designed to verify that your shader code is fully standards
+compliant and produces one SPIR-V binary that you can ship with your program.
+You can also include this compiler as a library to produce SPIR-V at runtime,
+but we won't be doing that in this tutorial. Although we can use this compiler directly via <code>glslangValidator.exe</code>, we will be using <code>glslc.exe</code> by Google instead. The advantage of <code>glslc</code> is that it uses the same parameter format as well-known compilers like GCC and Clang and includes some extra functionality like <em>includes</em>. Both of them are already included in the Vulkan SDK, so you don't need to download anything extra.</p>
+<p>GLSL is a shading language with a C-style syntax. Programs written in it have a
+<code>main</code> function that is invoked for every object. Instead of using parameters
+for input and a return value as output, GLSL uses global variables to handle
+input and output. The language includes many features to aid in graphics
+programming, like built-in vector and matrix primitives. Functions for
+operations like cross products, matrix-vector products and reflections around a
+vector are included. The vector type is called <code>vec</code> with a number indicating
+the amount of elements. For example, a 3D position would be stored in a <code>vec3</code>.
+It is possible to access single components through members like <code>.x</code>, but it's
+also possible to create a new vector from multiple components at the same time.
+For example, the expression <code>vec3(1.0, 2.0, 3.0).xy</code> would result in <code>vec2</code>. The
+constructors of vectors can also take combinations of vector objects and scalar
+values. For example, a <code>vec3</code> can be constructed with
+<code>vec3(vec2(1.0, 2.0), 3.0)</code>.</p>
+<p>As the previous chapter mentioned, we need to write a vertex shader and a
+fragment shader to get a triangle on the screen. The next two sections will
+cover the GLSL code of each of those and after that I'll show you how to produce
+two SPIR-V binaries and load them into the program.</p>
+<h2 id="page_Vertex-shader">Vertex shader</h2>
+<p>The vertex shader processes each incoming vertex. It takes its attributes, like
+model space position, color, normal and texture coordinates as input. The output is
+the final position in clip coordinates and the attributes that need to be passed
+on to the fragment shader, like color and texture coordinates. These values will
+then be interpolated over the fragments by the rasterizer to produce a smooth
+gradient.</p>
+<p>A <em>clip coordinate</em> is a four dimensional vector from the vertex shader that is
+subsequently turned into a <em>normalized device coordinate</em> by dividing the whole
+vector by its last component. These normalized device coordinates are
+<a href="https://en.wikipedia.org/wiki/Homogeneous_coordinates" class="Link--external">homogeneous coordinates</a>
+that map the framebuffer to a [-1, 1] by [-1, 1] coordinate system that looks
+like the following:</p>
+<p><img src="/images/normalized_device_coordinates.svg" alt="" /></p>
+<p>You should already be familiar with these if you have dabbled in computer
+graphics before. If you have used OpenGL before, then you'll notice that the
+sign of the Y coordinates is now flipped. The Z coordinate now uses the same
+range as it does in Direct3D, from 0 to 1.</p>
+<p>For our first triangle we won't be applying any transformations, we'll just
+specify the positions of the three vertices directly as normalized device
+coordinates to create the following shape:</p>
+<p><img src="/images/triangle_coordinates.svg" alt="" /></p>
+<p>We can directly output normalized device coordinates by outputting them as clip
+coordinates from the vertex shader with the last component set to <code>1</code>. That way
+the division to transform clip coordinates to normalized device coordinates will
+not change anything.</p>
+<p>Normally these coordinates would be stored in a vertex buffer, but creating a
+vertex buffer in Vulkan and filling it with data is not trivial. Therefore I've
+decided to postpone that until after we've had the satisfaction of seeing a
+triangle pop up on the screen. We're going to do something a little unorthodox
+in the meanwhile: include the coordinates directly inside the vertex shader. The
+code looks like this:</p>
+<pre><code class="language-glsl">#version 450
+
+vec2 positions[3] = vec2[](
+    vec2(0.0, -0.5),
+    vec2(0.5, 0.5),
+    vec2(-0.5, 0.5)
+);
+
+void main() {
+    gl_Position = vec4(positions[gl_VertexIndex], 0.0, 1.0);
+}
+</code></pre>
+<p>The <code>main</code> function is invoked for every vertex. The built-in <code>gl_VertexIndex</code>
+variable contains the index of the current vertex. This is usually an index into
+the vertex buffer, but in our case it will be an index into a hardcoded array
+of vertex data. The position of each vertex is accessed from the constant array
+in the shader and combined with dummy <code>z</code> and <code>w</code> components to produce a
+position in clip coordinates. The built-in variable <code>gl_Position</code> functions as
+the output.</p>
+<h2 id="page_Fragment-shader">Fragment shader</h2>
+<p>The triangle that is formed by the positions from the vertex shader fills an
+area on the screen with fragments. The fragment shader is invoked on these
+fragments to produce a color and depth for the framebuffer (or framebuffers). A
+simple fragment shader that outputs the color red for the entire triangle looks
+like this:</p>
+<pre><code class="language-glsl">#version 450
+
+layout(location = 0) out vec4 outColor;
+
+void main() {
+    outColor = vec4(1.0, 0.0, 0.0, 1.0);
+}
+</code></pre>
+<p>The <code>main</code> function is called for every fragment just like the vertex shader
+<code>main</code> function is called for every vertex. Colors in GLSL are 4-component
+vectors with the R, G, B and alpha channels within the [0, 1] range. Unlike
+<code>gl_Position</code> in the vertex shader, there is no built-in variable to output a
+color for the current fragment. You have to specify your own output variable for
+each framebuffer where the <code>layout(location = 0)</code> modifier specifies the index
+of the framebuffer. The color red is written to this <code>outColor</code> variable that is
+linked to the first (and only) framebuffer at index <code>0</code>.</p>
+<h2 id="page_Per-vertex-colors">Per-vertex colors</h2>
+<p>Making the entire triangle red is not very interesting, wouldn't something like
+the following look a lot nicer?</p>
+<p><img src="/images/triangle_coordinates_colors.png" alt="" /></p>
+<p>We have to make a couple of changes to both shaders to accomplish this. First
+off, we need to specify a distinct color for each of the three vertices. The
+vertex shader should now include an array with colors just like it does for
+positions:</p>
+<pre><code class="language-glsl">vec3 colors[3] = vec3[](
+    vec3(1.0, 0.0, 0.0),
+    vec3(0.0, 1.0, 0.0),
+    vec3(0.0, 0.0, 1.0)
+);
+</code></pre>
+<p>Now we just need to pass these per-vertex colors to the fragment shader so it
+can output their interpolated values to the framebuffer. Add an output for color
+to the vertex shader and write to it in the <code>main</code> function:</p>
+<pre><code class="language-glsl">layout(location = 0) out vec3 fragColor;
+
+void main() {
+    gl_Position = vec4(positions[gl_VertexIndex], 0.0, 1.0);
+    fragColor = colors[gl_VertexIndex];
+}
+</code></pre>
+<p>Next, we need to add a matching input in the fragment shader:</p>
+<pre><code class="language-glsl">layout(location = 0) in vec3 fragColor;
+
+void main() {
+    outColor = vec4(fragColor, 1.0);
+}
+</code></pre>
+<p>The input variable does not necessarily have to use the same name, they will be
+linked together using the indexes specified by the <code>location</code> directives. The
+<code>main</code> function has been modified to output the color along with an alpha value.
+As shown in the image above, the values for <code>fragColor</code> will be automatically
+interpolated for the fragments between the three vertices, resulting in a smooth
+gradient.</p>
+<h2 id="page_Compiling-the-shaders">Compiling the shaders</h2>
+<p>Create a directory called <code>shaders</code> in the root directory of your project and
+store the vertex shader in a file called <code>shader.vert</code> and the fragment shader
+in a file called <code>shader.frag</code> in that directory. GLSL shaders don't have an
+official extension, but these two are commonly used to distinguish them.</p>
+<p>The contents of <code>shader.vert</code> should be:</p>
+<pre><code class="language-glsl">#version 450
+
+layout(location = 0) out vec3 fragColor;
+
+vec2 positions[3] = vec2[](
+    vec2(0.0, -0.5),
+    vec2(0.5, 0.5),
+    vec2(-0.5, 0.5)
+);
+
+vec3 colors[3] = vec3[](
+    vec3(1.0, 0.0, 0.0),
+    vec3(0.0, 1.0, 0.0),
+    vec3(0.0, 0.0, 1.0)
+);
+
+void main() {
+    gl_Position = vec4(positions[gl_VertexIndex], 0.0, 1.0);
+    fragColor = colors[gl_VertexIndex];
+}
+</code></pre>
+<p>And the contents of <code>shader.frag</code> should be:</p>
+<pre><code class="language-glsl">#version 450
+
+layout(location = 0) in vec3 fragColor;
+
+layout(location = 0) out vec4 outColor;
+
+void main() {
+    outColor = vec4(fragColor, 1.0);
+}
+</code></pre>
+<p>We're now going to compile these into SPIR-V bytecode using the
+<code>glslc</code> program.</p>
+<p><strong>Windows</strong></p>
+<p>Create a <code>compile.bat</code> file with the following contents:</p>
+<pre><code class="language-bash">C:/VulkanSDK/x.x.x.x/Bin/glslc.exe shader.vert -o vert.spv
+C:/VulkanSDK/x.x.x.x/Bin/glslc.exe shader.frag -o frag.spv
+pause
+</code></pre>
+<p>Replace the path to <code>glslc.exe</code> with the path to where you installed
+the Vulkan SDK. Double click the file to run it.</p>
+<p><strong>Linux</strong></p>
+<p>Create a <code>compile.sh</code> file with the following contents:</p>
+<pre><code class="language-bash">/home/user/VulkanSDK/x.x.x.x/x86_64/bin/glslc shader.vert -o vert.spv
+/home/user/VulkanSDK/x.x.x.x/x86_64/bin/glslc shader.frag -o frag.spv
+</code></pre>
+<p>Replace the path to <code>glslc</code> with the path to where you installed the
+Vulkan SDK. Make the script executable with <code>chmod +x compile.sh</code> and run it.</p>
+<p><strong>End of platform-specific instructions</strong></p>
+<p>These two commands tell the compiler to read the GLSL source file and output a SPIR-V bytecode file using the <code>-o</code> (output) flag.</p>
+<p>If your shader contains a syntax error then the compiler will tell you the line
+number and problem, as you would expect. Try leaving out a semicolon for example
+and run the compile script again. Also try running the compiler without any
+arguments to see what kinds of flags it supports. It can, for example, also
+output the bytecode into a human-readable format so you can see exactly what
+your shader is doing and any optimizations that have been applied at this stage.</p>
+<p>Compiling shaders on the commandline is one of the most straightforward options and it's the one that we'll use in this tutorial, but it's also possible to compile shaders directly from your own code. The Vulkan SDK includes <a href="https://github.com/google/shaderc" class="Link--external">libshaderc</a>, which is a library to compile GLSL code to SPIR-V from within your program.</p>
+<h2 id="page_Loading-a-shader">Loading a shader</h2>
+<p>Now that we have a way of producing SPIR-V shaders, it's time to load them into
+our program to plug them into the graphics pipeline at some point. We'll first
+write a simple helper function to load the binary data from the files.</p>
+<pre><code class="language-c++">#include &lt;fstream&gt;
+
+...
+
+static std::vector&lt;char&gt; readFile(const std::string&amp; filename) {
+    std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+    if (!file.is_open()) {
+        throw std::runtime_error(&quot;failed to open file!&quot;);
+    }
+}
+</code></pre>
+<p>The <code>readFile</code> function will read all of the bytes from the specified file and
+return them in a byte array managed by <code>std::vector</code>. We start by opening the
+file with two flags:</p>
+<ul>
+<li>
+<code>ate</code>: Start reading at the end of the file</li>
+<li>
+<code>binary</code>: Read the file as binary file (avoid text transformations)</li>
+</ul>
+<p>The advantage of starting to read at the end of the file is that we can use the
+read position to determine the size of the file and allocate a buffer:</p>
+<pre><code class="language-c++">size_t fileSize = (size_t) file.tellg();
+std::vector&lt;char&gt; buffer(fileSize);
+</code></pre>
+<p>After that, we can seek back to the beginning of the file and read all of the
+bytes at once:</p>
+<pre><code class="language-c++">file.seekg(0);
+file.read(buffer.data(), fileSize);
+</code></pre>
+<p>And finally close the file and return the bytes:</p>
+<pre><code class="language-c++">file.close();
+
+return buffer;
+</code></pre>
+<p>We'll now call this function from <code>createGraphicsPipeline</code> to load the bytecode
+of the two shaders:</p>
+<pre><code class="language-c++">void createGraphicsPipeline() {
+    auto vertShaderCode = readFile(&quot;shaders/vert.spv&quot;);
+    auto fragShaderCode = readFile(&quot;shaders/frag.spv&quot;);
+}
+</code></pre>
+<p>Make sure that the shaders are loaded correctly by printing the size of the
+buffers and checking if they match the actual file size in bytes. Note that the code doesn't need to be null terminated since it's binary code and we will later be explicit about its size.</p>
+<h2 id="page_Creating-shader-modules">Creating shader modules</h2>
+<p>Before we can pass the code to the pipeline, we have to wrap it in a
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkShaderModule.html"><code>VkShaderModule</code></a> object. Let's create a helper function <code>createShaderModule</code> to
+do that.</p>
+<pre><code class="language-c++">VkShaderModule createShaderModule(const std::vector&lt;char&gt;&amp; code) {
+
+}
+</code></pre>
+<p>The function will take a buffer with the bytecode as parameter and create a
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkShaderModule.html"><code>VkShaderModule</code></a> from it.</p>
+<p>Creating a shader module is simple, we only need to specify a pointer to the
+buffer with the bytecode and the length of it. This information is specified in
+a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkShaderModuleCreateInfo.html"><code>VkShaderModuleCreateInfo</code></a> structure. The one catch is that the size of the
+bytecode is specified in bytes, but the bytecode pointer is a <code>uint32_t</code> pointer
+rather than a <code>char</code> pointer. Therefore we will need to cast the pointer with
+<code>reinterpret_cast</code> as shown below. When you perform a cast like this, you also
+need to ensure that the data satisfies the alignment requirements of <code>uint32_t</code>.
+Lucky for us, the data is stored in an <code>std::vector</code> where the default allocator
+already ensures that the data satisfies the worst case alignment requirements.</p>
+<pre><code class="language-c++">VkShaderModuleCreateInfo createInfo{};
+createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+createInfo.codeSize = code.size();
+createInfo.pCode = reinterpret_cast&lt;const uint32_t*&gt;(code.data());
+</code></pre>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkShaderModule.html"><code>VkShaderModule</code></a> can then be created with a call to <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateShaderModule.html"><code>vkCreateShaderModule</code></a>:</p>
+<pre><code class="language-c++">VkShaderModule shaderModule;
+if (vkCreateShaderModule(device, &amp;createInfo, nullptr, &amp;shaderModule) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create shader module!&quot;);
+}
+</code></pre>
+<p>The parameters are the same as those in previous object creation functions: the
+logical device, pointer to create info structure, optional pointer to custom
+allocators and handle output variable. The buffer with the code can be freed
+immediately after creating the shader module. Don't forget to return the created
+shader module:</p>
+<pre><code class="language-c++">return shaderModule;
+</code></pre>
+<p>Shader modules are just a thin wrapper around the shader bytecode that we've previously loaded from a file and the functions defined in it. The compilation and linking of the SPIR-V bytecode to machine code for execution by the GPU doesn't happen until the graphics pipeline is created. That means that we're allowed to destroy the shader modules again as soon as pipeline creation is finished, which is why we'll make them local variables in the <code>createGraphicsPipeline</code> function instead of class members:</p>
+<pre><code class="language-c++">void createGraphicsPipeline() {
+    auto vertShaderCode = readFile(&quot;shaders/vert.spv&quot;);
+    auto fragShaderCode = readFile(&quot;shaders/frag.spv&quot;);
+
+    VkShaderModule vertShaderModule = createShaderModule(vertShaderCode);
+    VkShaderModule fragShaderModule = createShaderModule(fragShaderCode);
+</code></pre>
+<p>The cleanup should then happen at the end of the function by adding two calls to <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkDestroyShaderModule.html"><code>vkDestroyShaderModule</code></a>. All of the remaining code in this chapter will be inserted before these lines.</p>
+<pre><code class="language-c++">    ...
+    vkDestroyShaderModule(device, fragShaderModule, nullptr);
+    vkDestroyShaderModule(device, vertShaderModule, nullptr);
+}
+</code></pre>
+<h2 id="page_Shader-stage-creation">Shader stage creation</h2>
+<p>To actually use the shaders we'll need to assign them to a specific pipeline stage through <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineShaderStageCreateInfo.html"><code>VkPipelineShaderStageCreateInfo</code></a> structures as part of the actual pipeline creation process.</p>
+<p>We'll start by filling in the structure for the vertex shader, again in the
+<code>createGraphicsPipeline</code> function.</p>
+<pre><code class="language-c++">VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
+vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+vertShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
+</code></pre>
+<p>The first step, besides the obligatory <code>sType</code> member, is telling Vulkan in
+which pipeline stage the shader is going to be used. There is an enum value for
+each of the programmable stages described in the previous chapter.</p>
+<pre><code class="language-c++">vertShaderStageInfo.module = vertShaderModule;
+vertShaderStageInfo.pName = &quot;main&quot;;
+</code></pre>
+<p>The next two members specify the shader module containing the code, and the
+function to invoke, known as the <em>entrypoint</em>. That means that it's possible to combine multiple fragment
+shaders into a single shader module and use different entry points to
+differentiate between their behaviors. In this case we'll stick to the standard
+<code>main</code>, however.</p>
+<p>There is one more (optional) member, <code>pSpecializationInfo</code>, which we won't be
+using here, but is worth discussing. It allows you to specify values for shader
+constants. You can use a single shader module where its behavior can be
+configured at pipeline creation by specifying different values for the constants
+used in it. This is more efficient than configuring the shader using variables
+at render time, because the compiler can do optimizations like eliminating <code>if</code>
+statements that depend on these values. If you don't have any constants like
+that, then you can set the member to <code>nullptr</code>, which our struct initialization
+does automatically.</p>
+<p>Modifying the structure to suit the fragment shader is easy:</p>
+<pre><code class="language-c++">VkPipelineShaderStageCreateInfo fragShaderStageInfo{};
+fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+fragShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+fragShaderStageInfo.module = fragShaderModule;
+fragShaderStageInfo.pName = &quot;main&quot;;
+</code></pre>
+<p>Finish by defining an array that contains these two structs, which we'll later
+use to reference them in the actual pipeline creation step.</p>
+<pre><code class="language-c++">VkPipelineShaderStageCreateInfo shaderStages[] = {vertShaderStageInfo, fragShaderStageInfo};
+</code></pre>
+<p>That's all there is to describing the programmable stages of the pipeline. In
+the next chapter we'll look at the fixed-function stages.</p>
+<p><a href="../../../code/09_shader_modules.cpp">C++ code</a> /
+<a href="../../../code/09_shader_base.vert">Vertex shader</a> /
+<a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Command buffers - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Command buffers</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Command-pools">Command pools</a></p>
+</li>
+<li>
+<p><a href="#page_Command-buffer-allocation">Command buffer allocation</a></p>
+</li>
+<li>
+<p><a href="#page_Command-buffer-recording">Command buffer recording</a></p>
+</li>
+<li>
+<p><a href="#page_Starting-a-render-pass">Starting a render pass</a></p>
+</li>
+<li>
+<p><a href="#page_Basic-drawing-commands">Basic drawing commands</a></p>
+</li>
+<li>
+<p><a href="#page_Finishing-up">Finishing up</a></p>
+</li>
+</ul>
+<p>Commands in Vulkan, like drawing operations and memory transfers, are not
+executed directly using function calls. You have to record all of the operations
+you want to perform in command buffer objects. The advantage of this is that when
+we are ready to tell the Vulkan what we want to do, all of the commands are
+submitted together and Vulkan can more efficiently process the commands since all
+of them are available together. In addition, this allows command recording to
+happen in multiple threads if so desired.</p>
+<h2 id="page_Command-pools">Command pools</h2>
+<p>We have to create a command pool before we can create command buffers. Command
+pools manage the memory that is used to store the buffers and command buffers
+are allocated from them. Add a new class member to store a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandPool.html"><code>VkCommandPool</code></a>:</p>
+<pre><code class="language-c++">VkCommandPool commandPool;
+</code></pre>
+<p>Then create a new function <code>createCommandPool</code> and call it from <code>initVulkan</code>
+after the framebuffers were created.</p>
+<pre><code class="language-c++">void initVulkan() {
+    createInstance();
+    setupDebugMessenger();
+    createSurface();
+    pickPhysicalDevice();
+    createLogicalDevice();
+    createSwapChain();
+    createImageViews();
+    createRenderPass();
+    createGraphicsPipeline();
+    createFramebuffers();
+    createCommandPool();
+}
+
+...
+
+void createCommandPool() {
+
+}
+</code></pre>
+<p>Command pool creation only takes two parameters:</p>
+<pre><code class="language-c++">QueueFamilyIndices queueFamilyIndices = findQueueFamilies(physicalDevice);
+
+VkCommandPoolCreateInfo poolInfo{};
+poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
+</code></pre>
+<p>There are two possible flags for command pools:</p>
+<ul>
+<li>
+<code>VK_COMMAND_POOL_CREATE_TRANSIENT_BIT</code>: Hint that command buffers are
+rerecorded with new commands very often (may change memory allocation behavior)</li>
+<li>
+<code>VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT</code>: Allow command buffers to be
+rerecorded individually, without this flag they all have to be reset together</li>
+</ul>
+<p>We will be recording a command buffer every frame, so we want to be able to
+reset and rerecord over it. Thus, we need to set the
+<code>VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT</code> flag bit for our command pool.</p>
+<p>Command buffers are executed by submitting them on one of the device queues,
+like the graphics and presentation queues we retrieved. Each command pool can
+only allocate command buffers that are submitted on a single type of queue.
+We're going to record commands for drawing, which is why we've chosen the
+graphics queue family.</p>
+<pre><code class="language-c++">if (vkCreateCommandPool(device, &amp;poolInfo, nullptr, &amp;commandPool) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create command pool!&quot;);
+}
+</code></pre>
+<p>Finish creating the command pool using the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateCommandPool.html"><code>vkCreateCommandPool</code></a> function. It
+doesn't have any special parameters. Commands will be used throughout the
+program to draw things on the screen, so the pool should only be destroyed at
+the end:</p>
+<pre><code class="language-c++">void cleanup() {
+    vkDestroyCommandPool(device, commandPool, nullptr);
+
+    ...
+}
+</code></pre>
+<h2 id="page_Command-buffer-allocation">Command buffer allocation</h2>
+<p>We can now start allocating command buffers.</p>
+<p>Create a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandBuffer.html"><code>VkCommandBuffer</code></a> object as a class member. Command buffers
+will be automatically freed when their command pool is destroyed, so we don't
+need explicit cleanup.</p>
+<pre><code class="language-c++">VkCommandBuffer commandBuffer;
+</code></pre>
+<p>We'll now start working on a <code>createCommandBuffer</code> function to allocate a single
+command buffer from the command pool.</p>
+<pre><code class="language-c++">void initVulkan() {
+    createInstance();
+    setupDebugMessenger();
+    createSurface();
+    pickPhysicalDevice();
+    createLogicalDevice();
+    createSwapChain();
+    createImageViews();
+    createRenderPass();
+    createGraphicsPipeline();
+    createFramebuffers();
+    createCommandPool();
+    createCommandBuffer();
+}
+
+...
+
+void createCommandBuffer() {
+
+}
+</code></pre>
+<p>Command buffers are allocated with the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkAllocateCommandBuffers.html"><code>vkAllocateCommandBuffers</code></a> function,
+which takes a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandBufferAllocateInfo.html"><code>VkCommandBufferAllocateInfo</code></a> struct as parameter that specifies
+the command pool and number of buffers to allocate:</p>
+<pre><code class="language-c++">VkCommandBufferAllocateInfo allocInfo{};
+allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+allocInfo.commandPool = commandPool;
+allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+allocInfo.commandBufferCount = 1;
+
+if (vkAllocateCommandBuffers(device, &amp;allocInfo, &amp;commandBuffer) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to allocate command buffers!&quot;);
+}
+</code></pre>
+<p>The <code>level</code> parameter specifies if the allocated command buffers are primary or
+secondary command buffers.</p>
+<ul>
+<li>
+<code>VK_COMMAND_BUFFER_LEVEL_PRIMARY</code>: Can be submitted to a queue for execution,
+but cannot be called from other command buffers.</li>
+<li>
+<code>VK_COMMAND_BUFFER_LEVEL_SECONDARY</code>: Cannot be submitted directly, but can be
+called from primary command buffers.</li>
+</ul>
+<p>We won't make use of the secondary command buffer functionality here, but you
+can imagine that it's helpful to reuse common operations from primary command
+buffers.</p>
+<p>Since we are only allocating one command buffer, the <code>commandBufferCount</code> parameter
+is just one.</p>
+<h2 id="page_Command-buffer-recording">Command buffer recording</h2>
+<p>We'll now start working on the <code>recordCommandBuffer</code> function that writes the
+commands we want to execute into a command buffer. The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandBuffer.html"><code>VkCommandBuffer</code></a> used
+will be passed in as a parameter, as well as the index of the current swapchain
+image we want to write to.</p>
+<pre><code class="language-c++">void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex) {
+
+}
+</code></pre>
+<p>We always begin recording a command buffer by calling <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkBeginCommandBuffer.html"><code>vkBeginCommandBuffer</code></a>
+with a small <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandBufferBeginInfo.html"><code>VkCommandBufferBeginInfo</code></a> structure as argument that specifies
+some details about the usage of this specific command buffer.</p>
+<pre><code class="language-c++">VkCommandBufferBeginInfo beginInfo{};
+beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+beginInfo.flags = 0; // Optional
+beginInfo.pInheritanceInfo = nullptr; // Optional
+
+if (vkBeginCommandBuffer(commandBuffer, &amp;beginInfo) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to begin recording command buffer!&quot;);
+}
+</code></pre>
+<p>The <code>flags</code> parameter specifies how we're going to use the command buffer. The
+following values are available:</p>
+<ul>
+<li>
+<code>VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT</code>: The command buffer will be
+rerecorded right after executing it once.</li>
+<li>
+<code>VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT</code>: This is a secondary
+command buffer that will be entirely within a single render pass.</li>
+<li>
+<code>VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT</code>: The command buffer can be
+resubmitted while it is also already pending execution.</li>
+</ul>
+<p>None of these flags are applicable for us right now.</p>
+<p>The <code>pInheritanceInfo</code> parameter is only relevant for secondary command buffers.
+It specifies which state to inherit from the calling primary command buffers.</p>
+<p>If the command buffer was already recorded once, then a call to
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkBeginCommandBuffer.html"><code>vkBeginCommandBuffer</code></a> will implicitly reset it. It's not possible to append
+commands to a buffer at a later time.</p>
+<h2 id="page_Starting-a-render-pass">Starting a render pass</h2>
+<p>Drawing starts by beginning the render pass with <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdBeginRenderPass.html"><code>vkCmdBeginRenderPass</code></a>. The
+render pass is configured using some parameters in a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkRenderPassBeginInfo.html"><code>VkRenderPassBeginInfo</code></a>
+struct.</p>
+<pre><code class="language-c++">VkRenderPassBeginInfo renderPassInfo{};
+renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+renderPassInfo.renderPass = renderPass;
+renderPassInfo.framebuffer = swapChainFramebuffers[imageIndex];
+</code></pre>
+<p>The first parameters are the render pass itself and the attachments to bind. We
+created a framebuffer for each swap chain image where it is specified as a color
+attachment. Thus we need to bind the framebuffer for the swapchain image we want
+to draw to. Using the imageIndex parameter which was passed in, we can pick the
+right framebuffer for the current swapchain image.</p>
+<pre><code class="language-c++">renderPassInfo.renderArea.offset = {0, 0};
+renderPassInfo.renderArea.extent = swapChainExtent;
+</code></pre>
+<p>The next two parameters define the size of the render area. The render area
+defines where shader loads and stores will take place. The pixels outside this
+region will have undefined values. It should match the size of the attachments
+for best performance.</p>
+<pre><code class="language-c++">VkClearValue clearColor = {{{0.0f, 0.0f, 0.0f, 1.0f}}};
+renderPassInfo.clearValueCount = 1;
+renderPassInfo.pClearValues = &amp;clearColor;
+</code></pre>
+<p>The last two parameters define the clear values to use for
+<code>VK_ATTACHMENT_LOAD_OP_CLEAR</code>, which we used as load operation for the color
+attachment. I've defined the clear color to simply be black with 100% opacity.</p>
+<pre><code class="language-c++">vkCmdBeginRenderPass(commandBuffer, &amp;renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+</code></pre>
+<p>The render pass can now begin. All of the functions that record commands can be
+recognized by their <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmd.html"><code>vkCmd</code></a> prefix. They all return <code>void</code>, so there will be no
+error handling until we've finished recording.</p>
+<p>The first parameter for every command is always the command buffer to record the
+command to. The second parameter specifies the details of the render pass we've
+just provided. The final parameter controls how the drawing commands within the
+render pass will be provided. It can have one of two values:</p>
+<ul>
+<li>
+<code>VK_SUBPASS_CONTENTS_INLINE</code>: The render pass commands will be embedded in
+the primary command buffer itself and no secondary command buffers will be
+executed.</li>
+<li>
+<code>VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS</code>: The render pass commands will
+be executed from secondary command buffers.</li>
+</ul>
+<p>We will not be using secondary command buffers, so we'll go with the first
+option.</p>
+<h2 id="page_Basic-drawing-commands">Basic drawing commands</h2>
+<p>We can now bind the graphics pipeline:</p>
+<pre><code class="language-c++">vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
+</code></pre>
+<p>The second parameter specifies if the pipeline object is a graphics or compute
+pipeline. We've now told Vulkan which operations to execute in the graphics
+pipeline and which attachment to use in the fragment shader.</p>
+<p>As noted in the <a href="../Graphics_pipeline_basics/Fixed_functions.html#dynamic-state">fixed functions chapter</a>,
+we did specify viewport and scissor state for this pipeline to be dynamic.
+So we need to set them in the command buffer before issuing our draw command:</p>
+<pre><code class="language-c++">VkViewport viewport{};
+viewport.x = 0.0f;
+viewport.y = 0.0f;
+viewport.width = static_cast&lt;float&gt;(swapChainExtent.width);
+viewport.height = static_cast&lt;float&gt;(swapChainExtent.height);
+viewport.minDepth = 0.0f;
+viewport.maxDepth = 1.0f;
+vkCmdSetViewport(commandBuffer, 0, 1, &amp;viewport);
+
+VkRect2D scissor{};
+scissor.offset = {0, 0};
+scissor.extent = swapChainExtent;
+vkCmdSetScissor(commandBuffer, 0, 1, &amp;scissor);
+</code></pre>
+<p>Now we are ready to issue the draw command for the triangle:</p>
+<pre><code class="language-c++">vkCmdDraw(commandBuffer, 3, 1, 0, 0);
+</code></pre>
+<p>The actual <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdDraw.html"><code>vkCmdDraw</code></a> function is a bit anticlimactic, but it's so simple
+because of all the information we specified in advance. It has the following
+parameters, aside from the command buffer:</p>
+<ul>
+<li>
+<code>vertexCount</code>: Even though we don't have a vertex buffer, we technically still
+have 3 vertices to draw.</li>
+<li>
+<code>instanceCount</code>: Used for instanced rendering, use <code>1</code> if you're not doing
+that.</li>
+<li>
+<code>firstVertex</code>: Used as an offset into the vertex buffer, defines the lowest
+value of <code>gl_VertexIndex</code>.</li>
+<li>
+<code>firstInstance</code>: Used as an offset for instanced rendering, defines the lowest
+value of <code>gl_InstanceIndex</code>.</li>
+</ul>
+<h2 id="page_Finishing-up">Finishing up</h2>
+<p>The render pass can now be ended:</p>
+<pre><code class="language-c++">vkCmdEndRenderPass(commandBuffer);
+</code></pre>
+<p>And we've finished recording the command buffer:</p>
+<pre><code class="language-c++">if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to record command buffer!&quot;);
+}
+</code></pre>
+<p>In the next chapter we'll write the code for the main loop, which will acquire
+an image from the swap chain, record and execute a command buffer, then return the
+finished image to the swap chain.</p>
+<p><a href="../../../code/14_command_buffers.cpp">C++ code</a> /
+<a href="../../../code/09_shader_base.vert">Vertex shader</a> /
+<a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

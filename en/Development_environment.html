@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Development environment - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../en/Overview.html">Overview</a></li><li class='Nav__item Nav__item--active'><a href="../en/Development_environment.html">Development environment</a></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Development environment</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Windows">Windows</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Vulkan-SDK">Vulkan SDK</a></p>
+</li>
+<li>
+<p><a href="#page_GLFW">GLFW</a></p>
+</li>
+<li>
+<p><a href="#page_GLM">GLM</a></p>
+</li>
+<li>
+<p><a href="#page_Setting-up-Visual-Studio">Setting up Visual Studio</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Linux">Linux</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Vulkan-Packages">Vulkan Packages</a></p>
+</li>
+<li>
+<p><a href="#page_X-Window-System-and-XFree86-VidModeExtension">X Window System and XFree86-VidModeExtension</a></p>
+</li>
+<li>
+<p><a href="#page_GLFW-2">GLFW</a></p>
+</li>
+<li>
+<p><a href="#page_GLM-2">GLM</a></p>
+</li>
+<li>
+<p><a href="#page_Shader-Compiler">Shader Compiler</a></p>
+</li>
+<li>
+<p><a href="#page_Setting-up-a-makefile-project">Setting up a makefile project</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_MacOS">MacOS</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Vulkan-SDK-2">Vulkan SDK</a></p>
+</li>
+<li>
+<p><a href="#page_GLFW-2">GLFW</a></p>
+</li>
+<li>
+<p><a href="#page_GLM-2">GLM</a></p>
+</li>
+<li>
+<p><a href="#page_Setting-up-Xcode">Setting up Xcode</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>In this chapter we'll set up your environment for developing Vulkan applications
+and install some useful libraries. All of the tools we'll use, with the
+exception of the compiler, are compatible with Windows, Linux and MacOS, but the
+steps for installing them differ a bit, which is why they're described
+separately here.</p>
+<h2 id="page_Windows">Windows</h2>
+<p>If you're developing for Windows, then I will assume that you are using Visual
+Studio to compile your code. For complete C++17 support, you need to use either
+Visual Studio 2017 or 2019. The steps outlined below were written for VS 2017.</p>
+<h3 id="page_Vulkan-SDK">Vulkan SDK</h3>
+<p>The most important component you'll need for developing Vulkan applications is
+the SDK. It includes the headers, standard validation layers, debugging tools
+and a loader for the Vulkan functions. The loader looks up the functions in the
+driver at runtime, similarly to GLEW for OpenGL - if you're familiar with that.</p>
+<p>The SDK can be downloaded from <a href="https://vulkan.lunarg.com/" class="Link--external">the LunarG website</a>
+using the buttons at the bottom of the page. You don't have to create an
+account, but it will give you access to some additional documentation that may
+be useful to you.</p>
+<p><img src="/images/vulkan_sdk_download_buttons.png" alt="" /></p>
+<p>Proceed through the installation and pay attention to the install location of
+the SDK. The first thing we'll do is verify that your graphics card and driver
+properly support Vulkan. Go to the directory where you installed the SDK, open
+the <code>Bin</code> directory and run the <code>vkcube.exe</code> demo. You should see the following:</p>
+<p><img src="/images/cube_demo.png" alt="" /></p>
+<p>If you receive an error message then ensure that your drivers are up-to-date,
+include the Vulkan runtime and that your graphics card is supported. See the
+<a href="Introduction.html">introduction chapter</a> for links to drivers from the major
+vendors.</p>
+<p>There is another program in this directory that will be useful for development. The <code>glslangValidator.exe</code> and <code>glslc.exe</code> programs will be used to compile shaders from the
+human-readable <a href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language" class="Link--external">GLSL</a> to
+bytecode. We'll cover this in depth in the <a href="Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">shader modules</a>
+chapter. The <code>Bin</code> directory also contains the binaries of the Vulkan loader
+and the validation layers, while the <code>Lib</code> directory contains the libraries.</p>
+<p>Lastly, there's the <code>Include</code> directory that contains the Vulkan headers. Feel free to explore the other files, but we won't need them for this tutorial.</p>
+<h3 id="page_GLFW">GLFW</h3>
+<p>As mentioned before, Vulkan by itself is a platform agnostic API and does not
+include tools for creating a window to display the rendered results. To benefit
+from the cross-platform advantages of Vulkan and to avoid the horrors of Win32,
+we'll use the <a href="http://www.glfw.org/" class="Link--external">GLFW library</a> to create a window, which
+supports Windows, Linux and MacOS. There are other libraries available for this
+purpose, like <a href="https://www.libsdl.org/" class="Link--external">SDL</a>, but the advantage of GLFW is that
+it also abstracts away some of the other platform-specific things in Vulkan
+besides just window creation.</p>
+<p>You can find the latest release of GLFW on the <a href="http://www.glfw.org/download.html" class="Link--external">official website</a>.
+In this tutorial we'll be using the 64-bit binaries, but you can of course also
+choose to build in 32 bit mode. In that case make sure to link with the Vulkan
+SDK binaries in the <code>Lib32</code> directory instead of <code>Lib</code>. After downloading it, extract the archive
+to a convenient location. I've chosen to create a <code>Libraries</code> directory in the
+Visual Studio directory under documents.</p>
+<p><img src="/images/glfw_directory.png" alt="" /></p>
+<h3 id="page_GLM">GLM</h3>
+<p>Unlike DirectX 12, Vulkan does not include a library for linear algebra
+operations, so we'll have to download one. <a href="http://glm.g-truc.net/" class="Link--external">GLM</a> is a
+nice library that is designed for use with graphics APIs and is also commonly
+used with OpenGL.</p>
+<p>GLM is a header-only library, so just download the <a href="https://github.com/g-truc/glm/releases" class="Link--external">latest version</a>
+and store it in a convenient location. You should have a directory structure
+similar to the following now:</p>
+<p><img src="/images/library_directory.png" alt="" /></p>
+<h3 id="page_Setting-up-Visual-Studio">Setting up Visual Studio</h3>
+<p>Now that you've installed all of the dependencies we can set up a basic Visual
+Studio project for Vulkan and write a little bit of code to make sure that
+everything works.</p>
+<p>Start Visual Studio and create a new <code>Windows Desktop Wizard</code> project by entering a name and pressing <code>OK</code>.</p>
+<p><img src="/images/vs_new_cpp_project.png" alt="" /></p>
+<p>Make sure that <code>Console Application (.exe)</code> is selected as application type so that we have a place to print debug messages to, and check <code>Empty Project</code> to prevent Visual Studio from adding boilerplate code.</p>
+<p><img src="/images/vs_application_settings.png" alt="" /></p>
+<p>Press <code>OK</code> to create the project and add a C++ source file. You should
+already know how to do that, but the steps are included here for completeness.</p>
+<p><img src="/images/vs_new_item.png" alt="" /></p>
+<p><img src="/images/vs_new_source_file.png" alt="" /></p>
+<p>Now add the following code to the file. Don't worry about trying to
+understand it right now; we're just making sure that you can compile and run
+Vulkan applications. We'll start from scratch in the next chapter.</p>
+<pre><code class="language-c++">#define GLFW_INCLUDE_VULKAN
+#include &lt;GLFW/glfw3.h&gt;
+
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include &lt;glm/vec4.hpp&gt;
+#include &lt;glm/mat4x4.hpp&gt;
+
+#include &lt;iostream&gt;
+
+int main() {
+    glfwInit();
+
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    GLFWwindow* window = glfwCreateWindow(800, 600, &quot;Vulkan window&quot;, nullptr, nullptr);
+
+    uint32_t extensionCount = 0;
+    vkEnumerateInstanceExtensionProperties(nullptr, &amp;extensionCount, nullptr);
+
+    std::cout &lt;&lt; extensionCount &lt;&lt; &quot; extensions supported\n&quot;;
+
+    glm::mat4 matrix;
+    glm::vec4 vec;
+    auto test = matrix * vec;
+
+    while(!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+    }
+
+    glfwDestroyWindow(window);
+
+    glfwTerminate();
+
+    return 0;
+}
+</code></pre>
+<p>Let's now configure the project to get rid of the errors. Open the project
+properties dialog and ensure that <code>All Configurations</code> is selected, because most
+of the settings apply to both <code>Debug</code> and <code>Release</code> mode.</p>
+<p><img src="/images/vs_open_project_properties.png" alt="" /></p>
+<p><img src="/images/vs_all_configs.png" alt="" /></p>
+<p>Go to <code>C++ -&gt; General -&gt; Additional Include Directories</code> and press <code>&lt;Edit...&gt;</code>
+in the dropdown box.</p>
+<p><img src="/images/vs_cpp_general.png" alt="" /></p>
+<p>Add the header directories for Vulkan, GLFW and GLM:</p>
+<p><img src="/images/vs_include_dirs.png" alt="" /></p>
+<p>Next, open the editor for library directories under <code>Linker -&gt; General</code>:</p>
+<p><img src="/images/vs_link_settings.png" alt="" /></p>
+<p>And add the locations of the object files for Vulkan and GLFW:</p>
+<p><img src="/images/vs_link_dirs.png" alt="" /></p>
+<p>Go to <code>Linker -&gt; Input</code> and press <code>&lt;Edit...&gt;</code> in the <code>Additional Dependencies</code>
+dropdown box.</p>
+<p><img src="/images/vs_link_input.png" alt="" /></p>
+<p>Enter the names of the Vulkan and GLFW object files:</p>
+<p><img src="/images/vs_dependencies.png" alt="" /></p>
+<p>And finally change the compiler to support C++17 features:</p>
+<p><img src="/images/vs_cpp17.png" alt="" /></p>
+<p>You can now close the project properties dialog. If you did everything right
+then you should no longer see any more errors being highlighted in the code.</p>
+<p>Finally, ensure that you are actually compiling in 64 bit mode:</p>
+<p><img src="/images/vs_build_mode.png" alt="" /></p>
+<p>Press <code>F5</code> to compile and run the project and you should see a command prompt
+and a window pop up like this:</p>
+<p><img src="/images/vs_test_window.png" alt="" /></p>
+<p>The number of extensions should be non-zero. Congratulations, you're all set for
+<a href="Drawing_a_triangle/Setup/Base_code.html">playing with Vulkan</a>!</p>
+<h2 id="page_Linux">Linux</h2>
+<p>These instructions will be aimed at Ubuntu, Fedora and Arch Linux users, but you may be able to follow
+along by changing the package manager-specific commands to the ones that are appropriate for you. You should have a compiler that supports C++17 (GCC 7+ or Clang 5+). You'll also need <code>make</code>.</p>
+<h3 id="page_Vulkan-Packages">Vulkan Packages</h3>
+<p>The most important components you'll need for developing Vulkan applications on Linux are the Vulkan loader, validation layers, and a couple of command-line utilities to test whether your machine is Vulkan-capable:</p>
+<ul>
+<li>
+<code>sudo apt install vulkan-tools</code> or <code>sudo dnf install vulkan-tools</code>: Command-line utilities, most importantly <code>vulkaninfo</code> and <code>vkcube</code>. Run these to confirm your machine supports Vulkan.</li>
+<li>
+<code>sudo apt install libvulkan-dev</code> or <code>sudo dnf install vulkan-loader-devel</code> : Installs Vulkan loader. The loader looks up the functions in the driver at runtime, similarly to GLEW for OpenGL - if you're familiar with that.</li>
+<li>
+<code>sudo apt install vulkan-validationlayers-dev spirv-tools</code> or <code>sudo dnf install mesa-vulkan-devel vulkan-validation-layers-devel</code>: Installs the standard validation layers and required SPIR-V tools. These are crucial when debugging Vulkan applications, and we'll discuss them in the upcoming chapter.</li>
+</ul>
+<p>On Arch Linux, you can run <code>sudo pacman -S vulkan-devel</code> to install all the
+required tools above.</p>
+<p>If installation was successful, you should be all set with the Vulkan portion. Remember to run
+<code>vkcube</code> and ensure you see the following pop up in a window:</p>
+<p><img src="/images/cube_demo_nowindow.png" alt="" /></p>
+<p>If you receive an error message then ensure that your drivers are up-to-date,
+include the Vulkan runtime and that your graphics card is supported. See the
+<a href="Introduction.html">introduction chapter</a> for links to drivers from the major
+vendors.</p>
+<h3 id="page_X-Window-System-and-XFree86-VidModeExtension">X Window System and XFree86-VidModeExtension</h3>
+<p>It is possible that these libraries are not on the system, if not, you can install them using the following commands:</p>
+<ul>
+<li>
+<code>sudo apt install libxxf86vm-dev</code> or <code>dnf install libXxf86vm-devel</code>: Provides an interface to the XFree86-VidModeExtension.</li>
+<li>
+<code>sudo apt install libxi-dev</code> or <code>dnf install libXi-devel</code>: Provides an X Window System client interface to the XINPUT extension.</li>
+</ul>
+<h3 id="page_GLFW-2">GLFW</h3>
+<p>As mentioned before, Vulkan by itself is a platform agnostic API and does not
+include tools for creation a window to display the rendered results. To benefit
+from the cross-platform advantages of Vulkan and to avoid the horrors of X11,
+we'll use the <a href="http://www.glfw.org/" class="Link--external">GLFW library</a> to create a window, which
+supports Windows, Linux and MacOS. There are other libraries available for this
+purpose, like <a href="https://www.libsdl.org/" class="Link--external">SDL</a>, but the advantage of GLFW is that
+it also abstracts away some of the other platform-specific things in Vulkan
+besides just window creation.</p>
+<p>We'll be installing GLFW from the following command:</p>
+<pre><code class="language-bash">sudo apt install libglfw3-dev
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">sudo dnf install glfw-devel
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">sudo pacman -S glfw-wayland # glfw-x11 for X11 users
+</code></pre>
+<h3 id="page_GLM-2">GLM</h3>
+<p>Unlike DirectX 12, Vulkan does not include a library for linear algebra
+operations, so we'll have to download one. <a href="http://glm.g-truc.net/" class="Link--external">GLM</a> is a
+nice library that is designed for use with graphics APIs and is also commonly
+used with OpenGL.</p>
+<p>It is a header-only library that can be installed from the <code>libglm-dev</code> or
+<code>glm-devel</code> package:</p>
+<pre><code class="language-bash">sudo apt install libglm-dev
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">sudo dnf install glm-devel
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">sudo pacman -S glm
+</code></pre>
+<h3 id="page_Shader-Compiler">Shader Compiler</h3>
+<p>We have just about all we need, except we'll want a program to compile shaders from the human-readable  <a href="https://en.wikipedia.org/wiki/OpenGL_Shading_Language" class="Link--external">GLSL</a> to bytecode.</p>
+<p>Two popular shader compilers are Khronos Group's <code>glslangValidator</code> and Google's <code>glslc</code>. The latter has a familiar GCC- and Clang-like usage, so we'll go with that: on Ubuntu, download Google's <a href="https://github.com/google/shaderc/blob/main/downloads.md" class="Link--external">unofficial binaries</a> and copy <code>glslc</code> to your <code>/usr/local/bin</code>. Note you may need to <code>sudo</code> depending on your permissions. On Fedora use <code>sudo dnf install glslc</code>, while on Arch Linux run <code>sudo pacman -S shaderc</code>.  To test, run <code>glslc</code> and it should rightfully complain we didn't pass any shaders to compile:</p>
+<p><code>glslc: error: no input files</code></p>
+<p>We'll cover <code>glslc</code> in depth in the <a href="Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">shader modules</a> chapter.</p>
+<h3 id="page_Setting-up-a-makefile-project">Setting up a makefile project</h3>
+<p>Now that you have installed all of the dependencies, we can set up a basic
+makefile project for Vulkan and write a little bit of code to make sure that
+everything works.</p>
+<p>Create a new directory at a convenient location with a name like <code>VulkanTest</code>.
+Create a source file called <code>main.cpp</code> and insert the following code. Don't
+worry about trying to understand it right now; we're just making sure that you
+can compile and run Vulkan applications. We'll start from scratch in the next
+chapter.</p>
+<pre><code class="language-c++">#define GLFW_INCLUDE_VULKAN
+#include &lt;GLFW/glfw3.h&gt;
+
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include &lt;glm/vec4.hpp&gt;
+#include &lt;glm/mat4x4.hpp&gt;
+
+#include &lt;iostream&gt;
+
+int main() {
+    glfwInit();
+
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    GLFWwindow* window = glfwCreateWindow(800, 600, &quot;Vulkan window&quot;, nullptr, nullptr);
+
+    uint32_t extensionCount = 0;
+    vkEnumerateInstanceExtensionProperties(nullptr, &amp;extensionCount, nullptr);
+
+    std::cout &lt;&lt; extensionCount &lt;&lt; &quot; extensions supported\n&quot;;
+
+    glm::mat4 matrix;
+    glm::vec4 vec;
+    auto test = matrix * vec;
+
+    while(!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+    }
+
+    glfwDestroyWindow(window);
+
+    glfwTerminate();
+
+    return 0;
+}
+</code></pre>
+<p>Next, we'll write a makefile to compile and run this basic Vulkan code. Create a
+new empty file called <code>Makefile</code>. I will assume that you already have some basic
+experience with makefiles, like how variables and rules work. If not, you can
+get up to speed very quickly with <a href="https://makefiletutorial.com/" class="Link--external">this tutorial</a>.</p>
+<p>We'll first define a couple of variables to simplify the remainder of the file.
+Define a <code>CFLAGS</code> variable that will specify the basic compiler flags:</p>
+<pre><code class="language-make">CFLAGS = -std=c++17 -O2
+</code></pre>
+<p>We're going to use modern C++ (<code>-std=c++17</code>), and we'll set optimization level to O2. We can remove -O2 to compile programs faster, but we should remember to place it back for release builds.</p>
+<p>Similarly, define the linker flags in a <code>LDFLAGS</code> variable:</p>
+<pre><code class="language-make">LDFLAGS = -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
+</code></pre>
+<p>The flag <code>-lglfw</code> is for GLFW, <code>-lvulkan</code> links with the Vulkan function loader and the remaining flags are low-level system libraries that GLFW needs. The remaining flags are dependencies of GLFW itself: the threading and window management.</p>
+<p>It is possible that the <code>Xxf68vm</code> and <code>Xi</code> libraries are not yet installed on your system. You can find them in the following packages:</p>
+<pre><code class="language-bash">sudo apt install libxxf86vm-dev libxi-dev
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">sudo dnf install libXi-devel libXxf86vm-devel
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">sudo pacman -S libxi libxxf86vm
+</code></pre>
+<p>Specifying the rule to compile <code>VulkanTest</code> is straightforward now. Make sure to
+use tabs for indentation instead of spaces.</p>
+<pre><code class="language-make">VulkanTest: main.cpp
+	g++ $(CFLAGS) -o VulkanTest main.cpp $(LDFLAGS)
+</code></pre>
+<p>Verify that this rule works by saving the makefile and running <code>make</code> in the
+directory with <code>main.cpp</code> and <code>Makefile</code>. This should result in a <code>VulkanTest</code>
+executable.</p>
+<p>We'll now define two more rules, <code>test</code> and <code>clean</code>, where the former will
+run the executable and the latter will remove a built executable:</p>
+<pre><code class="language-make">.PHONY: test clean
+
+test: VulkanTest
+	./VulkanTest
+
+clean:
+	rm -f VulkanTest
+</code></pre>
+<p>Running <code>make test</code> should show the program running successfully, and displaying the number of Vulkan extensions. The application should exit with the success return code (<code>0</code>) when you close the empty window. You should now have a complete makefile that resembles the following:</p>
+<pre><code class="language-make">CFLAGS = -std=c++17 -O2
+LDFLAGS = -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
+
+VulkanTest: main.cpp
+	g++ $(CFLAGS) -o VulkanTest main.cpp $(LDFLAGS)
+
+.PHONY: test clean
+
+test: VulkanTest
+	./VulkanTest
+
+clean:
+	rm -f VulkanTest
+</code></pre>
+<p>You can now use this directory as a template for your Vulkan projects. Make a copy, rename it to something like <code>HelloTriangle</code> and remove all of the code in <code>main.cpp</code>.</p>
+<p>You are now all set for <a href="Drawing_a_triangle/Setup/Base_code.html">the real adventure</a>.</p>
+<h2 id="page_MacOS">MacOS</h2>
+<p>These instructions will assume you are using Xcode and the <a href="https://brew.sh/" class="Link--external">Homebrew package manager</a>. Also, keep in mind that you will need at least MacOS version 10.11, and your device needs to support the <a href="https://en.wikipedia.org/wiki/Metal_(API)#Supported_GPUs" class="Link--external">Metal API</a>.</p>
+<h3 id="page_Vulkan-SDK-2">Vulkan SDK</h3>
+<p>The most important component you'll need for developing Vulkan applications is the SDK. It includes the headers, standard validation layers, debugging tools and a loader for the Vulkan functions. The loader looks up the functions in the driver at runtime, similarly to GLEW for OpenGL - if you're familiar with that.</p>
+<p>The SDK can be downloaded from <a href="https://vulkan.lunarg.com/" class="Link--external">the LunarG website</a> using the buttons at the bottom of the page. You don't have to create an account, but it will give you access to some additional documentation that may be useful to you.</p>
+<p><img src="/images/vulkan_sdk_download_buttons.png" alt="" /></p>
+<p>The SDK version for MacOS internally uses <a href="https://moltengl.com/" class="Link--external">MoltenVK</a>. There is no native support for Vulkan on MacOS, so what MoltenVK does is actually act as a layer that translates Vulkan API calls to Apple's Metal graphics framework. With this you can take advantage of debugging and performance benefits of Apple's Metal framework.</p>
+<p>After downloading it, simply extract the contents to a folder of your choice (keep in mind you will need to reference it when creating your projects on Xcode). Inside the extracted folder, in the <code>Applications</code> folder you should have some executable files that will run a few demos using the SDK. Run the <code>vkcube</code> executable and you will see the following:</p>
+<p><img src="/images/cube_demo_mac.png" alt="" /></p>
+<h3 id="page_GLFW-2">GLFW</h3>
+<p>As mentioned before, Vulkan by itself is a platform agnostic API and does not include tools for creation a window to display the rendered results. We'll use the <a href="http://www.glfw.org/" class="Link--external">GLFW library</a> to create a window, which supports Windows, Linux and MacOS. There are other libraries available for this purpose, like <a href="https://www.libsdl.org/" class="Link--external">SDL</a>, but the advantage of GLFW is that it also abstracts away some of the other platform-specific things in Vulkan besides just window creation.</p>
+<p>To install GLFW on MacOS we will use the Homebrew package manager to get the <code>glfw</code> package:</p>
+<pre><code class="language-bash">brew install glfw
+</code></pre>
+<h3 id="page_GLM-2">GLM</h3>
+<p>Vulkan does not include a library for linear algebra operations, so we'll have to download one. <a href="http://glm.g-truc.net/" class="Link--external">GLM</a> is a nice library that is designed for use with graphics APIs and is also commonly used with OpenGL.</p>
+<p>It is a header-only library that can be installed from the <code>glm</code> package:</p>
+<pre><code class="language-bash">brew install glm
+</code></pre>
+<h3 id="page_Setting-up-Xcode">Setting up Xcode</h3>
+<p>Now that all the dependencies are installed we can set up a basic Xcode project for Vulkan. Most of the instructions here are essentially a lot of &quot;plumbing&quot; so we can get all the dependencies linked to the project. Also, keep in mind that during the following instructions whenever we mention the folder <code>vulkansdk</code> we are refering to the folder where you extracted the Vulkan SDK.</p>
+<p>Start Xcode and create a new Xcode project. On the window that will open select Application &gt; Command Line Tool.</p>
+<p><img src="/images/xcode_new_project.png" alt="" /></p>
+<p>Select <code>Next</code>, write a name for the project and for <code>Language</code> select <code>C++</code>.</p>
+<p><img src="/images/xcode_new_project_2.png" alt="" /></p>
+<p>Press <code>Next</code> and the project should have been created. Now, let's change the code in the generated <code>main.cpp</code> file to the following code:</p>
+<pre><code class="language-c++">#define GLFW_INCLUDE_VULKAN
+#include &lt;GLFW/glfw3.h&gt;
+
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include &lt;glm/vec4.hpp&gt;
+#include &lt;glm/mat4x4.hpp&gt;
+
+#include &lt;iostream&gt;
+
+int main() {
+    glfwInit();
+
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    GLFWwindow* window = glfwCreateWindow(800, 600, &quot;Vulkan window&quot;, nullptr, nullptr);
+
+    uint32_t extensionCount = 0;
+    vkEnumerateInstanceExtensionProperties(nullptr, &amp;extensionCount, nullptr);
+
+    std::cout &lt;&lt; extensionCount &lt;&lt; &quot; extensions supported\n&quot;;
+
+    glm::mat4 matrix;
+    glm::vec4 vec;
+    auto test = matrix * vec;
+
+    while(!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+    }
+
+    glfwDestroyWindow(window);
+
+    glfwTerminate();
+
+    return 0;
+}
+</code></pre>
+<p>Keep in mind you are not required to understand all this code is doing yet, we are just setting up some API calls to make sure everything is working.</p>
+<p>Xcode should already be showing some errors such as libraries it cannot find. We will now start configuring the project to get rid of those errors. On the <em>Project Navigator</em> panel select your project. Open the <em>Build Settings</em> tab and then:</p>
+<ul>
+<li>Find the <strong>Header Search Paths</strong> field and add a link to <code>/usr/local/include</code> (this is where Homebrew installs headers, so the glm and glfw3 header files should be there) and a link to <code>vulkansdk/macOS/include</code> for the Vulkan headers.</li>
+<li>Find the <strong>Library Search Paths</strong> field and add a link to <code>/usr/local/lib</code> (again, this is where Homebrew installs libraries, so the glm and glfw3 lib files should be there) and a link to <code>vulkansdk/macOS/lib</code>.</li>
+</ul>
+<p>It should look like so (obviously, paths will be different depending on where you placed on your files):</p>
+<p><img src="/images/xcode_paths.png" alt="" /></p>
+<p>Now, in the <em>Build Phases</em> tab, on <strong>Link Binary With Libraries</strong> we will add both the <code>glfw3</code> and the <code>vulkan</code> frameworks. To make things easier we will be adding the dynamic libraries in the project (you can check the documentation of these libraries if you want to use the static frameworks).</p>
+<ul>
+<li>For glfw open the folder <code>/usr/local/lib</code> and there you will find a file name like <code>libglfw.3.x.dylib</code> (&quot;x&quot; is the library's version number, it might be different depending on when you downloaded the package from Homebrew). Simply drag that file to the Linked Frameworks and Libraries tab on Xcode.</li>
+<li>For vulkan, go to <code>vulkansdk/macOS/lib</code>. Do the same for the both files <code>libvulkan.1.dylib</code> and <code>libvulkan.1.x.xx.dylib</code> (where &quot;x&quot; will be the version number of the the SDK you downloaded).</li>
+</ul>
+<p>After adding those libraries, in the same tab on <strong>Copy Files</strong> change <code>Destination</code> to &quot;Frameworks&quot;, clear the subpath and deselect &quot;Copy only when installing&quot;. Click on the &quot;+&quot; sign and add all those three frameworks here aswell.</p>
+<p>Your Xcode configuration should look like:</p>
+<p><img src="/images/xcode_frameworks.png" alt="" /></p>
+<p>The last thing you need to setup are a couple of environment variables. On Xcode toolbar go to <code>Product</code> &gt; <code>Scheme</code> &gt; <code>Edit Scheme...</code>, and in the <code>Arguments</code> tab add the two following environment variables:</p>
+<ul>
+<li>VK_ICD_FILENAMES = <code>vulkansdk/macOS/share/vulkan/icd.d/MoltenVK_icd.json</code>
+</li>
+<li>VK_LAYER_PATH = <code>vulkansdk/macOS/share/vulkan/explicit_layer.d</code>
+</li>
+</ul>
+<p>It should look like so:</p>
+<p><img src="/images/xcode_variables.png" alt="" /></p>
+<p>Finally, you should be all set! Now if you run the project (remembering to setting the build configuration to Debug or Release depending on the configuration you chose) you should see the following:</p>
+<p><img src="/images/xcode_output.png" alt="" /></p>
+<p>The number of extensions should be non-zero. The other logs are from the libraries, you might get different messages from those depending on your configuration.</p>
+<p>You are now all set for <a href="Drawing_a_triangle/Setup/Base_code.html">the real thing</a>.</p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../en/Overview.html">Previous</a></li>            <li><a href="../en/Drawing_a_triangle/Setup/Base_code.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

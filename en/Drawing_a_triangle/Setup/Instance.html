@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Instance - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Instance</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Creating-an-instance">Creating an instance</a></p>
+</li>
+<li>
+<p><a href="#page_Encountered-VK_ERROR_INCOMPATIBLE_DRIVER">Encountered VK_ERROR_INCOMPATIBLE_DRIVER:</a></p>
+</li>
+<li>
+<p><a href="#page_Checking-for-extension-support">Checking for extension support</a></p>
+</li>
+<li>
+<p><a href="#page_Cleaning-up">Cleaning up</a></p>
+</li>
+</ul>
+<h2 id="page_Creating-an-instance">Creating an instance</h2>
+<p>The very first thing you need to do is initialize the Vulkan library by creating
+an <em>instance</em>. The instance is the connection between your application and the
+Vulkan library and creating it involves specifying some details about your
+application to the driver.</p>
+<p>Start by adding a <code>createInstance</code> function and invoking it in the
+<code>initVulkan</code> function.</p>
+<pre><code class="language-c++">void initVulkan() {
+    createInstance();
+}
+</code></pre>
+<p>Additionally add a data member to hold the handle to the instance:</p>
+<pre><code class="language-c++">private:
+VkInstance instance;
+</code></pre>
+<p>Now, to create an instance we'll first have to fill in a struct with some
+information about our application. This data is technically optional, but it may
+provide some useful information to the driver in order to optimize our specific
+application (e.g. because it uses a well-known graphics engine with
+certain special behavior). This struct is called <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkApplicationInfo.html"><code>VkApplicationInfo</code></a>:</p>
+<pre><code class="language-c++">void createInstance() {
+    VkApplicationInfo appInfo{};
+    appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    appInfo.pApplicationName = &quot;Hello Triangle&quot;;
+    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
+    appInfo.pEngineName = &quot;No Engine&quot;;
+    appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
+    appInfo.apiVersion = VK_API_VERSION_1_0;
+}
+</code></pre>
+<p>As mentioned before, many structs in Vulkan require you to explicitly specify
+the type in the <code>sType</code> member. This is also one of the many structs with a
+<code>pNext</code> member that can point to extension information in the future. We're
+using value initialization here to leave it as <code>nullptr</code>.</p>
+<p>A lot of information in Vulkan is passed through structs instead of function
+parameters and we'll have to fill in one more struct to provide sufficient
+information for creating an instance. This next struct is not optional and tells
+the Vulkan driver which global extensions and validation layers we want to use.
+Global here means that they apply to the entire program and not a specific
+device, which will become clear in the next few chapters.</p>
+<pre><code class="language-c++">VkInstanceCreateInfo createInfo{};
+createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+createInfo.pApplicationInfo = &amp;appInfo;
+</code></pre>
+<p>The first two parameters are straightforward. The next two layers specify the
+desired global extensions. As mentioned in the overview chapter, Vulkan is a
+platform agnostic API, which means that you need an extension to interface with
+the window system. GLFW has a handy built-in function that returns the
+extension(s) it needs to do that which we can pass to the struct:</p>
+<pre><code class="language-c++">uint32_t glfwExtensionCount = 0;
+const char** glfwExtensions;
+
+glfwExtensions = glfwGetRequiredInstanceExtensions(&amp;glfwExtensionCount);
+
+createInfo.enabledExtensionCount = glfwExtensionCount;
+createInfo.ppEnabledExtensionNames = glfwExtensions;
+</code></pre>
+<p>The last two members of the struct determine the global validation layers to
+enable. We'll talk about these more in-depth in the next chapter, so just leave
+these empty for now.</p>
+<pre><code class="language-c++">createInfo.enabledLayerCount = 0;
+</code></pre>
+<p>We've now specified everything Vulkan needs to create an instance and we can
+finally issue the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateInstance.html"><code>vkCreateInstance</code></a> call:</p>
+<pre><code class="language-c++">VkResult result = vkCreateInstance(&amp;createInfo, nullptr, &amp;instance);
+</code></pre>
+<p>As you'll see, the general pattern that object creation function parameters in
+Vulkan follow is:</p>
+<ul>
+<li>Pointer to struct with creation info</li>
+<li>Pointer to custom allocator callbacks, always <code>nullptr</code> in this tutorial</li>
+<li>Pointer to the variable that stores the handle to the new object</li>
+</ul>
+<p>If everything went well then the handle to the instance was stored in the
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkInstance.html"><code>VkInstance</code></a> class member. Nearly all Vulkan functions return a value of type
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkResult.html"><code>VkResult</code></a> that is either <code>VK_SUCCESS</code> or an error code. To check if the
+instance was created successfully, we don't need to store the result and can
+just use a check for the success value instead:</p>
+<pre><code class="language-c++">if (vkCreateInstance(&amp;createInfo, nullptr, &amp;instance) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create instance!&quot;);
+}
+</code></pre>
+<p>Now run the program to make sure that the instance is created successfully.</p>
+<h2 id="page_Encountered-VK_ERROR_INCOMPATIBLE_DRIVER">Encountered VK_ERROR_INCOMPATIBLE_DRIVER:</h2>
+<p>If using MacOS with the latest MoltenVK sdk, you may get <code>VK_ERROR_INCOMPATIBLE_DRIVER</code>
+returned from <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateInstance.html"><code>vkCreateInstance</code></a>. According to the <a href="https://vulkan.lunarg.com/doc/sdk/1.3.216.0/mac/getting_started.html" class="Link--external">Getting Start Notes</a>. Beginning with the 1.3.216 Vulkan SDK, the <code>VK_KHR_PORTABILITY_subset</code>
+extension is mandatory.</p>
+<p>To get over this error, first add the <code>VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR</code> bit
+to <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkInstanceCreateInfo.html"><code>VkInstanceCreateInfo</code></a> struct's flags, then add <code>VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME</code>
+to instance enabled extension list.</p>
+<p>Typically the code could be like this:</p>
+<pre><code class="language-c++">...
+
+std::vector&lt;const char*&gt; requiredExtensions;
+
+for(uint32_t i = 0; i &lt; glfwExtensionCount; i++) {
+    requiredExtensions.emplace_back(glfwExtensions[i]);
+}
+
+requiredExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+
+createInfo.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+
+createInfo.enabledExtensionCount = (uint32_t) requiredExtensions.size();
+createInfo.ppEnabledExtensionNames = requiredExtensions.data();
+
+if (vkCreateInstance(&amp;createInfo, nullptr, &amp;instance) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create instance!&quot;);
+}
+</code></pre>
+<h2 id="page_Checking-for-extension-support">Checking for extension support</h2>
+<p>If you look at the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateInstance.html"><code>vkCreateInstance</code></a> documentation then you'll see that one of
+the possible error codes is <code>VK_ERROR_EXTENSION_NOT_PRESENT</code>. We could simply
+specify the extensions we require and terminate if that error code comes back.
+That makes sense for essential extensions like the window system interface, but
+what if we want to check for optional functionality?</p>
+<p>To retrieve a list of supported extensions before creating an instance, there's
+the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkEnumerateInstanceExtensionProperties.html"><code>vkEnumerateInstanceExtensionProperties</code></a> function. It takes a pointer to a
+variable that stores the number of extensions and an array of
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkExtensionProperties.html"><code>VkExtensionProperties</code></a> to store details of the extensions. It also takes an
+optional first parameter that allows us to filter extensions by a specific
+validation layer, which we'll ignore for now.</p>
+<p>To allocate an array to hold the extension details we first need to know how
+many there are. You can request just the number of extensions by leaving the
+latter parameter empty:</p>
+<pre><code class="language-c++">uint32_t extensionCount = 0;
+vkEnumerateInstanceExtensionProperties(nullptr, &amp;extensionCount, nullptr);
+</code></pre>
+<p>Now allocate an array to hold the extension details (<code>include &lt;vector&gt;</code>):</p>
+<pre><code class="language-c++">std::vector&lt;VkExtensionProperties&gt; extensions(extensionCount);
+</code></pre>
+<p>Finally we can query the extension details:</p>
+<pre><code class="language-c++">vkEnumerateInstanceExtensionProperties(nullptr, &amp;extensionCount, extensions.data());
+</code></pre>
+<p>Each <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkExtensionProperties.html"><code>VkExtensionProperties</code></a> struct contains the name and version of an
+extension. We can list them with a simple for loop (<code>\t</code> is a tab for
+indentation):</p>
+<pre><code class="language-c++">std::cout &lt;&lt; &quot;available extensions:\n&quot;;
+
+for (const auto&amp; extension : extensions) {
+    std::cout &lt;&lt; '\t' &lt;&lt; extension.extensionName &lt;&lt; '\n';
+}
+</code></pre>
+<p>You can add this code to the <code>createInstance</code> function if you'd like to provide
+some details about the Vulkan support. As a challenge, try to create a function
+that checks if all of the extensions returned by
+<code>glfwGetRequiredInstanceExtensions</code> are included in the supported extensions
+list.</p>
+<h2 id="page_Cleaning-up">Cleaning up</h2>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkInstance.html"><code>VkInstance</code></a> should be only destroyed right before the program exits. It can
+be destroyed in <code>cleanup</code> with the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkDestroyInstance.html"><code>vkDestroyInstance</code></a> function:</p>
+<pre><code class="language-c++">void cleanup() {
+    vkDestroyInstance(instance, nullptr);
+
+    glfwDestroyWindow(window);
+
+    glfwTerminate();
+}
+</code></pre>
+<p>The parameters for the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkDestroyInstance.html"><code>vkDestroyInstance</code></a> function are straightforward. As
+mentioned in the previous chapter, the allocation and deallocation functions
+in Vulkan have an optional allocator callback that we'll ignore by passing
+<code>nullptr</code> to it. All of the other Vulkan resources that we'll create in the
+following chapters should be cleaned up before the instance is destroyed.</p>
+<p>Before continuing with the more complex steps after instance creation, it's time
+to evaluate our debugging options by checking out <a href="Validation_layers.html">validation layers</a>.</p>
+<p><a href="../../../code/01_instance_creation.cpp">C++ code</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

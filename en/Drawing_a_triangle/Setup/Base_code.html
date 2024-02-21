@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Base code - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Base code</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_General-structure">General structure</a></p>
+</li>
+<li>
+<p><a href="#page_Resource-management">Resource management</a></p>
+</li>
+<li>
+<p><a href="#page_Integrating-GLFW">Integrating GLFW</a></p>
+</li>
+</ul>
+<h2 id="page_General-structure">General structure</h2>
+<p>In the previous chapter you've created a Vulkan project with all of the proper
+configuration and tested it with the sample code. In this chapter we're starting
+from scratch with the following code:</p>
+<pre><code class="language-c++">#include &lt;vulkan/vulkan.h&gt;
+
+#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;cstdlib&gt;
+
+class HelloTriangleApplication {
+public:
+    void run() {
+        initVulkan();
+        mainLoop();
+        cleanup();
+    }
+
+private:
+    void initVulkan() {
+
+    }
+
+    void mainLoop() {
+
+    }
+
+    void cleanup() {
+
+    }
+};
+
+int main() {
+    HelloTriangleApplication app;
+
+    try {
+        app.run();
+    } catch (const std::exception&amp; e) {
+        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+</code></pre>
+<p>We first include the Vulkan header from the LunarG SDK, which provides the
+functions, structures and enumerations. The <code>stdexcept</code> and <code>iostream</code> headers
+are included for reporting and propagating errors. The <code>cstdlib</code>
+header provides the <code>EXIT_SUCCESS</code> and <code>EXIT_FAILURE</code> macros.</p>
+<p>The program itself is wrapped into a class where we'll store the Vulkan objects
+as private class members and add functions to initiate each of them, which will
+be called from the <code>initVulkan</code> function. Once everything has been prepared, we
+enter the main loop to start rendering frames. We'll fill in the <code>mainLoop</code>
+function to include a loop that iterates until the window is closed in a moment.
+Once the window is closed and <code>mainLoop</code> returns, we'll make sure to deallocate
+the resources we've used in the <code>cleanup</code> function.</p>
+<p>If any kind of fatal error occurs during execution then we'll throw a
+<code>std::runtime_error</code> exception with a descriptive message, which will propagate
+back to the <code>main</code> function and be printed to the command prompt. To handle
+a variety of standard exception types as well, we catch the more general <code>std::exception</code>. One example of an error that we will deal with soon is finding
+out that a certain required extension is not supported.</p>
+<p>Roughly every chapter that follows after this one will add one new function that
+will be called from <code>initVulkan</code> and one or more new Vulkan objects to the
+private class members that need to be freed at the end in <code>cleanup</code>.</p>
+<h2 id="page_Resource-management">Resource management</h2>
+<p>Just like each chunk of memory allocated with <code>malloc</code> requires a call to
+<code>free</code>, every Vulkan object that we create needs to be explicitly destroyed when
+we no longer need it. In C++ it is possible to perform automatic resource
+management using <a href="https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization" class="Link--external">RAII</a>
+or smart pointers provided in the <code>&lt;memory&gt;</code> header. However, I've chosen to be
+explicit about allocation and deallocation of Vulkan objects in this tutorial.
+After all, Vulkan's niche is to be explicit about every operation to avoid
+mistakes, so it's good to be explicit about the lifetime of objects to learn how
+the API works.</p>
+<p>After following this tutorial, you could implement automatic resource management
+by writing C++ classes that acquire Vulkan objects in their constructor and
+release them in their destructor, or by providing a custom deleter to either
+<code>std::unique_ptr</code> or <code>std::shared_ptr</code>, depending on your ownership requirements.
+RAII is the recommended model for larger Vulkan programs, but
+for learning purposes it's always good to know what's going on behind the
+scenes.</p>
+<p>Vulkan objects are either created directly with functions like <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateXXX.html"><code>vkCreateXXX</code></a>, or
+allocated through another object with functions like <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkAllocateXXX.html"><code>vkAllocateXXX</code></a>. After
+making sure that an object is no longer used anywhere, you need to destroy it
+with the counterparts <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkDestroyXXX.html"><code>vkDestroyXXX</code></a> and <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkFreeXXX.html"><code>vkFreeXXX</code></a>. The parameters for these
+functions generally vary for different types of objects, but there is one
+parameter that they all share: <code>pAllocator</code>. This is an optional parameter that
+allows you to specify callbacks for a custom memory allocator. We will ignore
+this parameter in the tutorial and always pass <code>nullptr</code> as argument.</p>
+<h2 id="page_Integrating-GLFW">Integrating GLFW</h2>
+<p>Vulkan works perfectly fine without creating a window if you want to use it for
+off-screen rendering, but it's a lot more exciting to actually show something!
+First replace the <code>#include &lt;vulkan/vulkan.h&gt;</code> line with</p>
+<pre><code class="language-c++">#define GLFW_INCLUDE_VULKAN
+#include &lt;GLFW/glfw3.h&gt;
+</code></pre>
+<p>That way GLFW will include its own definitions and automatically load the Vulkan
+header with it. Add a <code>initWindow</code> function and add a call to it from the <code>run</code>
+function before the other calls. We'll use that function to initialize GLFW and
+create a window.</p>
+<pre><code class="language-c++">void run() {
+    initWindow();
+    initVulkan();
+    mainLoop();
+    cleanup();
+}
+
+private:
+    void initWindow() {
+
+    }
+</code></pre>
+<p>The very first call in <code>initWindow</code> should be <code>glfwInit()</code>, which initializes
+the GLFW library. Because GLFW was originally designed to create an OpenGL
+context, we need to tell it to not create an OpenGL context with a subsequent
+call:</p>
+<pre><code class="language-c++">glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+</code></pre>
+<p>Because handling resized windows takes special care that we'll look into later,
+disable it for now with another window hint call:</p>
+<pre><code class="language-c++">glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+</code></pre>
+<p>All that's left now is creating the actual window. Add a <code>GLFWwindow* window;</code>
+private class member to store a reference to it and initialize the window with:</p>
+<pre><code class="language-c++">window = glfwCreateWindow(800, 600, &quot;Vulkan&quot;, nullptr, nullptr);
+</code></pre>
+<p>The first three parameters specify the width, height and title of the window.
+The fourth parameter allows you to optionally specify a monitor to open the
+window on and the last parameter is only relevant to OpenGL.</p>
+<p>It's a good idea to use constants instead of hardcoded width and height numbers
+because we'll be referring to these values a couple of times in the future. I've
+added the following lines above the <code>HelloTriangleApplication</code> class definition:</p>
+<pre><code class="language-c++">const uint32_t WIDTH = 800;
+const uint32_t HEIGHT = 600;
+</code></pre>
+<p>and replaced the window creation call with</p>
+<pre><code class="language-c++">window = glfwCreateWindow(WIDTH, HEIGHT, &quot;Vulkan&quot;, nullptr, nullptr);
+</code></pre>
+<p>You should now have a <code>initWindow</code> function that looks like this:</p>
+<pre><code class="language-c++">void initWindow() {
+    glfwInit();
+
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+    window = glfwCreateWindow(WIDTH, HEIGHT, &quot;Vulkan&quot;, nullptr, nullptr);
+}
+</code></pre>
+<p>To keep the application running until either an error occurs or the window is
+closed, we need to add an event loop to the <code>mainLoop</code> function as follows:</p>
+<pre><code class="language-c++">void mainLoop() {
+    while (!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+    }
+}
+</code></pre>
+<p>This code should be fairly self-explanatory. It loops and checks for events like
+pressing the X button until the window has been closed by the user. This is also
+the loop where we'll later call a function to render a single frame.</p>
+<p>Once the window is closed, we need to clean up resources by destroying it and
+terminating GLFW itself. This will be our first <code>cleanup</code> code:</p>
+<pre><code class="language-c++">void cleanup() {
+    glfwDestroyWindow(window);
+
+    glfwTerminate();
+}
+</code></pre>
+<p>When you run the program now you should see a window titled <code>Vulkan</code> show up
+until the application is terminated by closing the window. Now that we have the
+skeleton for the Vulkan application, let's <a href="Instance.html">create the first Vulkan object</a>!</p>
+<p><a href="../../../code/00_base_code.cpp">C++ code</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Development_environment.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

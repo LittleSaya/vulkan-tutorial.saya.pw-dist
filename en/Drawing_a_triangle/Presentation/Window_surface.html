@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Window surface - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Window surface</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Window-surface-creation">Window surface creation</a></p>
+</li>
+<li>
+<p><a href="#page_Querying-for-presentation-support">Querying for presentation support</a></p>
+</li>
+<li>
+<p><a href="#page_Creating-the-presentation-queue">Creating the presentation queue</a></p>
+</li>
+</ul>
+<p>Since Vulkan is a platform agnostic API, it can not interface directly with the
+window system on its own. To establish the connection between Vulkan and the
+window system to present results to the screen, we need to use the WSI (Window
+System Integration) extensions. In this chapter we'll discuss the first one,
+which is <code>VK_KHR_surface</code>. It exposes a <code>VkSurfaceKHR</code> object that represents an
+abstract type of surface to present rendered images to. The surface in our
+program will be backed by the window that we've already opened with GLFW.</p>
+<p>The <code>VK_KHR_surface</code> extension is an instance level extension and we've actually
+already enabled it, because it's included in the list returned by
+<code>glfwGetRequiredInstanceExtensions</code>. The list also includes some other WSI
+extensions that we'll use in the next couple of chapters.</p>
+<p>The window surface needs to be created right after the instance creation,
+because it can actually influence the physical device selection. The reason we
+postponed this is because window surfaces are part of the larger topic of
+render targets and presentation for which the explanation would have cluttered
+the basic setup. It should also be noted that window surfaces are an entirely
+optional component in Vulkan, if you just need off-screen rendering. Vulkan
+allows you to do that without hacks like creating an invisible window
+(necessary for OpenGL).</p>
+<h2 id="page_Window-surface-creation">Window surface creation</h2>
+<p>Start by adding a <code>surface</code> class member right below the debug callback.</p>
+<pre><code class="language-c++">VkSurfaceKHR surface;
+</code></pre>
+<p>Although the <code>VkSurfaceKHR</code> object and its usage is platform agnostic, its
+creation isn't because it depends on window system details. For example, it
+needs the <code>HWND</code> and <code>HMODULE</code> handles on Windows. Therefore there is a
+platform-specific addition to the extension, which on Windows is called
+<code>VK_KHR_win32_surface</code> and is also automatically included in the list from
+<code>glfwGetRequiredInstanceExtensions</code>.</p>
+<p>I will demonstrate how this platform specific extension can be used to create a
+surface on Windows, but we won't actually use it in this tutorial. It doesn't
+make any sense to use a library like GLFW and then proceed to use
+platform-specific code anyway. GLFW actually has <code>glfwCreateWindowSurface</code> that
+handles the platform differences for us. Still, it's good to see what it does
+behind the scenes before we start relying on it.</p>
+<p>To access native platform functions, you need to update the includes at the top:</p>
+<pre><code class="language-c++">#define VK_USE_PLATFORM_WIN32_KHR
+#define GLFW_INCLUDE_VULKAN
+#include &lt;GLFW/glfw3.h&gt;
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include &lt;GLFW/glfw3native.h&gt;
+</code></pre>
+<p>Because a window surface is a Vulkan object, it comes with a
+<code>VkWin32SurfaceCreateInfoKHR</code> struct that needs to be filled in. It has two
+important parameters: <code>hwnd</code> and <code>hinstance</code>. These are the handles to the
+window and the process.</p>
+<pre><code class="language-c++">VkWin32SurfaceCreateInfoKHR createInfo{};
+createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+createInfo.hwnd = glfwGetWin32Window(window);
+createInfo.hinstance = GetModuleHandle(nullptr);
+</code></pre>
+<p>The <code>glfwGetWin32Window</code> function is used to get the raw <code>HWND</code> from the GLFW
+window object. The <code>GetModuleHandle</code> call returns the <code>HINSTANCE</code> handle of the
+current process.</p>
+<p>After that the surface can be created with <code>vkCreateWin32SurfaceKHR</code>, which includes a parameter for the instance, surface creation details, custom allocators and the variable for the surface handle to be stored in. Technically this is a WSI extension function, but it is so commonly used that the standard Vulkan loader includes it, so unlike other extensions you don't need to explicitly load it.</p>
+<pre><code class="language-c++">if (vkCreateWin32SurfaceKHR(instance, &amp;createInfo, nullptr, &amp;surface) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create window surface!&quot;);
+}
+</code></pre>
+<p>The process is similar for other platforms like Linux, where
+<code>vkCreateXcbSurfaceKHR</code> takes an XCB connection and window as creation details
+with X11.</p>
+<p>The <code>glfwCreateWindowSurface</code> function performs exactly this operation with a
+different implementation for each platform. We'll now integrate it into our
+program. Add a function <code>createSurface</code> to be called from <code>initVulkan</code> right
+after instance creation and <code>setupDebugMessenger</code>.</p>
+<pre><code class="language-c++">void initVulkan() {
+    createInstance();
+    setupDebugMessenger();
+    createSurface();
+    pickPhysicalDevice();
+    createLogicalDevice();
+}
+
+void createSurface() {
+
+}
+</code></pre>
+<p>The GLFW call takes simple parameters instead of a struct which makes the
+implementation of the function very straightforward:</p>
+<pre><code class="language-c++">void createSurface() {
+    if (glfwCreateWindowSurface(instance, window, nullptr, &amp;surface) != VK_SUCCESS) {
+        throw std::runtime_error(&quot;failed to create window surface!&quot;);
+    }
+}
+</code></pre>
+<p>The parameters are the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkInstance.html"><code>VkInstance</code></a>, GLFW window pointer, custom allocators and
+pointer to <code>VkSurfaceKHR</code> variable. It simply passes through the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkResult.html"><code>VkResult</code></a> from
+the relevant platform call. GLFW doesn't offer a special function for destroying
+a surface, but that can easily be done through the original API:</p>
+<pre><code class="language-c++">void cleanup() {
+        ...
+        vkDestroySurfaceKHR(instance, surface, nullptr);
+        vkDestroyInstance(instance, nullptr);
+        ...
+    }
+</code></pre>
+<p>Make sure that the surface is destroyed before the instance.</p>
+<h2 id="page_Querying-for-presentation-support">Querying for presentation support</h2>
+<p>Although the Vulkan implementation may support window system integration, that
+does not mean that every device in the system supports it. Therefore we need to
+extend <code>isDeviceSuitable</code> to ensure that a device can present images to the
+surface we created. Since the presentation is a queue-specific feature, the
+problem is actually about finding a queue family that supports presenting to the
+surface we created.</p>
+<p>It's actually possible that the queue families supporting drawing commands and
+the ones supporting presentation do not overlap. Therefore we have to take into
+account that there could be a distinct presentation queue by modifying the
+<code>QueueFamilyIndices</code> structure:</p>
+<pre><code class="language-c++">struct QueueFamilyIndices {
+    std::optional&lt;uint32_t&gt; graphicsFamily;
+    std::optional&lt;uint32_t&gt; presentFamily;
+
+    bool isComplete() {
+        return graphicsFamily.has_value() &amp;&amp; presentFamily.has_value();
+    }
+};
+</code></pre>
+<p>Next, we'll modify the <code>findQueueFamilies</code> function to look for a queue family
+that has the capability of presenting to our window surface. The function to
+check for that is <code>vkGetPhysicalDeviceSurfaceSupportKHR</code>, which takes the
+physical device, queue family index and surface as parameters. Add a call to it
+in the same loop as the <code>VK_QUEUE_GRAPHICS_BIT</code>:</p>
+<pre><code class="language-c++">VkBool32 presentSupport = false;
+vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &amp;presentSupport);
+</code></pre>
+<p>Then simply check the value of the boolean and store the presentation family
+queue index:</p>
+<pre><code class="language-c++">if (presentSupport) {
+    indices.presentFamily = i;
+}
+</code></pre>
+<p>Note that it's very likely that these end up being the same queue family after
+all, but throughout the program we will treat them as if they were separate
+queues for a uniform approach. Nevertheless, you could add logic to explicitly
+prefer a physical device that supports drawing and presentation in the same
+queue for improved performance.</p>
+<h2 id="page_Creating-the-presentation-queue">Creating the presentation queue</h2>
+<p>The one thing that remains is modifying the logical device creation procedure to
+create the presentation queue and retrieve the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkQueue.html"><code>VkQueue</code></a> handle. Add a member
+variable for the handle:</p>
+<pre><code class="language-c++">VkQueue presentQueue;
+</code></pre>
+<p>Next, we need to have multiple <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDeviceQueueCreateInfo.html"><code>VkDeviceQueueCreateInfo</code></a> structs to create a
+queue from both families. An elegant way to do that is to create a set of all
+unique queue families that are necessary for the required queues:</p>
+<pre><code class="language-c++">#include &lt;set&gt;
+
+...
+
+QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
+
+std::vector&lt;VkDeviceQueueCreateInfo&gt; queueCreateInfos;
+std::set&lt;uint32_t&gt; uniqueQueueFamilies = {indices.graphicsFamily.value(), indices.presentFamily.value()};
+
+float queuePriority = 1.0f;
+for (uint32_t queueFamily : uniqueQueueFamilies) {
+    VkDeviceQueueCreateInfo queueCreateInfo{};
+    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    queueCreateInfo.queueFamilyIndex = queueFamily;
+    queueCreateInfo.queueCount = 1;
+    queueCreateInfo.pQueuePriorities = &amp;queuePriority;
+    queueCreateInfos.push_back(queueCreateInfo);
+}
+</code></pre>
+<p>And modify <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDeviceCreateInfo.html"><code>VkDeviceCreateInfo</code></a> to point to the vector:</p>
+<pre><code class="language-c++">createInfo.queueCreateInfoCount = static_cast&lt;uint32_t&gt;(queueCreateInfos.size());
+createInfo.pQueueCreateInfos = queueCreateInfos.data();
+</code></pre>
+<p>If the queue families are the same, then we only need to pass its index once.
+Finally, add a call to retrieve the queue handle:</p>
+<pre><code class="language-c++">vkGetDeviceQueue(device, indices.presentFamily.value(), 0, &amp;presentQueue);
+</code></pre>
+<p>In case the queue families are the same, the two handles will most likely have
+the same value now. In the next chapter we're going to look at swap chains and
+how they give us the ability to present images to the surface.</p>
+<p><a href="../../../code/05_window_surface.cpp">C++ code</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

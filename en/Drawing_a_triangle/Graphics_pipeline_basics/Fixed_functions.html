@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Fixed functions - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Fixed functions</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Dynamic-state">Dynamic state</a></p>
+</li>
+<li>
+<p><a href="#page_Vertex-input">Vertex input</a></p>
+</li>
+<li>
+<p><a href="#page_Input-assembly">Input assembly</a></p>
+</li>
+<li>
+<p><a href="#page_Viewports-and-scissors">Viewports and scissors</a></p>
+</li>
+<li>
+<p><a href="#page_Rasterizer">Rasterizer</a></p>
+</li>
+<li>
+<p><a href="#page_Multisampling">Multisampling</a></p>
+</li>
+<li>
+<p><a href="#page_Depth-and-stencil-testing">Depth and stencil testing</a></p>
+</li>
+<li>
+<p><a href="#page_Color-blending">Color blending</a></p>
+</li>
+<li>
+<p><a href="#page_Pipeline-layout">Pipeline layout</a></p>
+</li>
+<li>
+<p><a href="#page_Conclusion">Conclusion</a></p>
+</li>
+</ul>
+<p>The older graphics APIs provided default state for most of the stages of the
+graphics pipeline. In Vulkan you have to be explicit about most pipeline states as
+it'll be baked into an immutable pipeline state object. In this chapter we'll fill
+in all of the structures to configure these fixed-function operations.</p>
+<h2 id="page_Dynamic-state">Dynamic state</h2>
+<p>While <em>most</em> of the pipeline state needs to be baked into the pipeline state,
+a limited amount of the state <em>can</em> actually be changed without recreating the
+pipeline at draw time. Examples are the size of the viewport, line width
+and blend constants. If you want to use dynamic state and keep these properties out,
+then you'll have to fill in a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineDynamicStateCreateInfo.html"><code>VkPipelineDynamicStateCreateInfo</code></a> structure like this:</p>
+<pre><code class="language-c++">std::vector&lt;VkDynamicState&gt; dynamicStates = {
+    VK_DYNAMIC_STATE_VIEWPORT,
+    VK_DYNAMIC_STATE_SCISSOR
+};
+
+VkPipelineDynamicStateCreateInfo dynamicState{};
+dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+dynamicState.dynamicStateCount = static_cast&lt;uint32_t&gt;(dynamicStates.size());
+dynamicState.pDynamicStates = dynamicStates.data();
+</code></pre>
+<p>This will cause the configuration of these values to be ignored and you will be
+able (and required) to specify the data at drawing time. This results in a more flexible
+setup and is very common for things like viewport and scissor state, which would
+result in a more complex setup when being baked into the pipeline state.</p>
+<h2 id="page_Vertex-input">Vertex input</h2>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineVertexInputStateCreateInfo.html"><code>VkPipelineVertexInputStateCreateInfo</code></a> structure describes the format of the
+vertex data that will be passed to the vertex shader. It describes this in
+roughly two ways:</p>
+<ul>
+<li>Bindings: spacing between data and whether the data is per-vertex or
+per-instance (see <a href="https://en.wikipedia.org/wiki/Geometry_instancing" class="Link--external">instancing</a>)</li>
+<li>Attribute descriptions: type of the attributes passed to the vertex shader,
+which binding to load them from and at which offset</li>
+</ul>
+<p>Because we're hard coding the vertex data directly in the vertex shader, we'll
+fill in this structure to specify that there is no vertex data to load for now.
+We'll get back to it in the vertex buffer chapter.</p>
+<pre><code class="language-c++">VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
+vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+vertexInputInfo.vertexBindingDescriptionCount = 0;
+vertexInputInfo.pVertexBindingDescriptions = nullptr; // Optional
+vertexInputInfo.vertexAttributeDescriptionCount = 0;
+vertexInputInfo.pVertexAttributeDescriptions = nullptr; // Optional
+</code></pre>
+<p>The <code>pVertexBindingDescriptions</code> and <code>pVertexAttributeDescriptions</code> members
+point to an array of structs that describe the aforementioned details for
+loading vertex data. Add this structure to the <code>createGraphicsPipeline</code> function
+right after the <code>shaderStages</code> array.</p>
+<h2 id="page_Input-assembly">Input assembly</h2>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineInputAssemblyStateCreateInfo.html"><code>VkPipelineInputAssemblyStateCreateInfo</code></a> struct describes two things: what
+kind of geometry will be drawn from the vertices and if primitive restart should
+be enabled. The former is specified in the <code>topology</code> member and can have values
+like:</p>
+<ul>
+<li>
+<code>VK_PRIMITIVE_TOPOLOGY_POINT_LIST</code>: points from vertices</li>
+<li>
+<code>VK_PRIMITIVE_TOPOLOGY_LINE_LIST</code>: line from every 2 vertices without reuse</li>
+<li>
+<code>VK_PRIMITIVE_TOPOLOGY_LINE_STRIP</code>: the end vertex of every line is used as
+start vertex for the next line</li>
+<li>
+<code>VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST</code>: triangle from every 3 vertices without
+reuse</li>
+<li>
+<code>VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP</code>: the second and third vertex of every
+triangle are used as first two vertices of the next triangle</li>
+</ul>
+<p>Normally, the vertices are loaded from the vertex buffer by index in sequential
+order, but with an <em>element buffer</em> you can specify the indices to use yourself.
+This allows you to perform optimizations like reusing vertices. If you set the
+<code>primitiveRestartEnable</code>  member to <code>VK_TRUE</code>, then it's possible to break up
+lines and triangles in the <code>_STRIP</code> topology modes by using a special index of
+<code>0xFFFF</code> or <code>0xFFFFFFFF</code>.</p>
+<p>We intend to draw triangles throughout this tutorial, so we'll stick to the
+following data for the structure:</p>
+<pre><code class="language-c++">VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
+inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+inputAssembly.primitiveRestartEnable = VK_FALSE;
+</code></pre>
+<h2 id="page_Viewports-and-scissors">Viewports and scissors</h2>
+<p>A viewport basically describes the region of the framebuffer that the output
+will be rendered to. This will almost always be <code>(0, 0)</code> to <code>(width, height)</code>
+and in this tutorial that will also be the case.</p>
+<pre><code class="language-c++">VkViewport viewport{};
+viewport.x = 0.0f;
+viewport.y = 0.0f;
+viewport.width = (float) swapChainExtent.width;
+viewport.height = (float) swapChainExtent.height;
+viewport.minDepth = 0.0f;
+viewport.maxDepth = 1.0f;
+</code></pre>
+<p>Remember that the size of the swap chain and its images may differ from the
+<code>WIDTH</code> and <code>HEIGHT</code> of the window. The swap chain images will be used as
+framebuffers later on, so we should stick to their size.</p>
+<p>The <code>minDepth</code> and <code>maxDepth</code> values specify the range of depth values to use
+for the framebuffer. These values must be within the <code>[0.0f, 1.0f]</code> range, but
+<code>minDepth</code> may be higher than <code>maxDepth</code>. If you aren't doing anything special,
+then you should stick to the standard values of <code>0.0f</code> and <code>1.0f</code>.</p>
+<p>While viewports define the transformation from the image to the framebuffer,
+scissor rectangles define in which regions pixels will actually be stored. Any
+pixels outside the scissor rectangles will be discarded by the rasterizer. They
+function like a filter rather than a transformation. The difference is
+illustrated below. Note that the left scissor rectangle is just one of the many
+possibilities that would result in that image, as long as it's larger than the
+viewport.</p>
+<p><img src="/images/viewports_scissors.png" alt="" /></p>
+<p>So if we wanted to draw to the entire framebuffer, we would specify a scissor rectangle that covers it entirely:</p>
+<pre><code class="language-c++">VkRect2D scissor{};
+scissor.offset = {0, 0};
+scissor.extent = swapChainExtent;
+</code></pre>
+<p>Viewport(s) and scissor rectangle(s) can either be specified as a static part of the pipeline or as a <a href="#dynamic-state">dynamic state</a> set in the command buffer. While the former is more in line with the other states it's often convenient to make viewport and scissor state dynamic as it gives you a lot more flexibility. This is very common and all implementations can handle this dynamic state without a performance penalty.</p>
+<p>When opting for dynamic viewport(s) and scissor rectangle(s) you need to enable the respective dynamic states for the pipeline:</p>
+<pre><code class="language-c++">std::vector&lt;VkDynamicState&gt; dynamicStates = {
+    VK_DYNAMIC_STATE_VIEWPORT,
+    VK_DYNAMIC_STATE_SCISSOR
+};
+
+VkPipelineDynamicStateCreateInfo dynamicState{};
+dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+dynamicState.dynamicStateCount = static_cast&lt;uint32_t&gt;(dynamicStates.size());
+dynamicState.pDynamicStates = dynamicStates.data();
+</code></pre>
+<p>And then you only need to specify their count at pipeline creation time:</p>
+<pre><code class="language-c++">VkPipelineViewportStateCreateInfo viewportState{};
+viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+viewportState.viewportCount = 1;
+viewportState.scissorCount = 1;
+</code></pre>
+<p>The actual viewport(s) and scissor rectangle(s) will then later be set up at drawing time.</p>
+<p>With dynamic state it's even possible to specify different viewports and or scissor rectangles within a single command buffer.</p>
+<p>Without dynamic state, the viewport and scissor rectangle need to be set in the pipeline using the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineViewportStateCreateInfo.html"><code>VkPipelineViewportStateCreateInfo</code></a> struct. This makes the viewport and scissor rectangle for this pipeline immutable.
+Any changes required to these values would require a new pipeline to be created with the new values.</p>
+<pre><code class="language-c++">VkPipelineViewportStateCreateInfo viewportState{};
+viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+viewportState.viewportCount = 1;
+viewportState.pViewports = &amp;viewport;
+viewportState.scissorCount = 1;
+viewportState.pScissors = &amp;scissor;
+</code></pre>
+<p>Independent of how you set them, it's is possible to use multiple viewports and scissor rectangles on some graphics cards, so the structure members reference an array of them. Using multiple requires enabling a GPU feature (see logical device creation).</p>
+<h2 id="page_Rasterizer">Rasterizer</h2>
+<p>The rasterizer takes the geometry that is shaped by the vertices from the vertex
+shader and turns it into fragments to be colored by the fragment shader. It also
+performs <a href="https://en.wikipedia.org/wiki/Z-buffering" class="Link--external">depth testing</a>,
+<a href="https://en.wikipedia.org/wiki/Back-face_culling" class="Link--external">face culling</a> and the scissor
+test, and it can be configured to output fragments that fill entire polygons or
+just the edges (wireframe rendering). All this is configured using the
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineRasterizationStateCreateInfo.html"><code>VkPipelineRasterizationStateCreateInfo</code></a> structure.</p>
+<pre><code class="language-c++">VkPipelineRasterizationStateCreateInfo rasterizer{};
+rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+rasterizer.depthClampEnable = VK_FALSE;
+</code></pre>
+<p>If <code>depthClampEnable</code> is set to <code>VK_TRUE</code>, then fragments that are beyond the
+near and far planes are clamped to them as opposed to discarding them. This is
+useful in some special cases like shadow maps. Using this requires enabling a
+GPU feature.</p>
+<pre><code class="language-c++">rasterizer.rasterizerDiscardEnable = VK_FALSE;
+</code></pre>
+<p>If <code>rasterizerDiscardEnable</code> is set to <code>VK_TRUE</code>, then geometry never passes
+through the rasterizer stage. This basically disables any output to the
+framebuffer.</p>
+<pre><code class="language-c++">rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
+</code></pre>
+<p>The <code>polygonMode</code> determines how fragments are generated for geometry. The
+following modes are available:</p>
+<ul>
+<li>
+<code>VK_POLYGON_MODE_FILL</code>: fill the area of the polygon with fragments</li>
+<li>
+<code>VK_POLYGON_MODE_LINE</code>: polygon edges are drawn as lines</li>
+<li>
+<code>VK_POLYGON_MODE_POINT</code>: polygon vertices are drawn as points</li>
+</ul>
+<p>Using any mode other than fill requires enabling a GPU feature.</p>
+<pre><code class="language-c++">rasterizer.lineWidth = 1.0f;
+</code></pre>
+<p>The <code>lineWidth</code> member is straightforward, it describes the thickness of lines
+in terms of number of fragments. The maximum line width that is supported
+depends on the hardware and any line thicker than <code>1.0f</code> requires you to enable
+the <code>wideLines</code> GPU feature.</p>
+<pre><code class="language-c++">rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
+rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
+</code></pre>
+<p>The <code>cullMode</code> variable determines the type of face culling to use. You can
+disable culling, cull the front faces, cull the back faces or both. The
+<code>frontFace</code> variable specifies the vertex order for faces to be considered
+front-facing and can be clockwise or counterclockwise.</p>
+<pre><code class="language-c++">rasterizer.depthBiasEnable = VK_FALSE;
+rasterizer.depthBiasConstantFactor = 0.0f; // Optional
+rasterizer.depthBiasClamp = 0.0f; // Optional
+rasterizer.depthBiasSlopeFactor = 0.0f; // Optional
+</code></pre>
+<p>The rasterizer can alter the depth values by adding a constant value or biasing
+them based on a fragment's slope. This is sometimes used for shadow mapping, but
+we won't be using it. Just set <code>depthBiasEnable</code> to <code>VK_FALSE</code>.</p>
+<h2 id="page_Multisampling">Multisampling</h2>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineMultisampleStateCreateInfo.html"><code>VkPipelineMultisampleStateCreateInfo</code></a> struct configures multisampling,
+which is one of the ways to perform <a href="https://en.wikipedia.org/wiki/Multisample_anti-aliasing" class="Link--external">anti-aliasing</a>.
+It works by combining the fragment shader results of multiple polygons that
+rasterize to the same pixel. This mainly occurs along edges, which is also where
+the most noticeable aliasing artifacts occur. Because it doesn't need to run the
+fragment shader multiple times if only one polygon maps to a pixel, it is
+significantly less expensive than simply rendering to a higher resolution and
+then downscaling. Enabling it requires enabling a GPU feature.</p>
+<pre><code class="language-c++">VkPipelineMultisampleStateCreateInfo multisampling{};
+multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+multisampling.sampleShadingEnable = VK_FALSE;
+multisampling.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+multisampling.minSampleShading = 1.0f; // Optional
+multisampling.pSampleMask = nullptr; // Optional
+multisampling.alphaToCoverageEnable = VK_FALSE; // Optional
+multisampling.alphaToOneEnable = VK_FALSE; // Optional
+</code></pre>
+<p>We'll revisit multisampling in later chapter, for now let's keep it disabled.</p>
+<h2 id="page_Depth-and-stencil-testing">Depth and stencil testing</h2>
+<p>If you are using a depth and/or stencil buffer, then you also need to configure
+the depth and stencil tests using <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineDepthStencilStateCreateInfo.html"><code>VkPipelineDepthStencilStateCreateInfo</code></a>. We
+don't have one right now, so we can simply pass a <code>nullptr</code> instead of a pointer
+to such a struct. We'll get back to it in the depth buffering chapter.</p>
+<h2 id="page_Color-blending">Color blending</h2>
+<p>After a fragment shader has returned a color, it needs to be combined with the
+color that is already in the framebuffer. This transformation is known as color
+blending and there are two ways to do it:</p>
+<ul>
+<li>Mix the old and new value to produce a final color</li>
+<li>Combine the old and new value using a bitwise operation</li>
+</ul>
+<p>There are two types of structs to configure color blending. The first struct,
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineColorBlendAttachmentState.html"><code>VkPipelineColorBlendAttachmentState</code></a> contains the configuration per attached
+framebuffer and the second struct, <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineColorBlendStateCreateInfo.html"><code>VkPipelineColorBlendStateCreateInfo</code></a>
+contains the <em>global</em> color blending settings. In our case we only have one
+framebuffer:</p>
+<pre><code class="language-c++">VkPipelineColorBlendAttachmentState colorBlendAttachment{};
+colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+colorBlendAttachment.blendEnable = VK_FALSE;
+colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE; // Optional
+colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO; // Optional
+colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD; // Optional
+colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE; // Optional
+colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO; // Optional
+colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD; // Optional
+</code></pre>
+<p>This per-framebuffer struct allows you to configure the first way of color
+blending. The operations that will be performed are best demonstrated using the
+following pseudocode:</p>
+<pre><code class="language-c++">if (blendEnable) {
+    finalColor.rgb = (srcColorBlendFactor * newColor.rgb) &lt;colorBlendOp&gt; (dstColorBlendFactor * oldColor.rgb);
+    finalColor.a = (srcAlphaBlendFactor * newColor.a) &lt;alphaBlendOp&gt; (dstAlphaBlendFactor * oldColor.a);
+} else {
+    finalColor = newColor;
+}
+
+finalColor = finalColor &amp; colorWriteMask;
+</code></pre>
+<p>If <code>blendEnable</code> is set to <code>VK_FALSE</code>, then the new color from the fragment
+shader is passed through unmodified. Otherwise, the two mixing operations are
+performed to compute a new color. The resulting color is AND'd with the
+<code>colorWriteMask</code> to determine which channels are actually passed through.</p>
+<p>The most common way to use color blending is to implement alpha blending, where
+we want the new color to be blended with the old color based on its opacity. The
+<code>finalColor</code> should then be computed as follows:</p>
+<pre><code class="language-c++">finalColor.rgb = newAlpha * newColor + (1 - newAlpha) * oldColor;
+finalColor.a = newAlpha.a;
+</code></pre>
+<p>This can be accomplished with the following parameters:</p>
+<pre><code class="language-c++">colorBlendAttachment.blendEnable = VK_TRUE;
+colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+</code></pre>
+<p>You can find all of the possible operations in the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkBlendFactor.html"><code>VkBlendFactor</code></a> and
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkBlendOp.html"><code>VkBlendOp</code></a> enumerations in the specification.</p>
+<p>The second structure references the array of structures for all of the
+framebuffers and allows you to set blend constants that you can use as blend
+factors in the aforementioned calculations.</p>
+<pre><code class="language-c++">VkPipelineColorBlendStateCreateInfo colorBlending{};
+colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+colorBlending.logicOpEnable = VK_FALSE;
+colorBlending.logicOp = VK_LOGIC_OP_COPY; // Optional
+colorBlending.attachmentCount = 1;
+colorBlending.pAttachments = &amp;colorBlendAttachment;
+colorBlending.blendConstants[0] = 0.0f; // Optional
+colorBlending.blendConstants[1] = 0.0f; // Optional
+colorBlending.blendConstants[2] = 0.0f; // Optional
+colorBlending.blendConstants[3] = 0.0f; // Optional
+</code></pre>
+<p>If you want to use the second method of blending (bitwise combination), then you
+should set <code>logicOpEnable</code> to <code>VK_TRUE</code>. The bitwise operation can then be
+specified in the <code>logicOp</code> field. Note that this will automatically disable the
+first method, as if you had set <code>blendEnable</code> to <code>VK_FALSE</code> for every
+attached framebuffer! The <code>colorWriteMask</code> will also be used in this mode to
+determine which channels in the framebuffer will actually be affected. It is
+also possible to disable both modes, as we've done here, in which case the
+fragment colors will be written to the framebuffer unmodified.</p>
+<h2 id="page_Pipeline-layout">Pipeline layout</h2>
+<p>You can use <code>uniform</code> values in shaders, which are globals similar to dynamic
+state variables that can be changed at drawing time to alter the behavior of
+your shaders without having to recreate them. They are commonly used to pass the
+transformation matrix to the vertex shader, or to create texture samplers in the
+fragment shader.</p>
+<p>These uniform values need to be specified during pipeline creation by creating a
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineLayout.html"><code>VkPipelineLayout</code></a> object. Even though we won't be using them until a future
+chapter, we are still required to create an empty pipeline layout.</p>
+<p>Create a class member to hold this object, because we'll refer to it from other
+functions at a later point in time:</p>
+<pre><code class="language-c++">VkPipelineLayout pipelineLayout;
+</code></pre>
+<p>And then create the object in the <code>createGraphicsPipeline</code> function:</p>
+<pre><code class="language-c++">VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
+pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+pipelineLayoutInfo.setLayoutCount = 0; // Optional
+pipelineLayoutInfo.pSetLayouts = nullptr; // Optional
+pipelineLayoutInfo.pushConstantRangeCount = 0; // Optional
+pipelineLayoutInfo.pPushConstantRanges = nullptr; // Optional
+
+if (vkCreatePipelineLayout(device, &amp;pipelineLayoutInfo, nullptr, &amp;pipelineLayout) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create pipeline layout!&quot;);
+}
+</code></pre>
+<p>The structure also specifies <em>push constants</em>, which are another way of passing
+dynamic values to shaders that we may get into in a future chapter. The pipeline
+layout will be referenced throughout the program's lifetime, so it should be
+destroyed at the end:</p>
+<pre><code class="language-c++">void cleanup() {
+    vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
+    ...
+}
+</code></pre>
+<h2 id="page_Conclusion">Conclusion</h2>
+<p>That's it for all of the fixed-function state! It's a lot of work to set all of
+this up from scratch, but the advantage is that we're now nearly fully aware of
+everything that is going on in the graphics pipeline! This reduces the chance of
+running into unexpected behavior because the default state of certain components
+is not what you expect.</p>
+<p>There is however one more object to create before we can finally create the
+graphics pipeline and that is a <a href="Render_passes.html">render pass</a>.</p>
+<p><a href="../../../code/10_fixed_functions.cpp">C++ code</a> /
+<a href="../../../code/09_shader_base.vert">Vertex shader</a> /
+<a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

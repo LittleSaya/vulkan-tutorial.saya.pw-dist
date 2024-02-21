@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Descriptor pool and sets - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../en/Development_environment.html">Development environment</a></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item Nav__item--active'><a href="../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Descriptor pool and sets</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Introduction">Introduction</a></p>
+</li>
+<li>
+<p><a href="#page_Descriptor-pool">Descriptor pool</a></p>
+</li>
+<li>
+<p><a href="#page_Descriptor-set">Descriptor set</a></p>
+</li>
+<li>
+<p><a href="#page_Using-descriptor-sets">Using descriptor sets</a></p>
+</li>
+<li>
+<p><a href="#page_Alignment-requirements">Alignment requirements</a></p>
+</li>
+<li>
+<p><a href="#page_Multiple-descriptor-sets">Multiple descriptor sets</a></p>
+</li>
+</ul>
+<h2 id="page_Introduction">Introduction</h2>
+<p>The descriptor set layout from the previous chapter describes the type of
+descriptors that can be bound. In this chapter we're going to create
+a descriptor set for each <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkBuffer.html"><code>VkBuffer</code></a> resource to bind it to the
+uniform buffer descriptor.</p>
+<h2 id="page_Descriptor-pool">Descriptor pool</h2>
+<p>Descriptor sets can't be created directly, they must be allocated from a pool
+like command buffers. The equivalent for descriptor sets is unsurprisingly
+called a <em>descriptor pool</em>. We'll write a new function <code>createDescriptorPool</code>
+to set it up.</p>
+<pre><code class="language-c++">void initVulkan() {
+    ...
+    createUniformBuffers();
+    createDescriptorPool();
+    ...
+}
+
+...
+
+void createDescriptorPool() {
+
+}
+</code></pre>
+<p>We first need to describe which descriptor types our descriptor sets are going
+to contain and how many of them, using <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDescriptorPoolSize.html"><code>VkDescriptorPoolSize</code></a> structures.</p>
+<pre><code class="language-c++">VkDescriptorPoolSize poolSize{};
+poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+poolSize.descriptorCount = static_cast&lt;uint32_t&gt;(MAX_FRAMES_IN_FLIGHT);
+</code></pre>
+<p>We will allocate one of these descriptors for every frame. This
+pool size structure is referenced by the main <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDescriptorPoolCreateInfo.html"><code>VkDescriptorPoolCreateInfo</code></a>:</p>
+<pre><code class="language-c++">VkDescriptorPoolCreateInfo poolInfo{};
+poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+poolInfo.poolSizeCount = 1;
+poolInfo.pPoolSizes = &amp;poolSize;
+</code></pre>
+<p>Aside from the maximum number of individual descriptors that are available, we
+also need to specify the maximum number of descriptor sets that may be
+allocated:</p>
+<pre><code class="language-c++">poolInfo.maxSets = static_cast&lt;uint32_t&gt;(MAX_FRAMES_IN_FLIGHT);
+</code></pre>
+<p>The structure has an optional flag similar to command pools that determines if
+individual descriptor sets can be freed or not:
+<code>VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT</code>. We're not going to touch
+the descriptor set after creating it, so we don't need this flag. You can leave
+<code>flags</code> to its default value of <code>0</code>.</p>
+<pre><code class="language-c++">VkDescriptorPool descriptorPool;
+
+...
+
+if (vkCreateDescriptorPool(device, &amp;poolInfo, nullptr, &amp;descriptorPool) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create descriptor pool!&quot;);
+}
+</code></pre>
+<p>Add a new class member to store the handle of the descriptor pool and call
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateDescriptorPool.html"><code>vkCreateDescriptorPool</code></a> to create it.</p>
+<h2 id="page_Descriptor-set">Descriptor set</h2>
+<p>We can now allocate the descriptor sets themselves. Add a <code>createDescriptorSets</code>
+function for that purpose:</p>
+<pre><code class="language-c++">void initVulkan() {
+    ...
+    createDescriptorPool();
+    createDescriptorSets();
+    ...
+}
+
+...
+
+void createDescriptorSets() {
+
+}
+</code></pre>
+<p>A descriptor set allocation is described with a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDescriptorSetAllocateInfo.html"><code>VkDescriptorSetAllocateInfo</code></a>
+struct. You need to specify the descriptor pool to allocate from, the number of
+descriptor sets to allocate, and the descriptor set layout to base them on:</p>
+<pre><code class="language-c++">std::vector&lt;VkDescriptorSetLayout&gt; layouts(MAX_FRAMES_IN_FLIGHT, descriptorSetLayout);
+VkDescriptorSetAllocateInfo allocInfo{};
+allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+allocInfo.descriptorPool = descriptorPool;
+allocInfo.descriptorSetCount = static_cast&lt;uint32_t&gt;(MAX_FRAMES_IN_FLIGHT);
+allocInfo.pSetLayouts = layouts.data();
+</code></pre>
+<p>In our case we will create one descriptor set for each frame in flight, all with the same layout.
+Unfortunately we do need all the copies of the layout because the next function expects an array matching the number of sets.</p>
+<p>Add a class member to hold the descriptor set handles and allocate them with
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkAllocateDescriptorSets.html"><code>vkAllocateDescriptorSets</code></a>:</p>
+<pre><code class="language-c++">VkDescriptorPool descriptorPool;
+std::vector&lt;VkDescriptorSet&gt; descriptorSets;
+
+...
+
+descriptorSets.resize(MAX_FRAMES_IN_FLIGHT);
+if (vkAllocateDescriptorSets(device, &amp;allocInfo, descriptorSets.data()) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to allocate descriptor sets!&quot;);
+}
+</code></pre>
+<p>You don't need to explicitly clean up descriptor sets, because they will be
+automatically freed when the descriptor pool is destroyed. The call to
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkAllocateDescriptorSets.html"><code>vkAllocateDescriptorSets</code></a> will allocate descriptor sets, each with one uniform
+buffer descriptor.</p>
+<pre><code class="language-c++">void cleanup() {
+    ...
+    vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+
+    vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
+    ...
+}
+</code></pre>
+<p>The descriptor sets have been allocated now, but the descriptors within still need
+to be configured. We'll now add a loop to populate every descriptor:</p>
+<pre><code class="language-c++">for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
+
+}
+</code></pre>
+<p>Descriptors that refer to buffers, like our uniform buffer
+descriptor, are configured with a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDescriptorBufferInfo.html"><code>VkDescriptorBufferInfo</code></a> struct. This
+structure specifies the buffer and the region within it that contains the data
+for the descriptor.</p>
+<pre><code class="language-c++">for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
+    VkDescriptorBufferInfo bufferInfo{};
+    bufferInfo.buffer = uniformBuffers[i];
+    bufferInfo.offset = 0;
+    bufferInfo.range = sizeof(UniformBufferObject);
+}
+</code></pre>
+<p>If you're overwriting the whole buffer, like we are in this case, then it is also possible to use the <code>VK_WHOLE_SIZE</code> value for the range. The configuration of descriptors is updated using the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkUpdateDescriptorSets.html"><code>vkUpdateDescriptorSets</code></a>
+function, which takes an array of <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkWriteDescriptorSet.html"><code>VkWriteDescriptorSet</code></a> structs as parameter.</p>
+<pre><code class="language-c++">VkWriteDescriptorSet descriptorWrite{};
+descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+descriptorWrite.dstSet = descriptorSets[i];
+descriptorWrite.dstBinding = 0;
+descriptorWrite.dstArrayElement = 0;
+</code></pre>
+<p>The first two fields specify the descriptor set to update and the binding. We
+gave our uniform buffer binding index <code>0</code>. Remember that descriptors can be
+arrays, so we also need to specify the first index in the array that we want to
+update. We're not using an array, so the index is simply <code>0</code>.</p>
+<pre><code class="language-c++">descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+descriptorWrite.descriptorCount = 1;
+</code></pre>
+<p>We need to specify the type of descriptor again. It's possible to update
+multiple descriptors at once in an array, starting at index <code>dstArrayElement</code>.
+The <code>descriptorCount</code> field specifies how many array elements you want to
+update.</p>
+<pre><code class="language-c++">descriptorWrite.pBufferInfo = &amp;bufferInfo;
+descriptorWrite.pImageInfo = nullptr; // Optional
+descriptorWrite.pTexelBufferView = nullptr; // Optional
+</code></pre>
+<p>The last field references an array with <code>descriptorCount</code> structs that actually
+configure the descriptors. It depends on the type of descriptor which one of the
+three you actually need to use. The <code>pBufferInfo</code> field is used for descriptors
+that refer to buffer data, <code>pImageInfo</code> is used for descriptors that refer to
+image data, and <code>pTexelBufferView</code> is used for descriptors that refer to buffer
+views. Our descriptor is based on buffers, so we're using <code>pBufferInfo</code>.</p>
+<pre><code class="language-c++">vkUpdateDescriptorSets(device, 1, &amp;descriptorWrite, 0, nullptr);
+</code></pre>
+<p>The updates are applied using <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkUpdateDescriptorSets.html"><code>vkUpdateDescriptorSets</code></a>. It accepts two kinds of
+arrays as parameters: an array of <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkWriteDescriptorSet.html"><code>VkWriteDescriptorSet</code></a> and an array of
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCopyDescriptorSet.html"><code>VkCopyDescriptorSet</code></a>. The latter can be used to copy descriptors to each other,
+as its name implies.</p>
+<h2 id="page_Using-descriptor-sets">Using descriptor sets</h2>
+<p>We now need to update the <code>recordCommandBuffer</code> function to actually bind the
+right descriptor set for each frame to the descriptors in the shader with <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdBindDescriptorSets.html"><code>vkCmdBindDescriptorSets</code></a>. This needs to be done before the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdDrawIndexed.html"><code>vkCmdDrawIndexed</code></a> call:</p>
+<pre><code class="language-c++">vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &amp;descriptorSets[currentFrame], 0, nullptr);
+vkCmdDrawIndexed(commandBuffer, static_cast&lt;uint32_t&gt;(indices.size()), 1, 0, 0, 0);
+</code></pre>
+<p>Unlike vertex and index buffers, descriptor sets are not unique to graphics
+pipelines. Therefore we need to specify if we want to bind descriptor sets to
+the graphics or compute pipeline. The next parameter is the layout that the
+descriptors are based on. The next three parameters specify the index of the
+first descriptor set, the number of sets to bind, and the array of sets to bind.
+We'll get back to this in a moment. The last two parameters specify an array of
+offsets that are used for dynamic descriptors. We'll look at these in a future
+chapter.</p>
+<p>If you run your program now, then you'll notice that unfortunately nothing is
+visible. The problem is that because of the Y-flip we did in the projection
+matrix, the vertices are now being drawn in counter-clockwise order instead of
+clockwise order. This causes backface culling to kick in and prevents
+any geometry from being drawn. Go to the <code>createGraphicsPipeline</code> function and
+modify the <code>frontFace</code> in <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineRasterizationStateCreateInfo.html"><code>VkPipelineRasterizationStateCreateInfo</code></a> to correct
+this:</p>
+<pre><code class="language-c++">rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
+rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+</code></pre>
+<p>Run your program again and you should now see the following:</p>
+<p><img src="/images/spinning_quad.png" alt="" /></p>
+<p>The rectangle has changed into a square because the projection matrix now
+corrects for aspect ratio. The <code>updateUniformBuffer</code> takes care of screen
+resizing, so we don't need to recreate the descriptor set in
+<code>recreateSwapChain</code>.</p>
+<h2 id="page_Alignment-requirements">Alignment requirements</h2>
+<p>One thing we've glossed over so far is how exactly the data in the C++ structure should match with the uniform definition in the shader. It seems obvious enough to simply use the same types in both:</p>
+<pre><code class="language-c++">struct UniformBufferObject {
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 proj;
+};
+
+layout(binding = 0) uniform UniformBufferObject {
+    mat4 model;
+    mat4 view;
+    mat4 proj;
+} ubo;
+</code></pre>
+<p>However, that's not all there is to it. For example, try modifying the struct and shader to look like this:</p>
+<pre><code class="language-c++">struct UniformBufferObject {
+    glm::vec2 foo;
+    glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 proj;
+};
+
+layout(binding = 0) uniform UniformBufferObject {
+    vec2 foo;
+    mat4 model;
+    mat4 view;
+    mat4 proj;
+} ubo;
+</code></pre>
+<p>Recompile your shader and your program and run it and you'll find that the colorful square you worked so far has disappeared! That's because we haven't taken into account the <em>alignment requirements</em>.</p>
+<p>Vulkan expects the data in your structure to be aligned in memory in a specific way, for example:</p>
+<ul>
+<li>Scalars have to be aligned by N (= 4 bytes given 32 bit floats).</li>
+<li>A <code>vec2</code> must be aligned by 2N (= 8 bytes)</li>
+<li>A <code>vec3</code> or <code>vec4</code> must be aligned by 4N (= 16 bytes)</li>
+<li>A nested structure must be aligned by the base alignment of its members rounded up to a multiple of 16.</li>
+<li>A <code>mat4</code> matrix must have the same alignment as a <code>vec4</code>.</li>
+</ul>
+<p>You can find the full list of alignment requirements in <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap15.html#interfaces-resources-layout" class="Link--external">the specification</a>.</p>
+<p>Our original shader with just three <code>mat4</code> fields already met the alignment requirements. As each <code>mat4</code> is 4 x 4 x 4 = 64 bytes in size, <code>model</code> has an offset of <code>0</code>, <code>view</code> has an offset of 64 and <code>proj</code> has an offset of 128. All of these are multiples of 16 and that's why it worked fine.</p>
+<p>The new structure starts with a <code>vec2</code> which is only 8 bytes in size and therefore throws off all of the offsets. Now <code>model</code> has an offset of <code>8</code>, <code>view</code> an offset of <code>72</code> and <code>proj</code> an offset of <code>136</code>, none of which are multiples of 16. To fix this problem we can use the <a href="https://en.cppreference.com/w/cpp/language/alignas" class="Link--external"><code>alignas</code></a> specifier introduced in C++11:</p>
+<pre><code class="language-c++">struct UniformBufferObject {
+    glm::vec2 foo;
+    alignas(16) glm::mat4 model;
+    glm::mat4 view;
+    glm::mat4 proj;
+};
+</code></pre>
+<p>If you now compile and run your program again you should see that the shader correctly receives its matrix values once again.</p>
+<p>Luckily there is a way to not have to think about these alignment requirements <em>most</em> of the time. We can define <code>GLM_FORCE_DEFAULT_ALIGNED_GENTYPES</code> right before including GLM:</p>
+<pre><code class="language-c++">#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEFAULT_ALIGNED_GENTYPES
+#include &lt;glm/glm.hpp&gt;
+</code></pre>
+<p>This will force GLM to use a version of <code>vec2</code> and <code>mat4</code> that has the alignment requirements already specified for us. If you add this definition then you can remove the <code>alignas</code> specifier and your program should still work.</p>
+<p>Unfortunately this method can break down if you start using nested structures. Consider the following definition in the C++ code:</p>
+<pre><code class="language-c++">struct Foo {
+    glm::vec2 v;
+};
+
+struct UniformBufferObject {
+    Foo f1;
+    Foo f2;
+};
+</code></pre>
+<p>And the following shader definition:</p>
+<pre><code class="language-c++">struct Foo {
+    vec2 v;
+};
+
+layout(binding = 0) uniform UniformBufferObject {
+    Foo f1;
+    Foo f2;
+} ubo;
+</code></pre>
+<p>In this case <code>f2</code> will have an offset of <code>8</code> whereas it should have an offset of <code>16</code> since it is a nested structure. In this case you must specify the alignment yourself:</p>
+<pre><code class="language-c++">struct UniformBufferObject {
+    Foo f1;
+    alignas(16) Foo f2;
+};
+</code></pre>
+<p>These gotchas are a good reason to always be explicit about alignment. That way you won't be caught offguard by the strange symptoms of alignment errors.</p>
+<pre><code class="language-c++">struct UniformBufferObject {
+    alignas(16) glm::mat4 model;
+    alignas(16) glm::mat4 view;
+    alignas(16) glm::mat4 proj;
+};
+</code></pre>
+<p>Don't forget to recompile your shader after removing the <code>foo</code> field.</p>
+<h2 id="page_Multiple-descriptor-sets">Multiple descriptor sets</h2>
+<p>As some of the structures and function calls hinted at, it is actually possible
+to bind multiple descriptor sets simultaneously. You need to specify a descriptor set layout for
+each descriptor set when creating the pipeline layout. Shaders can then
+reference specific descriptor sets like this:</p>
+<pre><code class="language-c++">layout(set = 0, binding = 0) uniform UniformBufferObject { ... }
+</code></pre>
+<p>You can use this feature to put descriptors that vary per-object and descriptors
+that are shared into separate descriptor sets. In that case you avoid rebinding
+most of the descriptors across draw calls which is potentially more efficient.</p>
+<p><a href="../../code/23_descriptor_sets.cpp">C++ code</a> /
+<a href="../../code/22_shader_ubo.vert">Vertex shader</a> /
+<a href="../../code/22_shader_ubo.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Previous</a></li>            <li><a href="../../en/Texture_mapping/Images.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

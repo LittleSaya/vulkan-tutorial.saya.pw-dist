@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Conclusion - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Conclusion</h1>
+        </div>
+    
+    <p>We can now combine all of the structures and objects from the previous chapters
+to create the graphics pipeline! Here's the types of objects we have now, as a
+quick recap:</p>
+<ul>
+<li>Shader stages: the shader modules that define the functionality of the
+programmable stages of the graphics pipeline</li>
+<li>Fixed-function state: all of the structures that define the fixed-function
+stages of the pipeline, like input assembly, rasterizer, viewport and color
+blending</li>
+<li>Pipeline layout: the uniform and push values referenced by the shader that can
+be updated at draw time</li>
+<li>Render pass: the attachments referenced by the pipeline stages and their usage</li>
+</ul>
+<p>All of these combined fully define the functionality of the graphics pipeline,
+so we can now begin filling in the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkGraphicsPipelineCreateInfo.html"><code>VkGraphicsPipelineCreateInfo</code></a> structure at
+the end of the <code>createGraphicsPipeline</code> function. But before the calls to
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkDestroyShaderModule.html"><code>vkDestroyShaderModule</code></a> because these are still to be used during the creation.</p>
+<pre><code class="language-c++">VkGraphicsPipelineCreateInfo pipelineInfo{};
+pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+pipelineInfo.stageCount = 2;
+pipelineInfo.pStages = shaderStages;
+</code></pre>
+<p>We start by referencing the array of <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineShaderStageCreateInfo.html"><code>VkPipelineShaderStageCreateInfo</code></a> structs.</p>
+<pre><code class="language-c++">pipelineInfo.pVertexInputState = &amp;vertexInputInfo;
+pipelineInfo.pInputAssemblyState = &amp;inputAssembly;
+pipelineInfo.pViewportState = &amp;viewportState;
+pipelineInfo.pRasterizationState = &amp;rasterizer;
+pipelineInfo.pMultisampleState = &amp;multisampling;
+pipelineInfo.pDepthStencilState = nullptr; // Optional
+pipelineInfo.pColorBlendState = &amp;colorBlending;
+pipelineInfo.pDynamicState = &amp;dynamicState;
+</code></pre>
+<p>Then we reference all of the structures describing the fixed-function stage.</p>
+<pre><code class="language-c++">pipelineInfo.layout = pipelineLayout;
+</code></pre>
+<p>After that comes the pipeline layout, which is a Vulkan handle rather than a
+struct pointer.</p>
+<pre><code class="language-c++">pipelineInfo.renderPass = renderPass;
+pipelineInfo.subpass = 0;
+</code></pre>
+<p>And finally we have the reference to the render pass and the index of the sub
+pass where this graphics pipeline will be used. It is also possible to use other
+render passes with this pipeline instead of this specific instance, but they
+have to be <em>compatible</em> with <code>renderPass</code>. The requirements for compatibility
+are described <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap8.html#renderpass-compatibility" class="Link--external">here</a>,
+but we won't be using that feature in this tutorial.</p>
+<pre><code class="language-c++">pipelineInfo.basePipelineHandle = VK_NULL_HANDLE; // Optional
+pipelineInfo.basePipelineIndex = -1; // Optional
+</code></pre>
+<p>There are actually two more parameters: <code>basePipelineHandle</code> and
+<code>basePipelineIndex</code>. Vulkan allows you to create a new graphics pipeline by
+deriving from an existing pipeline. The idea of pipeline derivatives is that it
+is less expensive to set up pipelines when they have much functionality in
+common with an existing pipeline and switching between pipelines from the same
+parent can also be done quicker. You can either specify the handle of an
+existing pipeline with <code>basePipelineHandle</code> or reference another pipeline that
+is about to be created by index with <code>basePipelineIndex</code>. Right now there is
+only a single pipeline, so we'll simply specify a null handle and an invalid
+index. These values are only used if the <code>VK_PIPELINE_CREATE_DERIVATIVE_BIT</code>
+flag is also specified in the <code>flags</code> field of <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkGraphicsPipelineCreateInfo.html"><code>VkGraphicsPipelineCreateInfo</code></a>.</p>
+<p>Now prepare for the final step by creating a class member to hold the
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipeline.html"><code>VkPipeline</code></a> object:</p>
+<pre><code class="language-c++">VkPipeline graphicsPipeline;
+</code></pre>
+<p>And finally create the graphics pipeline:</p>
+<pre><code class="language-c++">if (vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, &amp;pipelineInfo, nullptr, &amp;graphicsPipeline) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create graphics pipeline!&quot;);
+}
+</code></pre>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateGraphicsPipelines.html"><code>vkCreateGraphicsPipelines</code></a> function actually has more parameters than the
+usual object creation functions in Vulkan. It is designed to take multiple
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkGraphicsPipelineCreateInfo.html"><code>VkGraphicsPipelineCreateInfo</code></a> objects and create multiple <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipeline.html"><code>VkPipeline</code></a> objects
+in a single call.</p>
+<p>The second parameter, for which we've passed the <code>VK_NULL_HANDLE</code> argument,
+references an optional <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipelineCache.html"><code>VkPipelineCache</code></a> object. A pipeline cache can be used to
+store and reuse data relevant to pipeline creation across multiple calls to
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateGraphicsPipelines.html"><code>vkCreateGraphicsPipelines</code></a> and even across program executions if the cache is
+stored to a file. This makes it possible to significantly speed up pipeline
+creation at a later time. We'll get into this in the pipeline cache chapter.</p>
+<p>The graphics pipeline is required for all common drawing operations, so it
+should also only be destroyed at the end of the program:</p>
+<pre><code class="language-c++">void cleanup() {
+    vkDestroyPipeline(device, graphicsPipeline, nullptr);
+    vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
+    ...
+}
+</code></pre>
+<p>Now run your program to confirm that all this hard work has resulted in a
+successful pipeline creation! We are already getting quite close to seeing
+something pop up on the screen. In the next couple of chapters we'll set up the
+actual framebuffers from the swap chain images and prepare the drawing commands.</p>
+<p><a href="../../../code/12_graphics_pipeline_complete.cpp">C++ code</a> /
+<a href="../../../code/09_shader_base.vert">Vertex shader</a> /
+<a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

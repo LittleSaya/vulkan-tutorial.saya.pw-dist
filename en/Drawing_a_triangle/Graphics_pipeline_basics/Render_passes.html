@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Render passes - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Render passes</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Setup">Setup</a></p>
+</li>
+<li>
+<p><a href="#page_Attachment-description">Attachment description</a></p>
+</li>
+<li>
+<p><a href="#page_Subpasses-and-attachment-references">Subpasses and attachment references</a></p>
+</li>
+<li>
+<p><a href="#page_Render-pass">Render pass</a></p>
+</li>
+</ul>
+<h2 id="page_Setup">Setup</h2>
+<p>Before we can finish creating the pipeline, we need to tell Vulkan about the
+framebuffer attachments that will be used while rendering. We need to specify
+how many color and depth buffers there will be, how many samples to use for each
+of them and how their contents should be handled throughout the rendering
+operations. All of this information is wrapped in a <em>render pass</em> object, for
+which we'll create a new <code>createRenderPass</code> function. Call this function from
+<code>initVulkan</code> before <code>createGraphicsPipeline</code>.</p>
+<pre><code class="language-c++">void initVulkan() {
+    createInstance();
+    setupDebugMessenger();
+    createSurface();
+    pickPhysicalDevice();
+    createLogicalDevice();
+    createSwapChain();
+    createImageViews();
+    createRenderPass();
+    createGraphicsPipeline();
+}
+
+...
+
+void createRenderPass() {
+
+}
+</code></pre>
+<h2 id="page_Attachment-description">Attachment description</h2>
+<p>In our case we'll have just a single color buffer attachment represented by one
+of the images from the swap chain.</p>
+<pre><code class="language-c++">void createRenderPass() {
+    VkAttachmentDescription colorAttachment{};
+    colorAttachment.format = swapChainImageFormat;
+    colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+}
+</code></pre>
+<p>The <code>format</code> of the color attachment should match the format of the swap chain
+images, and we're not doing anything with multisampling yet, so we'll stick to 1
+sample.</p>
+<pre><code class="language-c++">colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+</code></pre>
+<p>The <code>loadOp</code> and <code>storeOp</code> determine what to do with the data in the attachment
+before rendering and after rendering. We have the following choices for
+<code>loadOp</code>:</p>
+<ul>
+<li>
+<code>VK_ATTACHMENT_LOAD_OP_LOAD</code>: Preserve the existing contents of the attachment</li>
+<li>
+<code>VK_ATTACHMENT_LOAD_OP_CLEAR</code>: Clear the values to a constant at the start</li>
+<li>
+<code>VK_ATTACHMENT_LOAD_OP_DONT_CARE</code>: Existing contents are undefined; we don't
+care about them</li>
+</ul>
+<p>In our case we're going to use the clear operation to clear the framebuffer to
+black before drawing a new frame. There are only two possibilities for the
+<code>storeOp</code>:</p>
+<ul>
+<li>
+<code>VK_ATTACHMENT_STORE_OP_STORE</code>: Rendered contents will be stored in memory and
+can be read later</li>
+<li>
+<code>VK_ATTACHMENT_STORE_OP_DONT_CARE</code>: Contents of the framebuffer will be
+undefined after the rendering operation</li>
+</ul>
+<p>We're interested in seeing the rendered triangle on the screen, so we're going
+with the store operation here.</p>
+<pre><code class="language-c++">colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+</code></pre>
+<p>The <code>loadOp</code> and <code>storeOp</code> apply to color and depth data, and <code>stencilLoadOp</code> /
+<code>stencilStoreOp</code> apply to stencil data. Our application won't do anything with
+the stencil buffer, so the results of loading and storing are irrelevant.</p>
+<pre><code class="language-c++">colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+</code></pre>
+<p>Textures and framebuffers in Vulkan are represented by <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkImage.html"><code>VkImage</code></a> objects with a
+certain pixel format, however the layout of the pixels in memory can change
+based on what you're trying to do with an image.</p>
+<p>Some of the most common layouts are:</p>
+<ul>
+<li>
+<code>VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL</code>: Images used as color attachment</li>
+<li>
+<code>VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</code>: Images to be presented in the swap chain</li>
+<li>
+<code>VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL</code>: Images to be used as destination for a
+memory copy operation</li>
+</ul>
+<p>We'll discuss this topic in more depth in the texturing chapter, but what's
+important to know right now is that images need to be transitioned to specific
+layouts that are suitable for the operation that they're going to be involved in
+next.</p>
+<p>The <code>initialLayout</code> specifies which layout the image will have before the render
+pass begins. The <code>finalLayout</code> specifies the layout to automatically transition
+to when the render pass finishes. Using <code>VK_IMAGE_LAYOUT_UNDEFINED</code> for
+<code>initialLayout</code> means that we don't care what previous layout the image was in.
+The caveat of this special value is that the contents of the image are not
+guaranteed to be preserved, but that doesn't matter since we're going to clear
+it anyway. We want the image to be ready for presentation using the swap chain
+after rendering, which is why we use <code>VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</code> as
+<code>finalLayout</code>.</p>
+<h2 id="page_Subpasses-and-attachment-references">Subpasses and attachment references</h2>
+<p>A single render pass can consist of multiple subpasses. Subpasses are subsequent
+rendering operations that depend on the contents of framebuffers in previous
+passes, for example a sequence of post-processing effects that are applied one
+after another. If you group these rendering operations into one render pass,
+then Vulkan is able to reorder the operations and conserve memory bandwidth for
+possibly better performance. For our very first triangle, however, we'll stick
+to a single subpass.</p>
+<p>Every subpass references one or more of the attachments that we've described
+using the structure in the previous sections. These references are themselves
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkAttachmentReference.html"><code>VkAttachmentReference</code></a> structs that look like this:</p>
+<pre><code class="language-c++">VkAttachmentReference colorAttachmentRef{};
+colorAttachmentRef.attachment = 0;
+colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+</code></pre>
+<p>The <code>attachment</code> parameter specifies which attachment to reference by its index
+in the attachment descriptions array. Our array consists of a single
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkAttachmentDescription.html"><code>VkAttachmentDescription</code></a>, so its index is <code>0</code>. The <code>layout</code> specifies which
+layout we would like the attachment to have during a subpass that uses this
+reference. Vulkan will automatically transition the attachment to this layout
+when the subpass is started. We intend to use the attachment to function as a
+color buffer and the <code>VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL</code> layout will give
+us the best performance, as its name implies.</p>
+<p>The subpass is described using a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkSubpassDescription.html"><code>VkSubpassDescription</code></a> structure:</p>
+<pre><code class="language-c++">VkSubpassDescription subpass{};
+subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+</code></pre>
+<p>Vulkan may also support compute subpasses in the future, so we have to be
+explicit about this being a graphics subpass. Next, we specify the reference to
+the color attachment:</p>
+<pre><code class="language-c++">subpass.colorAttachmentCount = 1;
+subpass.pColorAttachments = &amp;colorAttachmentRef;
+</code></pre>
+<p>The index of the attachment in this array is directly referenced from the
+fragment shader with the <code>layout(location = 0) out vec4 outColor</code> directive!</p>
+<p>The following other types of attachments can be referenced by a subpass:</p>
+<ul>
+<li>
+<code>pInputAttachments</code>: Attachments that are read from a shader</li>
+<li>
+<code>pResolveAttachments</code>: Attachments used for multisampling color attachments</li>
+<li>
+<code>pDepthStencilAttachment</code>: Attachment for depth and stencil data</li>
+<li>
+<code>pPreserveAttachments</code>: Attachments that are not used by this subpass, but for
+which the data must be preserved</li>
+</ul>
+<h2 id="page_Render-pass">Render pass</h2>
+<p>Now that the attachment and a basic subpass referencing it have been described,
+we can create the render pass itself. Create a new class member variable to hold
+the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkRenderPass.html"><code>VkRenderPass</code></a> object right above the <code>pipelineLayout</code> variable:</p>
+<pre><code class="language-c++">VkRenderPass renderPass;
+VkPipelineLayout pipelineLayout;
+</code></pre>
+<p>The render pass object can then be created by filling in the
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkRenderPassCreateInfo.html"><code>VkRenderPassCreateInfo</code></a> structure with an array of attachments and subpasses.
+The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkAttachmentReference.html"><code>VkAttachmentReference</code></a> objects reference attachments using the indices of
+this array.</p>
+<pre><code class="language-c++">VkRenderPassCreateInfo renderPassInfo{};
+renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+renderPassInfo.attachmentCount = 1;
+renderPassInfo.pAttachments = &amp;colorAttachment;
+renderPassInfo.subpassCount = 1;
+renderPassInfo.pSubpasses = &amp;subpass;
+
+if (vkCreateRenderPass(device, &amp;renderPassInfo, nullptr, &amp;renderPass) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create render pass!&quot;);
+}
+</code></pre>
+<p>Just like the pipeline layout, the render pass will be referenced throughout the
+program, so it should only be cleaned up at the end:</p>
+<pre><code class="language-c++">void cleanup() {
+    vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
+    vkDestroyRenderPass(device, renderPass, nullptr);
+    ...
+}
+</code></pre>
+<p>That was a lot of work, but in the next chapter it all comes together to finally
+create the graphics pipeline object!</p>
+<p><a href="../../../code/11_render_passes.cpp">C++ code</a> /
+<a href="../../../code/09_shader_base.vert">Vertex shader</a> /
+<a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Overview - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../en/Introduction.html">Introduction</a></li><li class='Nav__item Nav__item--active'><a href="../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../en/Development_environment.html">Development environment</a></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Overview</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Origin-of-Vulkan">Origin of Vulkan</a></p>
+</li>
+<li>
+<p><a href="#page_What-it-takes-to-draw-a-triangle">What it takes to draw a triangle</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Step-1-Instance-and-physical-device-selection">Step 1 - Instance and physical device selection</a></p>
+</li>
+<li>
+<p><a href="#page_Step-2-Logical-device-and-queue-families">Step 2 - Logical device and queue families</a></p>
+</li>
+<li>
+<p><a href="#page_Step-3-Window-surface-and-swap-chain">Step 3 - Window surface and swap chain</a></p>
+</li>
+<li>
+<p><a href="#page_Step-4-Image-views-and-framebuffers">Step 4 - Image views and framebuffers</a></p>
+</li>
+<li>
+<p><a href="#page_Step-5-Render-passes">Step 5 - Render passes</a></p>
+</li>
+<li>
+<p><a href="#page_Step-6-Graphics-pipeline">Step 6 - Graphics pipeline</a></p>
+</li>
+<li>
+<p><a href="#page_Step-7-Command-pools-and-command-buffers">Step 7 - Command pools and command buffers</a></p>
+</li>
+<li>
+<p><a href="#page_Step-8-Main-loop">Step 8 - Main loop</a></p>
+</li>
+<li>
+<p><a href="#page_Summary">Summary</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_API-concepts">API concepts</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Coding-conventions">Coding conventions</a></p>
+</li>
+<li>
+<p><a href="#page_Validation-layers">Validation layers</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>This chapter will start off with an introduction of Vulkan and the problems
+it addresses. After that we're going to look at the ingredients that are
+required for the first triangle. This will give you a big picture to place each
+of the subsequent chapters in. We will conclude by covering the structure of the
+Vulkan API and the general usage patterns.</p>
+<h2 id="page_Origin-of-Vulkan">Origin of Vulkan</h2>
+<p>Just like the previous graphics APIs, Vulkan is designed as a cross-platform
+abstraction over <a href="https://en.wikipedia.org/wiki/Graphics_processing_unit" class="Link--external">GPUs</a>.
+The problem with most of these APIs is that the era in which they were designed
+featured graphics hardware that was mostly limited to configurable fixed
+functionality. Programmers had to provide the vertex data in a standard format
+and were at the mercy of the GPU manufacturers with regards to lighting and
+shading options.</p>
+<p>As graphics card architectures matured, they started offering more and more
+programmable functionality. All this new functionality had to be integrated with
+the existing APIs somehow. This resulted in less than ideal abstractions and a
+lot of guesswork on the graphics driver side to map the programmer's intent to
+the modern graphics architectures. That's why there are so many driver updates
+for improving the performance in games, sometimes by significant margins.
+Because of the complexity of these drivers, application developers also need to
+deal with inconsistencies between vendors, like the syntax that is accepted for
+<a href="https://en.wikipedia.org/wiki/Shader" class="Link--external">shaders</a>. Aside from these new features,
+the past decade also saw an influx of mobile devices with powerful graphics
+hardware. These mobile GPUs have different architectures based on their energy
+and space requirements. One such example is <a href="https://en.wikipedia.org/wiki/Tiled_rendering" class="Link--external">tiled rendering</a>,
+which would benefit from improved performance by offering the programmer more
+control over this functionality. Another limitation originating from the age of
+these APIs is limited multi-threading support, which can result in a bottleneck
+on the CPU side.</p>
+<p>Vulkan solves these problems by being designed from scratch for modern graphics
+architectures. It reduces driver overhead by allowing programmers to clearly
+specify their intent using a more verbose API, and allows multiple threads to
+create and submit commands in parallel. It reduces inconsistencies in shader
+compilation by switching to a standardized byte code format with a single
+compiler. Lastly, it acknowledges the general purpose processing capabilities of
+modern graphics cards by unifying the graphics and compute functionality into a
+single API.</p>
+<h2 id="page_What-it-takes-to-draw-a-triangle">What it takes to draw a triangle</h2>
+<p>We'll now look at an overview of all the steps it takes to render a triangle in
+a well-behaved Vulkan program. All of the concepts introduced here will be
+elaborated on in the next chapters. This is just to give you a big picture to
+relate all of the individual components to.</p>
+<h3 id="page_Step-1-Instance-and-physical-device-selection">Step 1 - Instance and physical device selection</h3>
+<p>A Vulkan application starts by setting up the Vulkan API through a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkInstance.html"><code>VkInstance</code></a>.
+An instance is created by describing your application and any API extensions you
+will be using. After creating the instance, you can query for Vulkan supported
+hardware and select one or more <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPhysicalDevice.html"><code>VkPhysicalDevice</code></a>s to use for operations. You
+can query for properties like VRAM size and device capabilities to select
+desired devices, for example to prefer using dedicated graphics cards.</p>
+<h3 id="page_Step-2-Logical-device-and-queue-families">Step 2 - Logical device and queue families</h3>
+<p>After selecting the right hardware device to use, you need to create a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDevice.html"><code>VkDevice</code></a>
+(logical device), where you describe more specifically which
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPhysicalDeviceFeatures.html"><code>VkPhysicalDeviceFeatures</code></a> you will be using, like multi viewport rendering and
+64 bit floats. You also need to specify which queue families you would like to
+use. Most operations performed with Vulkan, like draw commands and memory
+operations, are asynchronously executed by submitting them to a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkQueue.html"><code>VkQueue</code></a>. Queues
+are allocated from queue families, where each queue family supports a specific
+set of operations in its queues. For example, there could be separate queue
+families for graphics, compute and memory transfer operations. The availability
+of queue families could also be used as a distinguishing factor in physical
+device selection. It is possible for a device with Vulkan support to not offer
+any graphics functionality, however all graphics cards with Vulkan support today
+will generally support all queue operations that we're interested in.</p>
+<h3 id="page_Step-3-Window-surface-and-swap-chain">Step 3 - Window surface and swap chain</h3>
+<p>Unless you're only interested in offscreen rendering, you will need to create a
+window to present rendered images to. Windows can be created with the native
+platform APIs or libraries like <a href="http://www.glfw.org/" class="Link--external">GLFW</a> and <a href="https://www.libsdl.org/" class="Link--external">SDL</a>.
+We will be using GLFW in this tutorial, but more about that in the next chapter.</p>
+<p>We need two more components to actually render to a window: a window surface
+(<code>VkSurfaceKHR</code>) and a swap chain (<code>VkSwapchainKHR</code>). Note the <code>KHR</code> postfix, which
+means that these objects are part of a Vulkan extension. The Vulkan API itself
+is completely platform agnostic, which is why we need to use the standardized
+WSI (Window System Interface) extension to interact with the window manager. The
+surface is a cross-platform abstraction over windows to render to and is
+generally instantiated by providing a reference to the native window handle, for
+example <code>HWND</code> on Windows. Luckily, the GLFW library has a built-in function to
+deal with the platform specific details of this.</p>
+<p>The swap chain is a collection of render targets. Its basic purpose is to ensure
+that the image that we're currently rendering to is different from the one that
+is currently on the screen. This is important to make sure that only complete
+images are shown. Every time we want to draw a frame we have to ask the swap
+chain to provide us with an image to render to. When we've finished drawing a
+frame, the image is returned to the swap chain for it to be presented to the
+screen at some point. The number of render targets and conditions for presenting
+finished images to the screen depends on the present mode. Common present modes
+are  double buffering (vsync) and triple buffering. We'll look into these in the
+swap chain creation chapter.</p>
+<p>Some platforms allow you to render directly to a display without interacting with any window manager through the <code>VK_KHR_display</code> and <code>VK_KHR_display_swapchain</code> extensions. These allow you to create a surface that represents the entire screen and could be used to implement your own window manager, for example.</p>
+<h3 id="page_Step-4-Image-views-and-framebuffers">Step 4 - Image views and framebuffers</h3>
+<p>To draw to an image acquired from the swap chain, we have to wrap it into a
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkImageView.html"><code>VkImageView</code></a> and <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFramebuffer.html"><code>VkFramebuffer</code></a>. An image view references a specific part of an
+image to be used, and a framebuffer references image views that are to be used
+for color, depth and stencil targets. Because there could be many different
+images in the swap chain, we'll preemptively create an image view and
+framebuffer for each of them and select the right one at draw time.</p>
+<h3 id="page_Step-5-Render-passes">Step 5 - Render passes</h3>
+<p>Render passes in Vulkan describe the type of images that are used during
+rendering operations, how they will be used, and how their contents should be
+treated. In our initial triangle rendering application, we'll tell Vulkan that
+we will use a single image as color target and that we want it to be cleared
+to a solid color right before the drawing operation. Whereas a render pass only
+describes the type of images, a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFramebuffer.html"><code>VkFramebuffer</code></a> actually binds specific images to
+these slots.</p>
+<h3 id="page_Step-6-Graphics-pipeline">Step 6 - Graphics pipeline</h3>
+<p>The graphics pipeline in Vulkan is set up by creating a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipeline.html"><code>VkPipeline</code></a> object. It
+describes the configurable state of the graphics card, like the viewport size
+and depth buffer operation and the programmable state using <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkShaderModule.html"><code>VkShaderModule</code></a>
+objects. The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkShaderModule.html"><code>VkShaderModule</code></a> objects are created from shader byte code. The
+driver also needs to know which render targets will be used in the pipeline,
+which we specify by referencing the render pass.</p>
+<p>One of the most distinctive features of Vulkan compared to existing APIs, is
+that almost all configuration of the graphics pipeline needs to be set in advance.
+That means that if you want to switch to a different shader or slightly
+change your vertex layout, then you need to entirely recreate the graphics
+pipeline. That means that you will have to create many <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPipeline.html"><code>VkPipeline</code></a> objects in
+advance for all the different combinations you need for your rendering
+operations. Only some basic configuration, like viewport size and clear color,
+can be changed dynamically. All of the state also needs to be described
+explicitly, there is no default color blend state, for example.</p>
+<p>The good news is that because you're doing the equivalent of ahead-of-time
+compilation versus just-in-time compilation, there are more optimization
+opportunities for the driver and runtime performance is more predictable,
+because large state changes like switching to a different graphics pipeline are
+made very explicit.</p>
+<h3 id="page_Step-7-Command-pools-and-command-buffers">Step 7 - Command pools and command buffers</h3>
+<p>As mentioned earlier, many of the operations in Vulkan that we want to execute,
+like drawing operations, need to be submitted to a queue. These operations first
+need to be recorded into a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandBuffer.html"><code>VkCommandBuffer</code></a> before they can be submitted. These
+command buffers are allocated from a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandPool.html"><code>VkCommandPool</code></a> that is associated with a
+specific queue family. To draw a simple triangle, we need to record a command
+buffer with the following operations:</p>
+<ul>
+<li>Begin the render pass</li>
+<li>Bind the graphics pipeline</li>
+<li>Draw 3 vertices</li>
+<li>End the render pass</li>
+</ul>
+<p>Because the image in the framebuffer depends on which specific image the swap
+chain will give us, we need to record a command buffer for each possible image
+and select the right one at draw time. The alternative would be to record the
+command buffer again every frame, which is not as efficient.</p>
+<h3 id="page_Step-8-Main-loop">Step 8 - Main loop</h3>
+<p>Now that the drawing commands have been wrapped into a command buffer, the main
+loop is quite straightforward. We first acquire an image from the swap chain
+with <code>vkAcquireNextImageKHR</code>. We can then select the appropriate command buffer
+for that image and execute it with <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkQueueSubmit.html"><code>vkQueueSubmit</code></a>. Finally, we return the image
+to the swap chain for presentation to the screen with <code>vkQueuePresentKHR</code>.</p>
+<p>Operations that are submitted to queues are executed asynchronously. Therefore
+we have to use synchronization objects like semaphores to ensure a correct
+order of execution. Execution of the draw command buffer must be set up to wait
+on image acquisition to finish, otherwise it may occur that we start rendering
+to an image that is still being read for presentation on the screen. The
+<code>vkQueuePresentKHR</code> call in turn needs to wait for rendering to be finished, for
+which we'll use a second semaphore that is signaled after rendering completes.</p>
+<h3 id="page_Summary">Summary</h3>
+<p>This whirlwind tour should give you a basic understanding of the work ahead for
+drawing the first triangle. A real-world program contains more steps, like
+allocating vertex buffers, creating uniform buffers and uploading texture images
+that will be covered in subsequent chapters, but we'll start simple because
+Vulkan has enough of a steep learning curve as it is. Note that we'll cheat a
+bit by initially embedding the vertex coordinates in the vertex shader instead
+of using a vertex buffer. That's because managing vertex buffers requires some
+familiarity with command buffers first.</p>
+<p>So in short, to draw the first triangle we need to:</p>
+<ul>
+<li>Create a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkInstance.html"><code>VkInstance</code></a>
+</li>
+<li>Select a supported graphics card (<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPhysicalDevice.html"><code>VkPhysicalDevice</code></a>)</li>
+<li>Create a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDevice.html"><code>VkDevice</code></a> and <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkQueue.html"><code>VkQueue</code></a> for drawing and presentation</li>
+<li>Create a window, window surface and swap chain</li>
+<li>Wrap the swap chain images into <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkImageView.html"><code>VkImageView</code></a>
+</li>
+<li>Create a render pass that specifies the render targets and usage</li>
+<li>Create framebuffers for the render pass</li>
+<li>Set up the graphics pipeline</li>
+<li>Allocate and record a command buffer with the draw commands for every possible
+swap chain image</li>
+<li>Draw frames by acquiring images, submitting the right draw command buffer and
+returning the images back to the swap chain</li>
+</ul>
+<p>It's a lot of steps, but the purpose of each individual step will be made very
+simple and clear in the upcoming chapters. If you're confused about the relation
+of a single step compared to the whole program, you should refer back to this
+chapter.</p>
+<h2 id="page_API-concepts">API concepts</h2>
+<p>This chapter will conclude with a short overview of how the Vulkan API is
+structured at a lower level.</p>
+<h3 id="page_Coding-conventions">Coding conventions</h3>
+<p>All of the Vulkan functions, enumerations and structs are defined in the
+<code>vulkan.h</code> header, which is included in the <a href="https://lunarg.com/vulkan-sdk/" class="Link--external">Vulkan SDK</a>
+developed by LunarG. We'll look into installing this SDK in the next chapter.</p>
+<p>Functions have a lower case <code>vk</code> prefix, types like enumerations and structs
+have a <code>Vk</code> prefix and enumeration values have a <code>VK_</code> prefix. The API heavily
+uses structs to provide parameters to functions. For example, object creation
+generally follows this pattern:</p>
+<pre><code class="language-c++">VkXXXCreateInfo createInfo{};
+createInfo.sType = VK_STRUCTURE_TYPE_XXX_CREATE_INFO;
+createInfo.pNext = nullptr;
+createInfo.foo = ...;
+createInfo.bar = ...;
+
+VkXXX object;
+if (vkCreateXXX(&amp;createInfo, nullptr, &amp;object) != VK_SUCCESS) {
+    std::cerr &lt;&lt; &quot;failed to create object&quot; &lt;&lt; std::endl;
+    return false;
+}
+</code></pre>
+<p>Many structures in Vulkan require you to explicitly specify the type of
+structure in the <code>sType</code> member. The <code>pNext</code> member can point to an extension
+structure and will always be <code>nullptr</code> in this tutorial. Functions that create
+or destroy an object will have a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkAllocationCallbacks.html"><code>VkAllocationCallbacks</code></a> parameter that allows you
+to use a custom allocator for driver memory, which will also be left <code>nullptr</code>
+in this tutorial.</p>
+<p>Almost all functions return a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkResult.html"><code>VkResult</code></a> that is either <code>VK_SUCCESS</code> or an error
+code. The specification describes which error codes each function can return and
+what they mean.</p>
+<h3 id="page_Validation-layers">Validation layers</h3>
+<p>As mentioned earlier, Vulkan is designed for high performance and low driver
+overhead. Therefore it will include very limited error checking and debugging
+capabilities by default. The driver will often crash instead of returning an
+error code if you do something wrong, or worse, it will appear to work on your
+graphics card and completely fail on others.</p>
+<p>Vulkan allows you to enable extensive checks through a feature known as
+<em>validation layers</em>. Validation layers are pieces of code that can be inserted
+between the API and the graphics driver to do things like running extra checks
+on function parameters and tracking memory management problems. The nice thing
+is that you can enable them during development and then completely disable them
+when releasing your application for zero overhead. Anyone can write their own
+validation layers, but the Vulkan SDK by LunarG provides a standard set of
+validation layers that we'll be using in this tutorial. You also need to
+register a callback function to receive debug messages from the layers.</p>
+<p>Because Vulkan is so explicit about every operation and the validation layers
+are so extensive, it can actually be a lot easier to find out why your screen is
+black compared to OpenGL and Direct3D!</p>
+<p>There's only one more step before we'll start writing code and that's <a href="Development_environment.html">setting
+up the development environment</a>.</p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../en/Introduction.html">Previous</a></li>            <li><a href="../en/Development_environment.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Compute Shader - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../en/Development_environment.html">Development environment</a></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../en/Multisampling.html">Multisampling</a></li><li class='Nav__item Nav__item--active'><a href="../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Compute Shader</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Introduction">Introduction</a></p>
+</li>
+<li>
+<p><a href="#page_Advantages">Advantages</a></p>
+</li>
+<li>
+<p><a href="#page_The-Vulkan-pipeline">The Vulkan pipeline</a></p>
+</li>
+<li>
+<p><a href="#page_An-example">An example</a></p>
+</li>
+<li>
+<p><a href="#page_Data-manipulation">Data manipulation</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Shader-storage-buffer-objects-SSBO">Shader storage buffer objects (SSBO)</a></p>
+</li>
+<li>
+<p><a href="#page_Storage-images">Storage images</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Compute-queue-families">Compute queue families</a></p>
+</li>
+<li>
+<p><a href="#page_The-compute-shader-stage">The compute shader stage</a></p>
+</li>
+<li>
+<p><a href="#page_Loading-compute-shaders">Loading compute shaders</a></p>
+</li>
+<li>
+<p><a href="#page_Preparing-the-shader-storage-buffers">Preparing the shader storage buffers</a></p>
+</li>
+<li>
+<p><a href="#page_Descriptors">Descriptors</a></p>
+</li>
+<li>
+<p><a href="#page_Compute-pipelines">Compute pipelines</a></p>
+</li>
+<li>
+<p><a href="#page_Compute-space">Compute space</a></p>
+</li>
+<li>
+<p><a href="#page_Compute-shaders">Compute shaders</a></p>
+</li>
+<li>
+<p><a href="#page_Running-compute-commands">Running compute commands</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Dispatch">Dispatch</a></p>
+</li>
+<li>
+<p><a href="#page_Submitting-work">Submitting work</a></p>
+</li>
+<li>
+<p><a href="#page_Synchronizing-graphics-and-compute">Synchronizing graphics and compute</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Drawing-the-particle-system">Drawing the particle system</a></p>
+</li>
+<li>
+<p><a href="#page_Conclusion">Conclusion</a></p>
+</li>
+</ul>
+<h2 id="page_Introduction">Introduction</h2>
+<p>In this bonus chapter we'll take a look at compute shaders. Up until now all previous chapters dealt with the traditional graphics part of the Vulkan pipeline. But unlike older APIs like OpenGL, compute shader support in Vulkan is mandatory. This means that you can use compute shaders on every Vulkan implementation available, no matter if it's a high-end desktop GPU or a low-powered embedded device.</p>
+<p>This opens up the world of general purpose computing on graphics processor units (GPGPU), no matter where your application is running. GPGPU means that you can do general computations on your GPU, something that has traditionally been a domain of CPUs. But with GPUs having become more and more powerful and more flexible, many workloads that would require the general purpose capabilities of a CPU can now be done on the GPU in realtime.</p>
+<p>A few examples of where the compute capabilities of a GPU can be used are image manipulation, visibility testing, post processing, advanced lighting calculations, animations, physics (e.g. for a particle system) and much more. And it's even possible to use compute for non-visual computational only work that does not require any graphics output, e.g. number crunching or AI related things. This is called &quot;headless compute&quot;.</p>
+<h2 id="page_Advantages">Advantages</h2>
+<p>Doing computationally expensive calculations on the GPU has several advantages. The most obvious one is offloading work from the CPU. Another one is not requiring moving data between the CPU's main memory and the GPU's memory. All of the data can stay on the GPU without having to wait for slow transfers from main memory.</p>
+<p>Aside from these, GPUs are heavily parallelized with some of them having tens of thousands of small compute units. This often makes them a better fit for highly parallel workflows than a CPU with a few large compute units.</p>
+<h2 id="page_The-Vulkan-pipeline">The Vulkan pipeline</h2>
+<p>It's important to know that compute is completely separated from the graphics part of the pipeline. This is visible in the following block diagram of the Vulkan pipeline from the official specification:</p>
+<p><img src="/images/vulkan_pipeline_block_diagram.png" alt="" /></p>
+<p>In this diagram we can see the traditional graphics part of the pipeline on the left, and several stages on the right that are not part of this graphics pipeline, including the compute shader (stage). With the compute shader stage being detached from the graphics pipeline we'll be able to use it anywhere we see fit. This is very different from e.g. the fragment shader which is always applied to the transformed output of the vertex shader.</p>
+<p>The center of the diagram also shows that e.g. descriptor sets are also used by compute, so everything we learned about descriptors layouts, descriptor sets and descriptors also applies here.</p>
+<h2 id="page_An-example">An example</h2>
+<p>An easy to understand example that we will implement in this chapter is a GPU based particle system. Such systems are used in many games and often consist of thousands of particles that need to be updated at interactive frame rates. Rendering such a system requires 2 main components: vertices, passed as vertex buffers, and a way to update them based on some equation.</p>
+<p>The &quot;classical&quot; CPU based particle system would store particle data in the system's main memory and then use the CPU to update them. After the update, the vertices need to be transferred to the GPU's memory again so it can display the updated particles in the next frame. The most straight-forward way would be recreating the vertex buffer with the new data for each frame. This is obviously very costly. Depending on your implementation, there are other options like mapping GPU memory so it can be written by the CPU (called &quot;resizable BAR&quot; on desktop systems, or unified memory on integrated GPUs) or just using a host local buffer (which would be the slowest method due to PCI-E bandwidth). But no matter what buffer update method you choose, you always require a &quot;round-trip&quot; to the CPU to update the particles.</p>
+<p>With a GPU based particle system, this round-trip is no longer required. Vertices are only uploaded to the GPU at the start and all updates are done in the GPU's memory using compute shaders. One of the main reasons why this is faster is the much higher bandwidth between the GPU and it's local memory. In a CPU based scenario, you'd be limited by main memory and PCI-express bandwidth, which is often just a fraction of the GPU's memory bandwidth.</p>
+<p>When doing this on a GPU with a dedicated compute queue, you can update particles in parallel to the rendering part of the graphics pipeline. This is called &quot;async compute&quot;, and is an advanced topic not covered in this tutorial.</p>
+<p>Here is a screenshot from this chapter's code. The particles shown here are updated by a compute shader directly on the GPU, without any CPU interaction:</p>
+<p><img src="/images/compute_shader_particles.png" alt="" /></p>
+<h2 id="page_Data-manipulation">Data manipulation</h2>
+<p>In this tutorial we already learned about different buffer types like vertex and index buffers for passing primitives and uniform buffers for passing data to a shader. And we also used images to do texture mapping. But up until now, we always wrote data using the CPU and only did reads on the GPU.</p>
+<p>An important concept introduced with compute shaders is the ability to arbitrarily read from <strong>and write to</strong> buffers. For this, Vulkan offers two dedicated storage types.</p>
+<h3 id="page_Shader-storage-buffer-objects-SSBO">Shader storage buffer objects (SSBO)</h3>
+<p>A shader storage buffer (SSBO) allows shaders to read from and write to a buffer. Using these is similar to using uniform buffer objects. The biggest differences are that you can alias other buffer types to SSBOs and that they can be arbitrarily large.</p>
+<p>Going back to the GPU based particle system, you might now wonder how to deal with vertices being updated (written) by the compute shader and read (drawn) by the vertex shader, as both usages would seemingly require different buffer types.</p>
+<p>But that's not the case. In Vulkan you can specify multiple usages for buffers and images. So for the particle vertex buffer to be used as a vertex buffer (in the graphics pass) and as a storage buffer (in the compute pass), you simply create the buffer with those two usage flags:</p>
+<pre><code class="language-c++">VkBufferCreateInfo bufferInfo{};
+...
+bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+...
+
+if (vkCreateBuffer(device, &amp;bufferInfo, nullptr, &amp;shaderStorageBuffers[i]) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create vertex buffer!&quot;);
+}
+</code></pre>
+<p>The two flags <code>VK_BUFFER_USAGE_VERTEX_BUFFER_BIT</code> and <code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code> set with <code>bufferInfo.usage</code> tell the implementation that we want to use this buffer for two different scenarios: as a vertex buffer in the vertex shader and as a store buffer. Note that we also added the <code>VK_BUFFER_USAGE_TRANSFER_DST_BIT</code> flag in here so we can transfer data from the host to the GPU. This is crucial as we want the shader storage buffer to stay in GPU memory only (<code>VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT</code>) we need to to transfer data from the host to this buffer.</p>
+<p>Here is the same code using using the <code>createBuffer</code> helper function:</p>
+<pre><code class="language-c++">createBuffer(bufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, shaderStorageBuffers[i], shaderStorageBuffersMemory[i]);
+</code></pre>
+<p>The GLSL shader declaration for accessing such a buffer looks like this:</p>
+<pre><code class="language-glsl">struct Particle {
+  vec2 position;
+  vec2 velocity;
+  vec4 color;
+};
+
+layout(std140, binding = 1) readonly buffer ParticleSSBOIn {
+   Particle particlesIn[ ];
+};
+
+layout(std140, binding = 2) buffer ParticleSSBOOut {
+   Particle particlesOut[ ];
+};
+</code></pre>
+<p>In this example we have a typed SSBO with each particle having a position and velocity value (see the <code>Particle</code> struct). The SSBO then contains an unbound number of particles as marked by the <code>[]</code>. Not having to specify the number of elements in an SSBO is one of the advantages over e.g. uniform buffers. <code>std140</code> is a memory layout qualifier that determines how the member elements of the shader storage buffer are aligned in memory. This gives us certain guarantees, required to map the buffers between the host and the GPU.</p>
+<p>Writing to such a storage buffer object in the compute shader is straight-forward and similar to how you'd write to the buffer on the C++ side:</p>
+<pre><code class="language-glsl">particlesOut[index].position = particlesIn[index].position + particlesIn[index].velocity.xy * ubo.deltaTime;
+</code></pre>
+<h3 id="page_Storage-images">Storage images</h3>
+<p><em>Note that we won't be doing image manipulation in this chapter. This paragraph is here to make readers aware that compute shaders can also be used for image manipulation.</em></p>
+<p>A storage image allows you read from and write to an image. Typical use cases are applying image effects to textures, doing post processing (which in turn is very similar) or generating mip-maps.</p>
+<p>This is similar for images:</p>
+<pre><code class="language-c++">VkImageCreateInfo imageInfo {};
+...
+imageInfo.usage = VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_STORAGE_BIT;
+...
+
+if (vkCreateImage(device, &amp;imageInfo, nullptr, &amp;textureImage) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create image!&quot;);
+}
+</code></pre>
+<p>The two flags <code>VK_IMAGE_USAGE_SAMPLED_BIT</code> and <code>VK_IMAGE_USAGE_STORAGE_BIT</code> set with <code>imageInfo.usage</code> tell the implementation that we want to use this image for two different scenarios: as an image sampled in the fragment shader and as a storage image in the computer shader;</p>
+<p>The GLSL shader declaration for storage image looks similar to sampled images used e.g. in the fragment shader:</p>
+<pre><code class="language-glsl">layout (binding = 0, rgba8) uniform readonly image2D inputImage;
+layout (binding = 1, rgba8) uniform writeonly image2D outputImage;
+</code></pre>
+<p>A few differences here are additional attributes like <code>rgba8</code> for the format of the image, the <code>readonly</code> and <code>writeonly</code> qualifiers, telling the implementation that we will only read from the input image and write to the output image. And last but not least we need to use the <code>image2D</code> type to declare a storage image.</p>
+<p>Reading from and writing to storage images in the compute shader is then done using <code>imageLoad</code> and <code>imageStore</code>:</p>
+<pre><code class="language-glsl">vec3 pixel = imageLoad(inputImage, ivec2(gl_GlobalInvocationID.xy)).rgb;
+imageStore(outputImage, ivec2(gl_GlobalInvocationID.xy), pixel);
+</code></pre>
+<h2 id="page_Compute-queue-families">Compute queue families</h2>
+<p>In the <a href="Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html#page_Queue-families">physical device and queue families chapter</a> we already learned about queue families and how to select a graphics queue family. Compute uses the queue family properties flag bit <code>VK_QUEUE_COMPUTE_BIT</code>. So if we want to do compute work, we need to get a queue from a queue family that supports compute.</p>
+<p>Note that Vulkan requires an implementation which supports graphics operations to have at least one queue family that supports both graphics and compute operations, but it's also possible that implementations offer a dedicated compute queue. This dedicated compute queue (that does not have the graphics bit) hints at an asynchronous compute queue. To keep this tutorial beginner friendly though, we'll use a queue that can do both graphics and compute operations. This will also save us from dealing with several advanced synchronization mechanisms.</p>
+<p>For our compute sample we need to change the device creation code a bit:</p>
+<pre><code class="language-c++">uint32_t queueFamilyCount = 0;
+vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, nullptr);
+
+std::vector&lt;VkQueueFamilyProperties&gt; queueFamilies(queueFamilyCount);
+vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, queueFamilies.data());
+
+int i = 0;
+for (const auto&amp; queueFamily : queueFamilies) {
+    if ((queueFamily.queueFlags &amp; VK_QUEUE_GRAPHICS_BIT) &amp;&amp; (queueFamily.queueFlags &amp; VK_QUEUE_COMPUTE_BIT)) {
+        indices.graphicsAndComputeFamily = i;
+    }
+
+    i++;
+}
+</code></pre>
+<p>The changed queue family index selection code will now try to find a queue family that supports both graphics and compute.</p>
+<p>We can then get a compute queue from this queue family in <code>createLogicalDevice</code>:</p>
+<pre><code class="language-c++">vkGetDeviceQueue(device, indices.graphicsAndComputeFamily.value(), 0, &amp;computeQueue);
+</code></pre>
+<h2 id="page_The-compute-shader-stage">The compute shader stage</h2>
+<p>In the graphics samples we have used different pipeline stages to load shaders and access descriptors. Compute shaders are accessed in a similar way by using the <code>VK_SHADER_STAGE_COMPUTE_BIT</code> pipeline. So loading a compute shader is just the same as loading a vertex shader, but with a different shader stage. We'll talk about this in detail in the next paragraphs. Compute also introduces a new binding point type for descriptors and pipelines named <code>VK_PIPELINE_BIND_POINT_COMPUTE</code> that we'll have to use later on.</p>
+<h2 id="page_Loading-compute-shaders">Loading compute shaders</h2>
+<p>Loading compute shaders in our application is the same as loading any other other shader. The only real difference is that we'll need to use the <code>VK_SHADER_STAGE_COMPUTE_BIT</code> mentioned above.</p>
+<pre><code class="language-c++">auto computeShaderCode = readFile(&quot;shaders/compute.spv&quot;);
+
+VkShaderModule computeShaderModule = createShaderModule(computeShaderCode);
+
+VkPipelineShaderStageCreateInfo computeShaderStageInfo{};
+computeShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+computeShaderStageInfo.stage = VK_SHADER_STAGE_COMPUTE_BIT;
+computeShaderStageInfo.module = computeShaderModule;
+computeShaderStageInfo.pName = &quot;main&quot;;
+...
+</code></pre>
+<h2 id="page_Preparing-the-shader-storage-buffers">Preparing the shader storage buffers</h2>
+<p>Earlier on we learned that we can use shader storage buffers to pass arbitrary data to compute shaders. For this example we will upload an array of particles to the GPU, so we can manipulate it directly in the GPU's memory.</p>
+<p>In the <a href="Drawing_a_triangle/Drawing/Frames_in_flight.html">frames in flight</a> chapter we talked about duplicating resources per frame in flight, so we can keep the CPU and the GPU busy. First we declare a vector for the buffer object and the device memory backing it up:</p>
+<pre><code class="language-c++">std::vector&lt;VkBuffer&gt; shaderStorageBuffers;
+std::vector&lt;VkDeviceMemory&gt; shaderStorageBuffersMemory;
+</code></pre>
+<p>In the <code>createShaderStorageBuffers</code> we then resize those vectors to match the max. number of frames in flight:</p>
+<pre><code class="language-c++">shaderStorageBuffers.resize(MAX_FRAMES_IN_FLIGHT);
+shaderStorageBuffersMemory.resize(MAX_FRAMES_IN_FLIGHT);
+</code></pre>
+<p>With this setup in place we can start to move the initial particle information to the GPU. We first initialize a vector of particles on the host side:</p>
+<pre><code class="language-c++">    // Initialize particles
+    std::default_random_engine rndEngine((unsigned)time(nullptr));
+    std::uniform_real_distribution&lt;float&gt; rndDist(0.0f, 1.0f);
+
+    // Initial particle positions on a circle
+    std::vector&lt;Particle&gt; particles(PARTICLE_COUNT);
+    for (auto&amp; particle : particles) {
+        float r = 0.25f * sqrt(rndDist(rndEngine));
+        float theta = rndDist(rndEngine) * 2 * 3.14159265358979323846;
+        float x = r * cos(theta) * HEIGHT / WIDTH;
+        float y = r * sin(theta);
+        particle.position = glm::vec2(x, y);
+        particle.velocity = glm::normalize(glm::vec2(x,y)) * 0.00025f;
+        particle.color = glm::vec4(rndDist(rndEngine), rndDist(rndEngine), rndDist(rndEngine), 1.0f);
+    }
+
+</code></pre>
+<p>We then create a <a href="Vertex_buffers/Staging_buffer.html">staging buffer</a> in the host's memory to hold the initial particle properties:</p>
+<pre><code class="language-c++">    VkDeviceSize bufferSize = sizeof(Particle) * PARTICLE_COUNT;
+
+    VkBuffer stagingBuffer;
+    VkDeviceMemory stagingBufferMemory;
+    createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer, stagingBufferMemory);
+
+    void* data;
+    vkMapMemory(device, stagingBufferMemory, 0, bufferSize, 0, &amp;data);
+    memcpy(data, particles.data(), (size_t)bufferSize);
+    vkUnmapMemory(device, stagingBufferMemory);
+</code></pre>
+<p>Using this staging buffer as a source we then create the per-frame shader storage buffers and copy the particle properties from the staging buffer to each of these:</p>
+<pre><code class="language-c++">    for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
+        createBuffer(bufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, shaderStorageBuffers[i], shaderStorageBuffersMemory[i]);
+        // Copy data from the staging buffer (host) to the shader storage buffer (GPU)
+        copyBuffer(stagingBuffer, shaderStorageBuffers[i], bufferSize);
+    }
+}
+</code></pre>
+<h2 id="page_Descriptors">Descriptors</h2>
+<p>Setting up descriptors for compute is almost identical to graphics. The only difference is that descriptors need to have the <code>VK_SHADER_STAGE_COMPUTE_BIT</code> set to make them accessible by the compute stage:</p>
+<pre><code class="language-c++">std::array&lt;VkDescriptorSetLayoutBinding, 3&gt; layoutBindings{};
+layoutBindings[0].binding = 0;
+layoutBindings[0].descriptorCount = 1;
+layoutBindings[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+layoutBindings[0].pImmutableSamplers = nullptr;
+layoutBindings[0].stageFlags = VK_SHADER_STAGE_COMPUTE_BIT;
+...
+</code></pre>
+<p>Note that you can combine shader stages here, so if you want the descriptor to be accessible from the vertex and compute stage, e.g. for a uniform buffer with parameters shared across them, you simply set the bits for both stages:</p>
+<pre><code class="language-c++">layoutBindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_COMPUTE_BIT;
+</code></pre>
+<p>Here is the descriptor setup for our sample. The layout looks like this:</p>
+<pre><code class="language-c++">std::array&lt;VkDescriptorSetLayoutBinding, 3&gt; layoutBindings{};
+layoutBindings[0].binding = 0;
+layoutBindings[0].descriptorCount = 1;
+layoutBindings[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+layoutBindings[0].pImmutableSamplers = nullptr;
+layoutBindings[0].stageFlags = VK_SHADER_STAGE_COMPUTE_BIT;
+
+layoutBindings[1].binding = 1;
+layoutBindings[1].descriptorCount = 1;
+layoutBindings[1].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+layoutBindings[1].pImmutableSamplers = nullptr;
+layoutBindings[1].stageFlags = VK_SHADER_STAGE_COMPUTE_BIT;
+
+layoutBindings[2].binding = 2;
+layoutBindings[2].descriptorCount = 1;
+layoutBindings[2].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+layoutBindings[2].pImmutableSamplers = nullptr;
+layoutBindings[2].stageFlags = VK_SHADER_STAGE_COMPUTE_BIT;
+
+VkDescriptorSetLayoutCreateInfo layoutInfo{};
+layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+layoutInfo.bindingCount = 3;
+layoutInfo.pBindings = layoutBindings.data();
+
+if (vkCreateDescriptorSetLayout(device, &amp;layoutInfo, nullptr, &amp;computeDescriptorSetLayout) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create compute descriptor set layout!&quot;);
+}
+</code></pre>
+<p>Looking at this setup, you might wonder why we have two layout bindings for shader storage buffer objects, even though we'll only render a single particle system. This is because the particle positions are updated frame by frame based on a delta time. This means that each frame needs to know about the last frames' particle positions, so it can update them with a new delta time and write them to it's own SSBO:</p>
+<p><img src="/images/compute_ssbo_read_write.svg" alt="" /></p>
+<p>For that, the compute shader needs to have access to the last and current frame's SSBOs. This is done by passing both to the compute shader in our descriptor setup. See the <code>storageBufferInfoLastFrame</code> and <code>storageBufferInfoCurrentFrame</code>:</p>
+<pre><code class="language-c++">for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
+    VkDescriptorBufferInfo uniformBufferInfo{};
+    uniformBufferInfo.buffer = uniformBuffers[i];
+    uniformBufferInfo.offset = 0;
+    uniformBufferInfo.range = sizeof(UniformBufferObject);
+
+    std::array&lt;VkWriteDescriptorSet, 3&gt; descriptorWrites{};
+    ...
+
+    VkDescriptorBufferInfo storageBufferInfoLastFrame{};
+    storageBufferInfoLastFrame.buffer = shaderStorageBuffers[(i - 1) % MAX_FRAMES_IN_FLIGHT];
+    storageBufferInfoLastFrame.offset = 0;
+    storageBufferInfoLastFrame.range = sizeof(Particle) * PARTICLE_COUNT;
+
+    descriptorWrites[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    descriptorWrites[1].dstSet = computeDescriptorSets[i];
+    descriptorWrites[1].dstBinding = 1;
+    descriptorWrites[1].dstArrayElement = 0;
+    descriptorWrites[1].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+    descriptorWrites[1].descriptorCount = 1;
+    descriptorWrites[1].pBufferInfo = &amp;storageBufferInfoLastFrame;
+
+    VkDescriptorBufferInfo storageBufferInfoCurrentFrame{};
+    storageBufferInfoCurrentFrame.buffer = shaderStorageBuffers[i];
+    storageBufferInfoCurrentFrame.offset = 0;
+    storageBufferInfoCurrentFrame.range = sizeof(Particle) * PARTICLE_COUNT;
+
+    descriptorWrites[2].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    descriptorWrites[2].dstSet = computeDescriptorSets[i];
+    descriptorWrites[2].dstBinding = 2;
+    descriptorWrites[2].dstArrayElement = 0;
+    descriptorWrites[2].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+    descriptorWrites[2].descriptorCount = 1;
+    descriptorWrites[2].pBufferInfo = &amp;storageBufferInfoCurrentFrame;
+
+    vkUpdateDescriptorSets(device, 3, descriptorWrites.data(), 0, nullptr);
+}
+</code></pre>
+<p>Remember that we also have to request the descriptor types for the SSBOs from our descriptor pool:</p>
+<pre><code class="language-c++">std::array&lt;VkDescriptorPoolSize, 2&gt; poolSizes{};
+...
+
+poolSizes[1].type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+poolSizes[1].descriptorCount = static_cast&lt;uint32_t&gt;(MAX_FRAMES_IN_FLIGHT) * 2;
+</code></pre>
+<p>We need to double the number of <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> types requested from the pool by two because our sets reference the SSBOs of the last and current frame.</p>
+<h2 id="page_Compute-pipelines">Compute pipelines</h2>
+<p>As compute is not a part of the graphics pipeline, we can't use <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateGraphicsPipelines.html"><code>vkCreateGraphicsPipelines</code></a>. Instead we need to create a dedicated compute pipeline with <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateComputePipelines.html"><code>vkCreateComputePipelines</code></a> for running our compute commands. Since a compute pipeline does not touch any of the rasterization state, it has a lot less state than a graphics pipeline:</p>
+<pre><code class="language-c++">VkComputePipelineCreateInfo pipelineInfo{};
+pipelineInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
+pipelineInfo.layout = computePipelineLayout;
+pipelineInfo.stage = computeShaderStageInfo;
+
+if (vkCreateComputePipelines(device, VK_NULL_HANDLE, 1, &amp;pipelineInfo, nullptr, &amp;computePipeline) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create compute pipeline!&quot;);
+}
+</code></pre>
+<p>The setup is a lot simpler, as we only require one shader stage and a pipeline layout. The pipeline layout works the same as with the graphics pipeline:</p>
+<pre><code class="language-c++">VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
+pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+pipelineLayoutInfo.setLayoutCount = 1;
+pipelineLayoutInfo.pSetLayouts = &amp;computeDescriptorSetLayout;
+
+if (vkCreatePipelineLayout(device, &amp;pipelineLayoutInfo, nullptr, &amp;computePipelineLayout) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create compute pipeline layout!&quot;);
+}
+</code></pre>
+<h2 id="page_Compute-space">Compute space</h2>
+<p>Before we get into how a compute shader works and how we submit compute workloads to the GPU, we need to talk about two important compute concepts: <strong>work groups</strong> and <strong>invocations</strong>. They define an abstract execution model for how compute workloads are processed by the compute hardware of the GPU in three dimensions (x, y, and z).</p>
+<p><strong>Work groups</strong> define how the compute workloads are formed and processed by the the compute hardware of the GPU. You can think of them as work items the GPU has to work through. Work group dimensions are set by the application at command buffer time using a dispatch command.</p>
+<p>And each work group then is a collection of <strong>invocations</strong> that execute the same compute shader. Invocations can potentially run in parallel and their dimensions are set in the compute shader. Invocations within a single workgroup have access to shared memory.</p>
+<p>This image shows the relation between these two in three dimensions:</p>
+<p><img src="/images/compute_space.svg" alt="" /></p>
+<p>The number of dimensions for work groups (defined by <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdDispatch.html"><code>vkCmdDispatch</code></a>) and invocations depends (defined by the local sizes in the compute shader) on how input data is structured. If you e.g. work on a one-dimensional array, like we do in this chapter, you only have to specify the x dimension for both.</p>
+<p>As an example: If we dispatch a work group count of [64, 1, 1] with a compute shader local size of [32, 32, ,1], our compute shader will be invoked 64 x 32 x 32 = 65,536 times.</p>
+<p>Note that the maximum count for work groups and local sizes differs from implementation to implementation, so you should always check the compute related <code>maxComputeWorkGroupCount</code>, <code>maxComputeWorkGroupInvocations</code> and <code>maxComputeWorkGroupSize</code> limits in <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkPhysicalDeviceLimits.html"><code>VkPhysicalDeviceLimits</code></a>.</p>
+<h2 id="page_Compute-shaders">Compute shaders</h2>
+<p>Now that we have learned about all the parts required to setup a compute shader pipeline, it's time to take a look at compute shaders. All of the things we learned about using GLSL shaders e.g. for vertex and fragment shaders also applies to compute shaders. The syntax is the same, and many concepts like passing data between the application and the shader are the same. But there are some important differences.</p>
+<p>A very basic compute shader for updating a linear array of particles may look like this:</p>
+<pre><code class="language-glsl">#version 450
+
+layout (binding = 0) uniform ParameterUBO {
+    float deltaTime;
+} ubo;
+
+struct Particle {
+    vec2 position;
+    vec2 velocity;
+    vec4 color;
+};
+
+layout(std140, binding = 1) readonly buffer ParticleSSBOIn {
+   Particle particlesIn[ ];
+};
+
+layout(std140, binding = 2) buffer ParticleSSBOOut {
+   Particle particlesOut[ ];
+};
+
+layout (local_size_x = 256, local_size_y = 1, local_size_z = 1) in;
+
+void main() 
+{
+    uint index = gl_GlobalInvocationID.x;  
+
+    Particle particleIn = particlesIn[index];
+
+    particlesOut[index].position = particleIn.position + particleIn.velocity.xy * ubo.deltaTime;
+    particlesOut[index].velocity = particleIn.velocity;
+    ...
+}
+</code></pre>
+<p>The top part of the shader contains the declarations for the shader's input. First is a uniform buffer object at binding 0, something we already learned about in this tutorial. Below we declare our Particle structure that matches the declaration in the C++ code. Binding 1 then refers to the shader storage buffer object with the particle data from the last frame (see the descriptor setup), and binding 2 points to the SSBO for the current frame, which is the one we'll be updating with this shader.</p>
+<p>An interesting thing is this compute-only declaration related to the compute space:</p>
+<pre><code class="language-glsl">layout (local_size_x = 256, local_size_y = 1, local_size_z = 1) in;
+</code></pre>
+<p>This defines the number invocations of this compute shader in the current work group. As noted earlier, this is the local part of the compute space. Hence the <code>local_</code> prefix. As we work on a linear 1D array of particles we only need to specify a number for x dimension in <code>local_size_x</code>.</p>
+<p>The <code>main</code> function then reads from the last frame's SSBO and writes the updated particle position to the SSBO for the current frame. Similar to other shader types, compute shaders have their own set of builtin input variables. Built-ins are always prefixed with <code>gl_</code>. One such built-in is <code>gl_GlobalInvocationID</code>, a variable that uniquely identifies the current compute shader invocation across the current dispatch. We use this to index into our particle array.</p>
+<h2 id="page_Running-compute-commands">Running compute commands</h2>
+<h3 id="page_Dispatch">Dispatch</h3>
+<p>Now it's time to actually tell the GPU to do some compute. This is done by calling <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdDispatch.html"><code>vkCmdDispatch</code></a> inside a command buffer. While not perfectly true, a dispatch is for compute as a draw call like <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdDraw.html"><code>vkCmdDraw</code></a> is for graphics. This dispatches a given number of compute work items in at max. three dimensions.</p>
+<pre><code class="language-c++">VkCommandBufferBeginInfo beginInfo{};
+beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+
+if (vkBeginCommandBuffer(commandBuffer, &amp;beginInfo) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to begin recording command buffer!&quot;);
+}
+
+...
+
+vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, computePipeline);
+vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, computePipelineLayout, 0, 1, &amp;computeDescriptorSets[i], 0, 0);
+
+vkCmdDispatch(computeCommandBuffer, PARTICLE_COUNT / 256, 1, 1);
+
+...
+
+if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to record command buffer!&quot;);
+}
+</code></pre>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCmdDispatch.html"><code>vkCmdDispatch</code></a> will dispatch <code>PARTICLE_COUNT / 256</code> local work groups in the x dimension. As our particles array is linear, we leave the other two dimensions at one, resulting in a one-dimensional dispatch. But why do we divide the number of particles (in our array) by 256? That's because in the previous paragraph we defined that every compute shader in a work group will do 256 invocations. So if we were to have 4096 particles, we would dispatch 16 work groups, with each work group running 256 compute shader invocations. Getting the two numbers right usually takes some tinkering and profiling, depending on your workload and the hardware you're running on. If your particle size would be dynamic and can't always be divided by e.g. 256, you can always use <code>gl_GlobalInvocationID</code> at the start of your compute shader and return from it if the global invocation index is greater than the number of your particles.</p>
+<p>And just as was the case for the compute pipeline, a compute command buffer contains a lot less state than a graphics command buffer. There's no need to start a render pass or set a viewport.</p>
+<h3 id="page_Submitting-work">Submitting work</h3>
+<p>As our sample does both compute and graphics operations, we'll be doing two submits to both the graphics and compute queue per frame (see the <code>drawFrame</code> function):</p>
+<pre><code class="language-c++">...
+if (vkQueueSubmit(computeQueue, 1, &amp;submitInfo, nullptr) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to submit compute command buffer!&quot;);
+};
+...
+if (vkQueueSubmit(graphicsQueue, 1, &amp;submitInfo, inFlightFences[currentFrame]) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to submit draw command buffer!&quot;);
+}
+</code></pre>
+<p>The first submit to the compute queue updates the particle positions using the compute shader, and the second submit will then use that updated data to draw the particle system.</p>
+<h3 id="page_Synchronizing-graphics-and-compute">Synchronizing graphics and compute</h3>
+<p>Synchronization is an important part of Vulkan, even more so when doing compute in conjunction with graphics. Wrong or lacking synchronization may result in the vertex stage starting to draw (=read) particles while the compute shader hasn't finished updating (=write) them (read-after-write hazard), or the compute shader could start updating particles that are still in use by the vertex part of the pipeline (write-after-read hazard).</p>
+<p>So we must make sure that those cases don't happen by properly synchronizing the graphics and the compute load. There are different ways of doing so, depending on how you submit your compute workload but in our case with two separate submits, we'll be using <a href="Drawing_a_triangle/Drawing/Rendering_and_presentation.html#page_Semaphores">semaphores</a> and <a href="Drawing_a_triangle/Drawing/Rendering_and_presentation.html#page_Fences">fences</a> to ensure that the vertex shader won't start fetching vertices until the compute shader has finished updating them.</p>
+<p>This is necessary as even though the two submits are ordered one-after-another, there is no guarantee that they execute on the GPU in this order. Adding in wait and signal semaphores ensures this execution order.</p>
+<p>So we first add a new set of synchronization primitives for the compute work in <code>createSyncObjects</code>. The compute fences, just like the graphics fences, are created in the signaled state because otherwise, the first draw would time out while waiting for the fences to be signaled as detailed <a href="Drawing_a_triangle/Drawing/Rendering_and_presentation.html#page_Waiting-for-the-previous-frame">here</a>:</p>
+<pre><code class="language-c++">std::vector&lt;VkFence&gt; computeInFlightFences;
+std::vector&lt;VkSemaphore&gt; computeFinishedSemaphores;
+...
+computeInFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
+computeFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+
+VkSemaphoreCreateInfo semaphoreInfo{};
+semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+
+VkFenceCreateInfo fenceInfo{};
+fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
+for (size_t i = 0; i &lt; MAX_FRAMES_IN_FLIGHT; i++) {
+    ...
+    if (vkCreateSemaphore(device, &amp;semaphoreInfo, nullptr, &amp;computeFinishedSemaphores[i]) != VK_SUCCESS ||
+        vkCreateFence(device, &amp;fenceInfo, nullptr, &amp;computeInFlightFences[i]) != VK_SUCCESS) {
+        throw std::runtime_error(&quot;failed to create compute synchronization objects for a frame!&quot;);
+    }
+}
+</code></pre>
+<p>We then use these to synchronize the compute buffer submission with the graphics submission:</p>
+<pre><code class="language-c++">// Compute submission
+vkWaitForFences(device, 1, &amp;computeInFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
+
+updateUniformBuffer(currentFrame);
+
+vkResetFences(device, 1, &amp;computeInFlightFences[currentFrame]);
+
+vkResetCommandBuffer(computeCommandBuffers[currentFrame], /*VkCommandBufferResetFlagBits*/ 0);
+recordComputeCommandBuffer(computeCommandBuffers[currentFrame]);
+
+submitInfo.commandBufferCount = 1;
+submitInfo.pCommandBuffers = &amp;computeCommandBuffers[currentFrame];
+submitInfo.signalSemaphoreCount = 1;
+submitInfo.pSignalSemaphores = &amp;computeFinishedSemaphores[currentFrame];
+
+if (vkQueueSubmit(computeQueue, 1, &amp;submitInfo, computeInFlightFences[currentFrame]) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to submit compute command buffer!&quot;);
+};
+
+// Graphics submission
+vkWaitForFences(device, 1, &amp;inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
+
+...
+
+vkResetFences(device, 1, &amp;inFlightFences[currentFrame]);
+
+vkResetCommandBuffer(commandBuffers[currentFrame], /*VkCommandBufferResetFlagBits*/ 0);
+recordCommandBuffer(commandBuffers[currentFrame], imageIndex);
+
+VkSemaphore waitSemaphores[] = { computeFinishedSemaphores[currentFrame], imageAvailableSemaphores[currentFrame] };
+VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_VERTEX_INPUT_BIT, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+submitInfo = {};
+submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+submitInfo.waitSemaphoreCount = 2;
+submitInfo.pWaitSemaphores = waitSemaphores;
+submitInfo.pWaitDstStageMask = waitStages;
+submitInfo.commandBufferCount = 1;
+submitInfo.pCommandBuffers = &amp;commandBuffers[currentFrame];
+submitInfo.signalSemaphoreCount = 1;
+submitInfo.pSignalSemaphores = &amp;renderFinishedSemaphores[currentFrame];
+
+if (vkQueueSubmit(graphicsQueue, 1, &amp;submitInfo, inFlightFences[currentFrame]) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to submit draw command buffer!&quot;);
+}
+</code></pre>
+<p>Similar to the sample in the <a href="Drawing_a_triangle/Drawing/Rendering_and_presentation.html#page_Semaphores">semaphores chapter</a>, this setup will immediately run the compute shader as we haven't specified any wait semaphores. This is fine, as we are waiting for the compute command buffer of the current frame to finish execution before the compute submission with the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkWaitForFences.html"><code>vkWaitForFences</code></a> command.</p>
+<p>The graphics submission on the other hand needs to wait for the compute work to finish so it doesn't start fetching vertices while the compute buffer is still updating them. So we wait on the <code>computeFinishedSemaphores</code> for the current frame and have the graphics submission wait on the <code>VK_PIPELINE_STAGE_VERTEX_INPUT_BIT</code> stage, where vertices are consumed.</p>
+<p>But it also needs to wait for presentation so the fragment shader won't output to the color attachments until the image has been presented. So we also wait on the <code>imageAvailableSemaphores</code> on the current frame at the <code>VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT</code> stage.</p>
+<h2 id="page_Drawing-the-particle-system">Drawing the particle system</h2>
+<p>Earlier on, we learned that buffers in Vulkan can have multiple use-cases and so we created the shader storage buffer that contains our particles with both the shader storage buffer bit and the vertex buffer bit. This means that we can use the shader storage buffer for drawing just as we used &quot;pure&quot; vertex buffers in the previous chapters.</p>
+<p>We first setup the vertex input state to match our particle structure:</p>
+<pre><code class="language-c++">struct Particle {
+    ...
+
+    static std::array&lt;VkVertexInputAttributeDescription, 2&gt; getAttributeDescriptions() {
+        std::array&lt;VkVertexInputAttributeDescription, 2&gt; attributeDescriptions{};
+
+        attributeDescriptions[0].binding = 0;
+        attributeDescriptions[0].location = 0;
+        attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
+        attributeDescriptions[0].offset = offsetof(Particle, position);
+
+        attributeDescriptions[1].binding = 0;
+        attributeDescriptions[1].location = 1;
+        attributeDescriptions[1].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+        attributeDescriptions[1].offset = offsetof(Particle, color);
+
+        return attributeDescriptions;
+    }
+};
+</code></pre>
+<p>Note that we don't add <code>velocity</code> to the vertex input attributes, as this is only used by the compute shader.</p>
+<p>We then bind and draw it like we would with any vertex buffer:</p>
+<pre><code class="language-c++">vkCmdBindVertexBuffers(commandBuffer, 0, 1, &amp;shaderStorageBuffer[currentFrame], offsets);
+
+vkCmdDraw(commandBuffer, PARTICLE_COUNT, 1, 0, 0);
+</code></pre>
+<h2 id="page_Conclusion">Conclusion</h2>
+<p>In this chapter, we learned how to use compute shaders to offload work from the CPU to the GPU. Without compute shaders, many effects in modern games and applications would either not be possible or would run a lot slower. But even more than graphics, compute has a lot of use-cases, and this chapter only gives you a glimpse of what's possible. So now that you know how to use compute shaders, you may want to take look at some advanced compute topics like:</p>
+<ul>
+<li>Shared memory</li>
+<li>
+<a href="https://github.com/KhronosGroup/Vulkan-Samples/tree/master/samples/performance/async_compute" class="Link--external">Asynchronous compute</a>
+</li>
+<li>Atomic operations</li>
+<li>
+<a href="https://www.khronos.org/blog/vulkan-subgroup-tutorial" class="Link--external">Subgroups</a>
+</li>
+</ul>
+<p>You can find some advanced compute samples in the <a href="https://github.com/KhronosGroup/Vulkan-Samples/tree/master/samples/api" class="Link--external">official Khronos Vulkan Samples repository</a>.</p>
+<p><a href="../code/31_compute_shader.cpp">C++ code</a> /
+<a href="../code/31_shader_compute.vert">Vertex shader</a> /
+<a href="../code/31_shader_compute.frag">Fragment shader</a> /
+<a href="../code/31_shader_compute.comp">Compute shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../en/Multisampling.html">Previous</a></li>            <li><a href="../en/FAQ.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

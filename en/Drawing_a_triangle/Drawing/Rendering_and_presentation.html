@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Rendering and presentation - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../../en/Development_environment.html">Development environment</a></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item Nav__item--active'><a href="../../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Rendering and presentation</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Outline-of-a-frame">Outline of a frame</a></p>
+</li>
+<li>
+<p><a href="#page_Synchronization">Synchronization</a></p>
+<ul class="TableOfContents">
+<li>
+<p><a href="#page_Semaphores">Semaphores</a></p>
+</li>
+<li>
+<p><a href="#page_Fences">Fences</a></p>
+</li>
+<li>
+<p><a href="#page_What-to-choose">What to choose?</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p><a href="#page_Creating-the-synchronization-objects">Creating the synchronization objects</a></p>
+</li>
+<li>
+<p><a href="#page_Waiting-for-the-previous-frame">Waiting for the previous frame</a></p>
+</li>
+<li>
+<p><a href="#page_Acquiring-an-image-from-the-swap-chain">Acquiring an image from the swap chain</a></p>
+</li>
+<li>
+<p><a href="#page_Recording-the-command-buffer">Recording the command buffer</a></p>
+</li>
+<li>
+<p><a href="#page_Submitting-the-command-buffer">Submitting the command buffer</a></p>
+</li>
+<li>
+<p><a href="#page_Subpass-dependencies">Subpass dependencies</a></p>
+</li>
+<li>
+<p><a href="#page_Presentation">Presentation</a></p>
+</li>
+<li>
+<p><a href="#page_Conclusion">Conclusion</a></p>
+</li>
+</ul>
+<p>This is the chapter where everything is going to come together. We're going to
+write the <code>drawFrame</code> function that will be called from the main loop to put the
+triangle on the screen. Let's start by creating the function and call it from
+<code>mainLoop</code>:</p>
+<pre><code class="language-c++">void mainLoop() {
+    while (!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+        drawFrame();
+    }
+}
+
+...
+
+void drawFrame() {
+
+}
+</code></pre>
+<h2 id="page_Outline-of-a-frame">Outline of a frame</h2>
+<p>At a high level, rendering a frame in Vulkan consists of a common set of steps:</p>
+<ul>
+<li>Wait for the previous frame to finish</li>
+<li>Acquire an image from the swap chain</li>
+<li>Record a command buffer which draws the scene onto that image</li>
+<li>Submit the recorded command buffer</li>
+<li>Present the swap chain image</li>
+</ul>
+<p>While we will expand the drawing function in later chapters, for now this is the
+core of our render loop.</p>
+<!-- Add an image that shows an outline of the frame -->
+<h2 id="page_Synchronization">Synchronization</h2>
+<!-- Maybe add images for showing synchronization -->
+<p>A core design philosophy in Vulkan is that synchronization of execution on
+the GPU is explicit. The order of operations is up to us to define using various
+synchronization primitives which tell the driver the order we want things to run
+in. This means that many Vulkan API calls which start executing work on the GPU
+are asynchronous, the functions will return before the operation has finished.</p>
+<p>In this chapter there are a number of events that we need to order explicitly
+because they happen on the GPU, such as:</p>
+<ul>
+<li>Acquire an image from the swap chain</li>
+<li>Execute commands that draw onto the acquired image</li>
+<li>Present that image to the screen for presentation, returning it to the swapchain</li>
+</ul>
+<p>Each of these events is set in motion using a single function call, but are all
+executed asynchronously. The function calls will return before the operations
+are actually finished and the order of execution is also undefined. That is
+unfortunate, because each of the operations depends on the previous one
+finishing. Thus we need to explore which primitives we can use to achieve
+the desired ordering.</p>
+<h3 id="page_Semaphores">Semaphores</h3>
+<p>A semaphore is used to add order between queue operations. Queue operations
+refer to the work we submit to a queue, either in a command buffer or from
+within a function as we will see later. Examples of queues are the graphics
+queue and the presentation queue. Semaphores are used both to order work inside
+the same queue and between different queues.</p>
+<p>There happens to be two kinds of semaphores in Vulkan, binary and timeline.
+Because only binary semaphores will be used in this tutorial, we will not
+discuss timeline semaphores. Further mention of the term semaphore exclusively
+refers to binary semaphores.</p>
+<p>A semaphore is either unsignaled or signaled. It begins life as unsignaled. The
+way we use a semaphore to order queue operations is by providing the same
+semaphore as a 'signal' semaphore in one queue operation and as a 'wait'
+semaphore in another queue operation. For example, lets say we have semaphore S
+and queue operations A and B that we want to execute in order. What we tell
+Vulkan is that operation A will 'signal' semaphore S when it finishes executing,
+and operation B will 'wait' on semaphore S before it begins executing. When
+operation A finishes, semaphore S will be signaled, while operation B wont
+start until S is signaled. After operation B begins executing, semaphore S
+is automatically reset back to being unsignaled, allowing it to be used again.</p>
+<p>Pseudo-code of what was just described:</p>
+<pre><code>VkCommandBuffer A, B = ... // record command buffers
+VkSemaphore S = ... // create a semaphore
+
+// enqueue A, signal S when done - starts executing immediately
+vkQueueSubmit(work: A, signal: S, wait: None)
+
+// enqueue B, wait on S to start
+vkQueueSubmit(work: B, signal: None, wait: S)
+</code></pre>
+<p>Note that in this code snippet, both calls to <code>vkQueueSubmit()</code> return
+immediately - the waiting only happens on the GPU. The CPU continues running
+without blocking. To make the CPU wait, we need a different synchronization
+primitive, which we will now describe.</p>
+<h3 id="page_Fences">Fences</h3>
+<p>A fence has a similar purpose, in that it is used to synchronize execution, but
+it is for ordering the execution on the CPU, otherwise known as the host.
+Simply put, if the host needs to know when the GPU has finished something, we
+use a fence.</p>
+<p>Similar to semaphores, fences are either in a signaled or unsignaled state.
+Whenever we submit work to execute, we can attach a fence to that work. When
+the work is finished, the fence will be signaled. Then we can make the host
+wait for the fence to be signaled, guaranteeing that the work has finished
+before the host continues.</p>
+<p>A concrete example is taking a screenshot. Say we have already done the
+necessary work on the GPU. Now need to transfer the image from the GPU over
+to the host and then save the memory to a file. We have command buffer A which
+executes the transfer and fence F. We submit command buffer A with fence F,
+then immediately tell the host to wait for F to signal. This causes the host to
+block until command buffer A finishes execution. Thus we are safe to let the
+host save the file to disk, as the memory transfer has completed.</p>
+<p>Pseudo-code for what was described:</p>
+<pre><code>VkCommandBuffer A = ... // record command buffer with the transfer
+VkFence F = ... // create the fence
+
+// enqueue A, start work immediately, signal F when done
+vkQueueSubmit(work: A, fence: F)
+
+vkWaitForFence(F) // blocks execution until A has finished executing
+
+save_screenshot_to_disk() // can't run until the transfer has finished
+</code></pre>
+<p>Unlike the semaphore example, this example <em>does</em> block host execution. This
+means the host won't do anything except wait until execution has finished. For
+this case, we had to make sure the transfer was complete before we could save
+the screenshot to disk.</p>
+<p>In general, it is preferable to not block the host unless necessary. We want to
+feed the GPU and the host with useful work to do. Waiting on fences to signal
+is not useful work. Thus we prefer semaphores, or other synchronization
+primitives not yet covered, to synchronize our work.</p>
+<p>Fences must be reset manually to put them back into the unsignaled state. This
+is because fences are used to control the execution of the host, and so the
+host gets to decide when to reset the fence. Contrast this to semaphores which
+are used to order work on the GPU without the host being involved.</p>
+<p>In summary, semaphores are used to specify the execution order of operations on
+the GPU while fences are used to keep the CPU and GPU in sync with each-other.</p>
+<h3 id="page_What-to-choose">What to choose?</h3>
+<p>We have two synchronization primitives to use and conveniently two places to
+apply synchronization: Swapchain operations and waiting for the previous frame
+to finish. We want to use semaphores for swapchain operations because they
+happen on the GPU, thus we don't want to make the host wait around if we can
+help it. For waiting on the previous frame to finish, we want to use fences
+for the opposite reason, because we need the host to wait. This is so we don't
+draw more than one frame at a time. Because we re-record the command buffer
+every frame, we cannot record the next frame's work to the command buffer
+until the current frame has finished executing, as we don't want to overwrite
+the current contents of the command buffer while the GPU is using it.</p>
+<h2 id="page_Creating-the-synchronization-objects">Creating the synchronization objects</h2>
+<p>We'll need one semaphore to signal that an image has been acquired from the
+swapchain and is ready for rendering, another one to signal that rendering has
+finished and presentation can happen, and a fence to make sure only one frame
+is rendering at a time.</p>
+<p>Create three class members to store these semaphore objects and fence object:</p>
+<pre><code class="language-c++">VkSemaphore imageAvailableSemaphore;
+VkSemaphore renderFinishedSemaphore;
+VkFence inFlightFence;
+</code></pre>
+<p>To create the semaphores, we'll add the last <code>create</code> function for this part of
+the tutorial: <code>createSyncObjects</code>:</p>
+<pre><code class="language-c++">void initVulkan() {
+    createInstance();
+    setupDebugMessenger();
+    createSurface();
+    pickPhysicalDevice();
+    createLogicalDevice();
+    createSwapChain();
+    createImageViews();
+    createRenderPass();
+    createGraphicsPipeline();
+    createFramebuffers();
+    createCommandPool();
+    createCommandBuffer();
+    createSyncObjects();
+}
+
+...
+
+void createSyncObjects() {
+
+}
+</code></pre>
+<p>Creating semaphores requires filling in the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkSemaphoreCreateInfo.html"><code>VkSemaphoreCreateInfo</code></a>, but in the
+current version of the API it doesn't actually have any required fields besides
+<code>sType</code>:</p>
+<pre><code class="language-c++">void createSyncObjects() {
+    VkSemaphoreCreateInfo semaphoreInfo{};
+    semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+}
+</code></pre>
+<p>Future versions of the Vulkan API or extensions may add functionality for the
+<code>flags</code> and <code>pNext</code> parameters like it does for the other structures.</p>
+<p>Creating a fence requires filling in the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFenceCreateInfo.html"><code>VkFenceCreateInfo</code></a>:</p>
+<pre><code class="language-c++">VkFenceCreateInfo fenceInfo{};
+fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+</code></pre>
+<p>Creating the semaphores and fence follows the familiar pattern with
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateSemaphore.html"><code>vkCreateSemaphore</code></a> &amp; <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkCreateFence.html"><code>vkCreateFence</code></a>:</p>
+<pre><code class="language-c++">if (vkCreateSemaphore(device, &amp;semaphoreInfo, nullptr, &amp;imageAvailableSemaphore) != VK_SUCCESS ||
+    vkCreateSemaphore(device, &amp;semaphoreInfo, nullptr, &amp;renderFinishedSemaphore) != VK_SUCCESS ||
+    vkCreateFence(device, &amp;fenceInfo, nullptr, &amp;inFlightFence) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to create semaphores!&quot;);
+}
+</code></pre>
+<p>The semaphores and fence should be cleaned up at the end of the program, when
+all commands have finished and no more synchronization is necessary:</p>
+<pre><code class="language-c++">void cleanup() {
+    vkDestroySemaphore(device, imageAvailableSemaphore, nullptr);
+    vkDestroySemaphore(device, renderFinishedSemaphore, nullptr);
+    vkDestroyFence(device, inFlightFence, nullptr);
+</code></pre>
+<p>Onto the main drawing function!</p>
+<h2 id="page_Waiting-for-the-previous-frame">Waiting for the previous frame</h2>
+<p>At the start of the frame, we want to wait until the previous frame has
+finished, so that the command buffer and semaphores are available to use. To do
+that, we call <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkWaitForFences.html"><code>vkWaitForFences</code></a>:</p>
+<pre><code class="language-c++">void drawFrame() {
+    vkWaitForFences(device, 1, &amp;inFlightFence, VK_TRUE, UINT64_MAX);
+}
+</code></pre>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkWaitForFences.html"><code>vkWaitForFences</code></a> function takes an array of fences and waits on the host
+for either any or all of the fences to be signaled before returning. The
+<code>VK_TRUE</code> we pass here indicates that we want to wait for all fences, but in
+the case of a single one it doesn't matter. This function also has a timeout
+parameter that we set to the maximum value of a 64 bit unsigned integer,
+<code>UINT64_MAX</code>, which effectively disables the timeout.</p>
+<p>After waiting, we need to manually reset the fence to the unsignaled state with
+the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkResetFences.html"><code>vkResetFences</code></a> call:</p>
+<pre><code class="language-c++">    vkResetFences(device, 1, &amp;inFlightFence);
+</code></pre>
+<p>Before we can proceed, there is a slight hiccup in our design. On the first
+frame we call <code>drawFrame()</code>, which immediately waits on <code>inFlightFence</code> to
+be signaled. <code>inFlightFence</code> is only signaled after a frame has finished
+rendering, yet since this is the first frame, there are no previous frames in
+which to signal the fence! Thus <code>vkWaitForFences()</code> blocks indefinitely,
+waiting on something which will never happen.</p>
+<p>Of the many solutions to this dilemma, there is a clever workaround built into
+the API. Create the fence in the signaled state, so that the first call to
+<code>vkWaitForFences()</code> returns immediately since the fence is already signaled.</p>
+<p>To do this, we add the <code>VK_FENCE_CREATE_SIGNALED_BIT</code> flag to the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFenceCreateInfo.html"><code>VkFenceCreateInfo</code></a>:</p>
+<pre><code class="language-c++">void createSyncObjects() {
+    ...
+
+    VkFenceCreateInfo fenceInfo{};
+    fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
+    ...
+}
+</code></pre>
+<h2 id="page_Acquiring-an-image-from-the-swap-chain">Acquiring an image from the swap chain</h2>
+<p>The next thing we need to do in the <code>drawFrame</code> function is acquire an image
+from the swap chain. Recall that the swap chain is an extension feature, so we
+must use a function with the <code>vk*KHR</code> naming convention:</p>
+<pre><code class="language-c++">void drawFrame() {
+    ...
+
+    uint32_t imageIndex;
+    vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphore, VK_NULL_HANDLE, &amp;imageIndex);
+}
+</code></pre>
+<p>The first two parameters of <code>vkAcquireNextImageKHR</code> are the logical device and
+the swap chain from which we wish to acquire an image. The third parameter
+specifies a timeout in nanoseconds for an image to become available. Using the
+maximum value of a 64 bit unsigned integer means we effectively disable the
+timeout.</p>
+<p>The next two parameters specify synchronization objects that are to be signaled
+when the presentation engine is finished using the image. That's the point in
+time where we can start drawing to it. It is possible to specify a semaphore,
+fence or both. We're going to use our <code>imageAvailableSemaphore</code> for that purpose
+here.</p>
+<p>The last parameter specifies a variable to output the index of the swap chain
+image that has become available. The index refers to the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkImage.html"><code>VkImage</code></a> in our
+<code>swapChainImages</code> array. We're going to use that index to pick the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkFrameBuffer.html"><code>VkFrameBuffer</code></a>.</p>
+<h2 id="page_Recording-the-command-buffer">Recording the command buffer</h2>
+<p>With the imageIndex specifying the swap chain image to use in hand, we can now
+record the command buffer. First, we call <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkResetCommandBuffer.html"><code>vkResetCommandBuffer</code></a> on the command
+buffer to make sure it is able to be recorded.</p>
+<pre><code class="language-c++">vkResetCommandBuffer(commandBuffer, 0);
+</code></pre>
+<p>The second parameter of <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkResetCommandBuffer.html"><code>vkResetCommandBuffer</code></a> is a <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkCommandBufferResetFlagBits.html"><code>VkCommandBufferResetFlagBits</code></a>
+flag. Since we don't want to do anything special, we leave it as 0.</p>
+<p>Now call the function <code>recordCommandBuffer</code> to record the commands we want.</p>
+<pre><code class="language-c++">recordCommandBuffer(commandBuffer, imageIndex);
+</code></pre>
+<p>With a fully recorded command buffer, we can now submit it.</p>
+<h2 id="page_Submitting-the-command-buffer">Submitting the command buffer</h2>
+<p>Queue submission and synchronization is configured through parameters in the
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkSubmitInfo.html"><code>VkSubmitInfo</code></a> structure.</p>
+<pre><code class="language-c++">VkSubmitInfo submitInfo{};
+submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+VkSemaphore waitSemaphores[] = {imageAvailableSemaphore};
+VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+submitInfo.waitSemaphoreCount = 1;
+submitInfo.pWaitSemaphores = waitSemaphores;
+submitInfo.pWaitDstStageMask = waitStages;
+</code></pre>
+<p>The first three parameters specify which semaphores to wait on before execution
+begins and in which stage(s) of the pipeline to wait. We want to wait with
+writing colors to the image until it's available, so we're specifying the stage
+of the graphics pipeline that writes to the color attachment. That means that
+theoretically the implementation can already start executing our vertex shader
+and such while the image is not yet available. Each entry in the <code>waitStages</code>
+array corresponds to the semaphore with the same index in <code>pWaitSemaphores</code>.</p>
+<pre><code class="language-c++">submitInfo.commandBufferCount = 1;
+submitInfo.pCommandBuffers = &amp;commandBuffer;
+</code></pre>
+<p>The next two parameters specify which command buffers to actually submit for
+execution. We simply submit the single command buffer we have.</p>
+<pre><code class="language-c++">VkSemaphore signalSemaphores[] = {renderFinishedSemaphore};
+submitInfo.signalSemaphoreCount = 1;
+submitInfo.pSignalSemaphores = signalSemaphores;
+</code></pre>
+<p>The <code>signalSemaphoreCount</code> and <code>pSignalSemaphores</code> parameters specify which
+semaphores to signal once the command buffer(s) have finished execution. In our
+case we're using the <code>renderFinishedSemaphore</code> for that purpose.</p>
+<pre><code class="language-c++">if (vkQueueSubmit(graphicsQueue, 1, &amp;submitInfo, inFlightFence) != VK_SUCCESS) {
+    throw std::runtime_error(&quot;failed to submit draw command buffer!&quot;);
+}
+</code></pre>
+<p>We can now submit the command buffer to the graphics queue using
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkQueueSubmit.html"><code>vkQueueSubmit</code></a>. The function takes an array of <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkSubmitInfo.html"><code>VkSubmitInfo</code></a> structures as
+argument for efficiency when the workload is much larger. The last parameter
+references an optional fence that will be signaled when the command buffers
+finish execution. This allows us to know when it is safe for the command
+buffer to be reused, thus we want to give it <code>inFlightFence</code>. Now on the next
+frame, the CPU will wait for this command buffer to finish executing before it
+records new commands into it.</p>
+<h2 id="page_Subpass-dependencies">Subpass dependencies</h2>
+<p>Remember that the subpasses in a render pass automatically take care of image
+layout transitions. These transitions are controlled by <em>subpass dependencies</em>,
+which specify memory and execution dependencies between subpasses. We have only
+a single subpass right now, but the operations right before and right after this
+subpass also count as implicit &quot;subpasses&quot;.</p>
+<p>There are two built-in dependencies that take care of the transition at the
+start of the render pass and at the end of the render pass, but the former does
+not occur at the right time. It assumes that the transition occurs at the start
+of the pipeline, but we haven't acquired the image yet at that point! There are
+two ways to deal with this problem. We could change the <code>waitStages</code> for the
+<code>imageAvailableSemaphore</code> to <code>VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT</code> to ensure that
+the render passes don't begin until the image is available, or we can make the
+render pass wait for the <code>VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT</code> stage.
+I've decided to go with the second option here, because it's a good excuse to
+have a look at subpass dependencies and how they work.</p>
+<p>Subpass dependencies are specified in <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkSubpassDependency.html"><code>VkSubpassDependency</code></a> structs. Go to the
+<code>createRenderPass</code> function and add one:</p>
+<pre><code class="language-c++">VkSubpassDependency dependency{};
+dependency.srcSubpass = VK_SUBPASS_EXTERNAL;
+dependency.dstSubpass = 0;
+</code></pre>
+<p>The first two fields specify the indices of the dependency and the dependent
+subpass. The special value <code>VK_SUBPASS_EXTERNAL</code> refers to the implicit subpass
+before or after the render pass depending on whether it is specified in
+<code>srcSubpass</code> or <code>dstSubpass</code>. The index <code>0</code> refers to our subpass, which is the
+first and only one. The <code>dstSubpass</code> must always be higher than <code>srcSubpass</code> to
+prevent cycles in the dependency graph (unless one of the subpasses is
+<code>VK_SUBPASS_EXTERNAL</code>).</p>
+<pre><code class="language-c++">dependency.srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+dependency.srcAccessMask = 0;
+</code></pre>
+<p>The next two fields specify the operations to wait on and the stages in which
+these operations occur. We need to wait for the swap chain to finish reading
+from the image before we can access it. This can be accomplished by waiting on
+the color attachment output stage itself.</p>
+<pre><code class="language-c++">dependency.dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+</code></pre>
+<p>The operations that should wait on this are in the color attachment stage and
+involve the writing of the color attachment. These settings will
+prevent the transition from happening until it's actually necessary (and
+allowed): when we want to start writing colors to it.</p>
+<pre><code class="language-c++">renderPassInfo.dependencyCount = 1;
+renderPassInfo.pDependencies = &amp;dependency;
+</code></pre>
+<p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkRenderPassCreateInfo.html"><code>VkRenderPassCreateInfo</code></a> struct has two fields to specify an array of
+dependencies.</p>
+<h2 id="page_Presentation">Presentation</h2>
+<p>The last step of drawing a frame is submitting the result back to the swap chain
+to have it eventually show up on the screen. Presentation is configured through
+a <code>VkPresentInfoKHR</code> structure at the end of the <code>drawFrame</code> function.</p>
+<pre><code class="language-c++">VkPresentInfoKHR presentInfo{};
+presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+
+presentInfo.waitSemaphoreCount = 1;
+presentInfo.pWaitSemaphores = signalSemaphores;
+</code></pre>
+<p>The first two parameters specify which semaphores to wait on before presentation
+can happen, just like <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkSubmitInfo.html"><code>VkSubmitInfo</code></a>. Since we want to wait on the command buffer
+to finish execution, thus our triangle being drawn, we take the semaphores
+which will be signalled and wait on them, thus we use <code>signalSemaphores</code>.</p>
+<pre><code class="language-c++">VkSwapchainKHR swapChains[] = {swapChain};
+presentInfo.swapchainCount = 1;
+presentInfo.pSwapchains = swapChains;
+presentInfo.pImageIndices = &amp;imageIndex;
+</code></pre>
+<p>The next two parameters specify the swap chains to present images to and the
+index of the image for each swap chain. This will almost always be a single one.</p>
+<pre><code class="language-c++">presentInfo.pResults = nullptr; // Optional
+</code></pre>
+<p>There is one last optional parameter called <code>pResults</code>. It allows you to specify
+an array of <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkResult.html"><code>VkResult</code></a> values to check for every individual swap chain if
+presentation was successful. It's not necessary if you're only using a single
+swap chain, because you can simply use the return value of the present function.</p>
+<pre><code class="language-c++">vkQueuePresentKHR(presentQueue, &amp;presentInfo);
+</code></pre>
+<p>The <code>vkQueuePresentKHR</code> function submits the request to present an image to the
+swap chain. We'll add error handling for both <code>vkAcquireNextImageKHR</code> and
+<code>vkQueuePresentKHR</code> in the next chapter, because their failure does not
+necessarily mean that the program should terminate, unlike the functions we've
+seen so far.</p>
+<p>If you did everything correctly up to this point, then you should now see
+something resembling the following when you run your program:</p>
+<p><img src="/images/triangle.png" alt="" /></p>
+<blockquote>
+<p>This colored triangle may look a bit different from the one you're used to seeing in graphics tutorials. That's because this tutorial lets the shader interpolate in linear color space and converts to sRGB color space afterwards. See <a href="https://medium.com/@heypete/hello-triangle-meet-swift-and-wide-color-6f9e246616d9" class="Link--external">this blog post</a> for a discussion of the difference.</p>
+</blockquote>
+<p>Yay! Unfortunately, you'll see that when validation layers are enabled, the
+program crashes as soon as you close it. The messages printed to the terminal
+from <code>debugCallback</code> tell us why:</p>
+<p><img src="/images/semaphore_in_use.png" alt="" /></p>
+<p>Remember that all of the operations in <code>drawFrame</code> are asynchronous. That means
+that when we exit the loop in <code>mainLoop</code>, drawing and presentation operations
+may still be going on. Cleaning up resources while that is happening is a bad
+idea.</p>
+<p>To fix that problem, we should wait for the logical device to finish operations
+before exiting <code>mainLoop</code> and destroying the window:</p>
+<pre><code class="language-c++">void mainLoop() {
+    while (!glfwWindowShouldClose(window)) {
+        glfwPollEvents();
+        drawFrame();
+    }
+
+    vkDeviceWaitIdle(device);
+}
+</code></pre>
+<p>You can also wait for operations in a specific command queue to be finished with
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkQueueWaitIdle.html"><code>vkQueueWaitIdle</code></a>. These functions can be used as a very rudimentary way to
+perform synchronization. You'll see that the program now exits without problems
+when closing the window.</p>
+<h2 id="page_Conclusion">Conclusion</h2>
+<p>A little over 900 lines of code later, we've finally gotten to the stage of seeing
+something pop up on the screen! Bootstrapping a Vulkan program is definitely a
+lot of work, but the take-away message is that Vulkan gives you an immense
+amount of control through its explicitness. I recommend you to take some time
+now to reread the code and build a mental model of the purpose of all of the
+Vulkan objects in the program and how they relate to each other. We'll be
+building on top of that knowledge to extend the functionality of the program
+from this point on.</p>
+<p>The next chapter will expand the render loop to handle multiple frames in flight.</p>
+<p><a href="../../../code/15_hello_triangle.cpp">C++ code</a> /
+<a href="../../../code/09_shader_base.vert">Vertex shader</a> /
+<a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Previous</a></li>            <li><a href="../../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>

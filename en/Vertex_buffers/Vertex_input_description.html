@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>       <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>          <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>          <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Vertex input description - Vulkan Tutorial</title>
+    <meta name="description" content="A tutorial that teaches you everything it takes to render 3D graphics with the Vulkan API. It covers everything from Windows/Linux setup to rendering and debugging." />
+    <meta name="author" content="Alexander Overvoorde">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    
+    <!-- CSS -->
+    <link href='../../themes/vulkan/css/theme.min.css' rel='stylesheet' type='text/css'><link href='../../themes/vulkan/css/theme-blue.min.css' rel='stylesheet' type='text/css'>
+            <!-- Tipue Search -->
+        <link href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    
+<div class="container-fluid fluid-height wrapper">
+    <div class="row columns content">
+        <div class="left-column article-tree col-sm-3 hidden-print">
+            <!-- For Mobile -->
+            <div class="responsive-collapse">
+                <button type="button" class="btn btn-sidebar" id="menu-spinner-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="sub-nav-collapse" class="sub-nav-collapse">
+                <div class="nav-logo">
+                    Vulkan Tutorial
+                </div>
+
+                <!-- Language picker -->
+                <div class="language-picker">
+                <a href="/Introduction">English</a>                </div>
+
+                <!-- Navigation -->
+                <div style="padding-top: 20px; padding-bottom: 20px; background: #272525">
+                <ul class='Nav'><li class='Nav__item '><a href="../../en/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../en/Overview.html">Overview</a></li><li class='Nav__item '><a href="../../en/Development_environment.html">Development environment</a></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing a triangle</a><ul class='Nav'><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Setup/Base_code.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Setup</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Base_code.html">Base code</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Instance.html">Instance</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Validation_layers.html">Validation layers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Physical_devices_and_queue_families.html">Physical devices and queue families</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Setup/Logical_device_and_queues.html">Logical device and queues</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Presentation/Window_surface.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Presentation</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Window_surface.html">Window surface</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Swap_chain.html">Swap chain</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Presentation/Image_views.html">Image views</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Graphics pipeline basics</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Introduction.html">Introduction</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Shader_modules.html">Shader modules</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Fixed_functions.html">Fixed functions</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Render_passes.html">Render passes</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Graphics_pipeline_basics/Conclusion.html">Conclusion</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Drawing_a_triangle/Drawing/Framebuffers.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Drawing</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Framebuffers.html">Framebuffers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Command_buffers.html">Command buffers</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Rendering_and_presentation.html">Rendering and presentation</a></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Drawing/Frames_in_flight.html">Frames in flight</a></li></ul></li><li class='Nav__item '><a href="../../en/Drawing_a_triangle/Swap_chain_recreation.html">Swap chain recreation</a></li></ul></li><li class='Nav__item Nav__item--open has-children'><a href="../../en/Vertex_buffers/Vertex_input_description.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Vertex buffers</a><ul class='Nav'><li class='Nav__item Nav__item--active'><a href="../../en/Vertex_buffers/Vertex_input_description.html">Vertex input description</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Vertex_buffer_creation.html">Vertex buffer creation</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Staging_buffer.html">Staging buffer</a></li><li class='Nav__item '><a href="../../en/Vertex_buffers/Index_buffer.html">Index buffer</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Uniform buffers</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Uniform_buffers/Descriptor_set_layout_and_buffer.html">Descriptor set layout and buffer</a></li><li class='Nav__item '><a href="../../en/Uniform_buffers/Descriptor_pool_and_sets.html">Descriptor pool and sets</a></li></ul></li><li class='Nav__item  has-children'><a href="../../en/Texture_mapping/Images.html" class="folder"><i class="Nav__arrow">&nbsp;</i>Texture mapping</a><ul class='Nav'><li class='Nav__item '><a href="../../en/Texture_mapping/Images.html">Images</a></li><li class='Nav__item '><a href="../../en/Texture_mapping/Image_view_and_sampler.html">Image view and sampler</a></li><li class='Nav__item '><a href="../../en/Texture_mapping/Combined_image_sampler.html">Combined image sampler</a></li></ul></li><li class='Nav__item '><a href="../../en/Depth_buffering.html">Depth buffering</a></li><li class='Nav__item '><a href="../../en/Loading_models.html">Loading models</a></li><li class='Nav__item '><a href="../../en/Generating_Mipmaps.html">Generating Mipmaps</a></li><li class='Nav__item '><a href="../../en/Multisampling.html">Multisampling</a></li><li class='Nav__item '><a href="../../en/Compute_Shader.html">Compute Shader</a></li><li class='Nav__item '><a href="../../en/FAQ.html">FAQ</a></li><li class='Nav__item '><a href="../../en/Privacy_policy.html">Privacy policy</a></li></ul>                </div>
+
+                <div class="sidebar-links">
+                    
+                        <!-- Links -->
+                        <a href="https://github.com/Overv/VulkanTutorial" target="_blank">GitHub Repository</a><br><a href="https://www.paypal.me/AOvervoorde" target="_blank">Support the website</a><br><br><a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/" target="_blank">Vulkan Specification</a><br><a href="https://lunarg.com/vulkan-sdk/" target="_blank">LunarG Vulkan SDK</a><br><a href="https://github.com/KhronosGroup/Vulkan-Guide" target="_blank">Vulkan Guide</a><br><a href="https://vulkan.gpuinfo.org/" target="_blank">Vulkan Hardware Database</a><br><br><a href="https://github.com/bwasty/vulkan-tutorial-rs" target="_blank">Rust code</a><br><a href="https://github.com/Naitsirc98/Vulkan-Tutorial-Java" target="_blank">Java code</a><br><a href="https://github.com/vkngwrapper/vulkan-tutorial" target="_blank">Go code</a><br><a href="https://github.com/jjYBdx4IL/VulkanTutorial-VisualStudioProjectFiles" target="_blank">Visual Studio 2019 samples</a><br><a href="https://github.com/fangcun010/VulkanTutorialCN" target="_blank">Chinese translation</a><br>
+                        <div id="toggleCodeBlock">
+                                                </div>
+
+                        <!-- Twitter -->
+                                                            </div>
+
+                <div style="color: #666; padding: 0 20px 0 20px; font-size: 90%">
+                    This site is not affiliated with or endorsed by the Khronos Group. Vulkan® and the Vulkan logo are trademarks of the Khronos Group Inc.
+                </div>
+            </div>
+        </div>
+        <div class="right-column  content-area col-sm-9">
+            <div class="content-page" style="position: relative;">
+                <div class="adbox-side" style="position: absolute; left: calc(100% + 50px);">
+                    <div id="waldo-tag-4310"></div>
+                </div>
+
+                <div class="adbox-side" style="position: absolute; left: -350px">
+                    <div id="waldo-tag-4312"></div>
+                </div>
+
+                                    <div id="tipue_search_content" style="display:none"></div>
+                
+                <div class="doc_content">
+                    <article>
+            <div class="page-header">
+            <h1>Vertex input description</h1>
+        </div>
+    
+    <ul class="TableOfContents">
+<li>
+<p><a href="#page_Introduction">Introduction</a></p>
+</li>
+<li>
+<p><a href="#page_Vertex-shader">Vertex shader</a></p>
+</li>
+<li>
+<p><a href="#page_Vertex-data">Vertex data</a></p>
+</li>
+<li>
+<p><a href="#page_Binding-descriptions">Binding descriptions</a></p>
+</li>
+<li>
+<p><a href="#page_Attribute-descriptions">Attribute descriptions</a></p>
+</li>
+<li>
+<p><a href="#page_Pipeline-vertex-input">Pipeline vertex input</a></p>
+</li>
+</ul>
+<h2 id="page_Introduction">Introduction</h2>
+<p>In the next few chapters, we're going to replace the hardcoded vertex data in
+the vertex shader with a vertex buffer in memory. We'll start with the easiest
+approach of creating a CPU visible buffer and using <code>memcpy</code> to copy the vertex
+data into it directly, and after that we'll see how to use a staging buffer to
+copy the vertex data to high performance memory.</p>
+<h2 id="page_Vertex-shader">Vertex shader</h2>
+<p>First change the vertex shader to no longer include the vertex data in the
+shader code itself. The vertex shader takes input from a vertex buffer using the
+<code>in</code> keyword.</p>
+<pre><code class="language-glsl">#version 450
+
+layout(location = 0) in vec2 inPosition;
+layout(location = 1) in vec3 inColor;
+
+layout(location = 0) out vec3 fragColor;
+
+void main() {
+    gl_Position = vec4(inPosition, 0.0, 1.0);
+    fragColor = inColor;
+}
+</code></pre>
+<p>The <code>inPosition</code> and <code>inColor</code> variables are <em>vertex attributes</em>. They're
+properties that are specified per-vertex in the vertex buffer, just like we
+manually specified a position and color per vertex using the two arrays. Make
+sure to recompile the vertex shader!</p>
+<p>Just like <code>fragColor</code>, the <code>layout(location = x)</code> annotations assign indices to
+the inputs that we can later use to reference them. It is important to know that
+some types, like <code>dvec3</code> 64 bit vectors, use multiple <em>slots</em>. That means that
+the index after it must be at least 2 higher:</p>
+<pre><code class="language-glsl">layout(location = 0) in dvec3 inPosition;
+layout(location = 2) in vec3 inColor;
+</code></pre>
+<p>You can find more info about the layout qualifier in the <a href="https://www.khronos.org/opengl/wiki/Layout_Qualifier_(GLSL)" class="Link--external">OpenGL wiki</a>.</p>
+<h2 id="page_Vertex-data">Vertex data</h2>
+<p>We're moving the vertex data from the shader code to an array in the code of our
+program. Start by including the GLM library, which provides us with linear
+algebra related types like vectors and matrices. We're going to use these types
+to specify the position and color vectors.</p>
+<pre><code class="language-c++">#include &lt;glm/glm.hpp&gt;
+</code></pre>
+<p>Create a new structure called <code>Vertex</code> with the two attributes that we're going
+to use in the vertex shader inside it:</p>
+<pre><code class="language-c++">struct Vertex {
+    glm::vec2 pos;
+    glm::vec3 color;
+};
+</code></pre>
+<p>GLM conveniently provides us with C++ types that exactly match the vector types
+used in the shader language.</p>
+<pre><code class="language-c++">const std::vector&lt;Vertex&gt; vertices = {
+    {{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+    {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+    {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+};
+</code></pre>
+<p>Now use the <code>Vertex</code> structure to specify an array of vertex data. We're using
+exactly the same position and color values as before, but now they're combined
+into one array of vertices. This is known as <em>interleaving</em> vertex attributes.</p>
+<h2 id="page_Binding-descriptions">Binding descriptions</h2>
+<p>The next step is to tell Vulkan how to pass this data format to the vertex
+shader once it's been uploaded into GPU memory. There are two types of
+structures needed to convey this information.</p>
+<p>The first structure is <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkVertexInputBindingDescription.html"><code>VkVertexInputBindingDescription</code></a> and we'll add a member
+function to the <code>Vertex</code> struct to populate it with the right data.</p>
+<pre><code class="language-c++">struct Vertex {
+    glm::vec2 pos;
+    glm::vec3 color;
+
+    static VkVertexInputBindingDescription getBindingDescription() {
+        VkVertexInputBindingDescription bindingDescription{};
+
+        return bindingDescription;
+    }
+};
+</code></pre>
+<p>A vertex binding describes at which rate to load data from memory throughout the
+vertices. It specifies the number of bytes between data entries and whether to
+move to the next data entry after each vertex or after each instance.</p>
+<pre><code class="language-c++">VkVertexInputBindingDescription bindingDescription{};
+bindingDescription.binding = 0;
+bindingDescription.stride = sizeof(Vertex);
+bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+</code></pre>
+<p>All of our per-vertex data is packed together in one array, so we're only going
+to have one binding. The <code>binding</code> parameter specifies the index of the binding
+in the array of bindings. The <code>stride</code> parameter specifies the number of bytes
+from one entry to the next, and the <code>inputRate</code> parameter can have one of the
+following values:</p>
+<ul>
+<li>
+<code>VK_VERTEX_INPUT_RATE_VERTEX</code>: Move to the next data entry after each vertex</li>
+<li>
+<code>VK_VERTEX_INPUT_RATE_INSTANCE</code>: Move to the next data entry after each
+instance</li>
+</ul>
+<p>We're not going to use instanced rendering, so we'll stick to per-vertex data.</p>
+<h2 id="page_Attribute-descriptions">Attribute descriptions</h2>
+<p>The second structure that describes how to handle vertex input is
+<a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkVertexInputAttributeDescription.html"><code>VkVertexInputAttributeDescription</code></a>. We're going to add another helper function
+to <code>Vertex</code> to fill in these structs.</p>
+<pre><code class="language-c++">#include &lt;array&gt;
+
+...
+
+static std::array&lt;VkVertexInputAttributeDescription, 2&gt; getAttributeDescriptions() {
+    std::array&lt;VkVertexInputAttributeDescription, 2&gt; attributeDescriptions{};
+
+    return attributeDescriptions;
+}
+</code></pre>
+<p>As the function prototype indicates, there are going to be two of these
+structures. An attribute description struct describes how to extract a vertex
+attribute from a chunk of vertex data originating from a binding description. We
+have two attributes, position and color, so we need two attribute description
+structs.</p>
+<pre><code class="language-c++">attributeDescriptions[0].binding = 0;
+attributeDescriptions[0].location = 0;
+attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
+attributeDescriptions[0].offset = offsetof(Vertex, pos);
+</code></pre>
+<p>The <code>binding</code> parameter tells Vulkan from which binding the per-vertex data
+comes. The <code>location</code> parameter references the <code>location</code> directive of the
+input in the vertex shader. The input in the vertex shader with location <code>0</code> is
+the position, which has two 32-bit float components.</p>
+<p>The <code>format</code> parameter describes the type of data for the attribute. A bit
+confusingly, the formats are specified using the same enumeration as color
+formats. The following shader types and formats are commonly used together:</p>
+<ul>
+<li>
+<code>float</code>: <code>VK_FORMAT_R32_SFLOAT</code>
+</li>
+<li>
+<code>vec2</code>: <code>VK_FORMAT_R32G32_SFLOAT</code>
+</li>
+<li>
+<code>vec3</code>: <code>VK_FORMAT_R32G32B32_SFLOAT</code>
+</li>
+<li>
+<code>vec4</code>: <code>VK_FORMAT_R32G32B32A32_SFLOAT</code>
+</li>
+</ul>
+<p>As you can see, you should use the format where the amount of color channels
+matches the number of components in the shader data type. It is allowed to use
+more channels than the number of components in the shader, but they will be
+silently discarded. If the number of channels is lower than the number of
+components, then the BGA components will use default values of <code>(0, 0, 1)</code>. The
+color type (<code>SFLOAT</code>, <code>UINT</code>, <code>SINT</code>) and bit width should also match the type
+of the shader input. See the following examples:</p>
+<ul>
+<li>
+<code>ivec2</code>: <code>VK_FORMAT_R32G32_SINT</code>, a 2-component vector of 32-bit signed
+integers</li>
+<li>
+<code>uvec4</code>: <code>VK_FORMAT_R32G32B32A32_UINT</code>, a 4-component vector of 32-bit
+unsigned integers</li>
+<li>
+<code>double</code>: <code>VK_FORMAT_R64_SFLOAT</code>, a double-precision (64-bit) float</li>
+</ul>
+<p>The <code>format</code> parameter implicitly defines the byte size of attribute data and
+the <code>offset</code> parameter specifies the number of bytes since the start of the
+per-vertex data to read from. The binding is loading one <code>Vertex</code> at a time and
+the position attribute (<code>pos</code>) is at an offset of <code>0</code> bytes from the beginning
+of this struct. This is automatically calculated using the <code>offsetof</code> macro.</p>
+<pre><code class="language-c++">attributeDescriptions[1].binding = 0;
+attributeDescriptions[1].location = 1;
+attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+attributeDescriptions[1].offset = offsetof(Vertex, color);
+</code></pre>
+<p>The color attribute is described in much the same way.</p>
+<h2 id="page_Pipeline-vertex-input">Pipeline vertex input</h2>
+<p>We now need to set up the graphics pipeline to accept vertex data in this format
+by referencing the structures in <code>createGraphicsPipeline</code>. Find the
+<code>vertexInputInfo</code> struct and modify it to reference the two descriptions:</p>
+<pre><code class="language-c++">auto bindingDescription = Vertex::getBindingDescription();
+auto attributeDescriptions = Vertex::getAttributeDescriptions();
+
+vertexInputInfo.vertexBindingDescriptionCount = 1;
+vertexInputInfo.vertexAttributeDescriptionCount = static_cast&lt;uint32_t&gt;(attributeDescriptions.size());
+vertexInputInfo.pVertexBindingDescriptions = &amp;bindingDescription;
+vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
+</code></pre>
+<p>The pipeline is now ready to accept vertex data in the format of the <code>vertices</code>
+container and pass it on to our vertex shader. If you run the program now with
+validation layers enabled, you'll see that it complains that there is no vertex
+buffer bound to the binding. The next step is to create a vertex buffer and move
+the vertex data to it so the GPU is able to access it.</p>
+<p><a href="../../code/18_vertex_input.cpp">C++ code</a> /
+<a href="../../code/18_shader_vertexbuffer.vert">Vertex shader</a> /
+<a href="../../code/18_shader_vertexbuffer.frag">Fragment shader</a></p>
+
+        <nav>
+        <ul class="pager">
+            <li><a href="../../en/Drawing_a_triangle/Swap_chain_recreation.html">Previous</a></li>            <li><a href="../../en/Vertex_buffers/Vertex_buffer_creation.html">Next</a></li>        </ul>
+    </nav>
+    
+        <div id="waldo-tag-4314"></div>
+    
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <!-- jQuery -->
+    <script src="../../themes/vulkan/js/jquery-1.11.3.min.js"></script>
+
+    <!-- hightlight.js -->
+    <script src="../../themes/vulkan/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- JS -->
+    
+    <script src="../../themes/vulkan/js/daux.js"></script>
+
+            <!-- Tipue Search -->
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch_set.js"></script>
+        <script type="text/javascript" src="../../tipuesearch/tipuesearch.min.js"></script>
+
+        <script>
+            window.onunload = function(){}; // force $(document).ready to be called on back/forward navigation in firefox
+            $(document).ready(function() {
+                $('#tipue_search_input').tipuesearch({
+                    'show': 10,
+                    'mode': 'json',
+                    'base_url': '../../'
+                });
+            });
+        </script>
+    
+</body>
+</html>
