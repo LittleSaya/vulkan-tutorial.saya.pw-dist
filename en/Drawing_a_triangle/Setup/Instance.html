@@ -127,6 +127,10 @@ certain special behavior). This struct is called <a href="https://www.khronos.or
     appInfo.apiVersion = VK_API_VERSION_1_0;
 }
 </code></pre>
+<p class="my-note">
+注：应用信息里的 engine name 和 engine version 就是市场上的引擎名称和版本，
+比如说虚幻引擎的 engine name 可能是 UE4 ， engine version 可能是 0
+<p>
 <p>As mentioned before, many structs in Vulkan require you to explicitly specify
 the type in the <code>sType</code> member. This is also one of the many structs with a
 <code>pNext</code> member that can point to extension information in the future. We're
@@ -245,6 +249,9 @@ some details about the Vulkan support. As a challenge, try to create a function
 that checks if all of the extensions returned by
 <code>glfwGetRequiredInstanceExtensions</code> are included in the supported extensions
 list.</p>
+<p class="my-note">
+注：扩展的名称是一个长度最大 VK_MAX_EXTENSION_NAME_SIZE 字节的 UTF-8 字符串，或许能有中文名称的扩展？
+</p>
 <h2 id="page_Cleaning-up">Cleaning up</h2>
 <p>The <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkInstance.html"><code>VkInstance</code></a> should be only destroyed right before the program exits. It can
 be destroyed in <code>cleanup</code> with the <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/vkDestroyInstance.html"><code>vkDestroyInstance</code></a> function:</p>
