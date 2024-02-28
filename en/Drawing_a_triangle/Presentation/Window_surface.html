@@ -240,6 +240,9 @@ variable for the handle:</p>
 <p>Next, we need to have multiple <a href="https://www.khronos.org/registry/vulkan/specs/1.0/man/html/VkDeviceQueueCreateInfo.html"><code>VkDeviceQueueCreateInfo</code></a> structs to create a
 queue from both families. An elegant way to do that is to create a set of all
 unique queue families that are necessary for the required queues:</p>
+<p class="my-note">
+注： Set 可以去重
+</p>
 <pre><code class="language-c++">#include &lt;set&gt;
 
 ...
