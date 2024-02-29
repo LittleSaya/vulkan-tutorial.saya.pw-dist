@@ -155,7 +155,7 @@ gradient.</p>
 <p>A <em>clip coordinate</em> is a four dimensional vector from the vertex shader that is
 subsequently turned into a <em>normalized device coordinate</em> by dividing the whole
 vector by its last component. These normalized device coordinates are
-<a href="https://en.wikipedia.org/wiki/Homogeneous_coordinates" class="Link--external">homogeneous coordinates</a>
+<a href="https://en.wikipedia.org/wiki/Homogeneous_coordinates" class="Link--external">homogeneous coordinates</a>(齐次坐标系)
 that map the framebuffer to a [-1, 1] by [-1, 1] coordinate system that looks
 like the following:</p>
 <p><img src="/images/normalized_device_coordinates.svg" alt="" /></p>
@@ -460,6 +460,12 @@ use to reference them in the actual pipeline creation step.</p>
 </code></pre>
 <p>That's all there is to describing the programmable stages of the pipeline. In
 the next chapter we'll look at the fixed-function stages.</p>
+<p class="my-note">
+注： VkPipelineShaderStageCreateInfo 除了上述属性以外，还有下列属性：
+<ul class="my-note">
+    <li>flags ：一些关于 subgroup size 的设置</li>
+</ul>
+</p>
 <p><a href="../../../code/09_shader_modules.cpp">C++ code</a> /
 <a href="../../../code/09_shader_base.vert">Vertex shader</a> /
 <a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
