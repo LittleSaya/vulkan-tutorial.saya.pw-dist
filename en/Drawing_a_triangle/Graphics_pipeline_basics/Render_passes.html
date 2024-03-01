@@ -245,6 +245,10 @@ fragment shader with the <code>layout(location = 0) out vec4 outColor</code> dir
 <code>pPreserveAttachments</code>: Attachments that are not used by this subpass, but for
 which the data must be preserved</li>
 </ul>
+<p class="my-note">
+注： VkAttachmentDescription 中的 initialLayout 和 finalLayout 定义了 subpass 开始和结束时的 layout
+VkAttachmentReference 中的 layout 定义了 subpass 执行过程中的 layout 。
+</p>
 <h2 id="page_Render-pass">Render pass</h2>
 <p>Now that the attachment and a basic subpass referencing it have been described,
 we can create the render pass itself. Create a new class member variable to hold
@@ -277,6 +281,15 @@ program, so it should only be cleaned up at the end:</p>
 </code></pre>
 <p>That was a lot of work, but in the next chapter it all comes together to finally
 create the graphics pipeline object!</p>
+<p class="my-note">
+摘自 Vulkan 标准： Render Pass 包含了 Attachment 、 Subpass 和 Subpass 之间的依赖关系，
+并且描述了如何在 Subpass 执行期间内使用 Attachment。
+</p>
+<p class="my-note">
+个人理解： Render Pass 包含一个 Attachment 的数组，这个数组包含了所有 Attachment ，
+每一个 Attachment 都有自己的 initial layout 和 final layout ，
+Subpass 只引用这些 Attachment ，在引用的同时指定一个 subpass 执行过程中的 layout 。
+</p>
 <p><a href="../../../code/11_render_passes.cpp">C++ code</a> /
 <a href="../../../code/09_shader_base.vert">Vertex shader</a> /
 <a href="../../../code/09_shader_base.frag">Fragment shader</a></p>
